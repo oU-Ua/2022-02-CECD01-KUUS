@@ -1,29 +1,18 @@
 const express = require('express')
-const app = express()
-const port = 3000
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const config = require('./config/dev');
-const { auth } = require("./middleware/auth");
-const { User } = require('./models/User');
+const router = express.Router()
 
-app.use(bodyParser.urlencoded({ extended: true }));
+const { auth } = require("../middleware/auth");
+const { User } = require('../models/User');
 
-app.use(bodyParser.json());
-app.use(cookieParser());
-const mongoose = require('mongoose')
-mongoose.connect(config.mongoURI, {
-  useNewUrlParser: true, useUnifiedTopology: true
-}).then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err))
+router.use(express.static('views'))
 
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
 
-app.post('/api/users/register', (req, res) => {
+router.post('/api/users/register', (req, res) => {
   const user = new User(req.body)
 
   user.save((err, userInfo) => {
@@ -34,7 +23,7 @@ app.post('/api/users/register', (req, res) => {
   })
 })
 
-app.post('/api/users/login', (req, res) => {
+router.post('/api/users/login', (req, res) => {
   // 데이터베이스에서 이메일 찾기
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
@@ -62,7 +51,7 @@ app.post('/api/users/login', (req, res) => {
   })
 })
 
-app.get('/api/users/auth', auth, (req, res) => {
+router.get('/api/users/auth', auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id,
     isAdmin: req.user.role === 0 ? false : true, // role 0이면 일반유저, 아니면 admin
@@ -72,7 +61,7 @@ app.get('/api/users/auth', auth, (req, res) => {
   })
 })
 
-app.get('/api/users/logout', auth, (req, res) => {
+router.get('/api/users/logout', auth, (req, res) => {
 
   User.findOneAndUpdate({ _id: req.user._id },
     { token: "" },
@@ -84,6 +73,4 @@ app.get('/api/users/logout', auth, (req, res) => {
     })
 })
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
-})
+module.exports = router
