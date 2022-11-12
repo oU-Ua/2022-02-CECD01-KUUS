@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const config = require('./config/dev');
 const { auth } = require("./middleware/auth");
 const { User } = require('./models/User');
+const path = require("path");
 
 // 개별 페이지 라우터 정의
 const indexRouter = require('./routes/index')
@@ -21,6 +22,14 @@ mongoose.connect(config.mongoURI, {
 }).then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err))
 
+// frontend React 연결 위한 path 설정
+app.use(express.static(path.join(__dirname, "../frontend/public")))
+
+// frontend/public의 index.html 연결
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/public/index.html"))
+})
+  
 
 app.use('/', indexRouter)
 app.use('/mypage', myPageRouter)

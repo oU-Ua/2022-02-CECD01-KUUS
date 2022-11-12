@@ -4,11 +4,12 @@ const router = express.Router()
 const { auth } = require("../middleware/auth");
 const { User } = require('../models/User');
 
-router.use(express.static('views'))
+// router.use(express.static('views')) -> view 어딨어요?
 
+router.use(express.static(__dirname + './frontend/public'))
 
 router.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.sendFile('index.html')
 })
 
 
