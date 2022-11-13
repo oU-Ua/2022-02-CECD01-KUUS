@@ -11,6 +11,14 @@ const config = require('./config/dev');
 const { auth } = require("./middleware/auth");
 //유저 모델스키마를  가져오겠다
 const { User } = require('./models/User');
+//AirLabsAPI 호출 함수
+const { callAirLabs } = require("./middleware/airlabs");
+//AirLabsAPI 호출에 사용되는 매개변수
+const params = {
+  api_key: config.api_key,
+  //항공기 위치나 다른 API도 찾아오려면 다른 식으로 변경 필요
+  _fields: "dep_iata, dep_time, arr_iata, arr_time"
+}
 
 //application/x-www-form-urlencodec를 분석해서 가져오게 해줌
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,12 +42,12 @@ app.get('/', (req, res) => {
 
 //회원가입할 때 필요한 정보들을 client에서 가져오면 DB에 담아줌
 app.post('/api/users/register', (req, res) => {
-    //req.body에는 {name:"kim" id:"~~"}이런걸 담고 있음
+  //req.body에는 {name:"kim" id:"~~"}이런걸 담고 있음
   const user = new User(req.body)
-    
+
   //mongoDB에 담게해주는 부분
   user.save((err, userInfo) => {
-      //에러나 성공메세지모두 json형식으로 반환할 예정
+    //에러나 성공메세지모두 json형식으로 반환할 예정
     if (err) return res.json({ success: false, err })
     return res.status(200).json({
       success: true
@@ -80,6 +88,24 @@ app.post('/api/users/login', (req, res) => {
   })
 })
 
+//사용자에게서 항공편명, 출발지를 입력받아 api로 비행일정 검색
+//지역이나 공항이름을 입력받아 iata 코드로 변환하고자 하지만 우선 iata코드 입력하도록 구현
+app.post('/api/schedules/find', (req, res) => {
+  let flight_iata = req.body.flight_iata;
+  let dep_iata = req.body.dep_iata;
+
+  callAirLabs('schedules', flight_iata, dep_iata, params, (err, result) => {
+    if (err) return res.status(400).send(err);
+    //airlabs에서 받아온 결과 중 response 부분만 뽑아 json으로 변환
+    let result_json = JSON.parse(result.body).response;
+    //검색된 결과가 하나도 없는 경우
+    if(result_json.length==0) return res.send("해당 비행일정이 조회되지 않습니다.");
+
+    //요청에 대한 응답으로 결과 json 보내줌
+    return res.status(200).send(result_json);
+  })
+})
+
 
 //auth는 미들웨어로 리퀘스트받고 auth인지 확인하는 부분
 //middleware인 auth.js를 통과해야 실행됨
@@ -88,7 +114,7 @@ app.get('/api/users/auth', auth, (req, res) => {
     //auth.js에서 user를 가져왔기 때문에 id를 쓸 수 있음
     _id: req.user._id,
     // role 0이면 일반유저, 아니면 admin
-    isAdmin: req.user.role === 0 ? false : true, 
+    isAdmin: req.user.role === 0 ? false : true,
     name: req.user.name,
     email: req.user.email,
     role: req.user.role
