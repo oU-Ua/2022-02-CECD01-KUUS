@@ -20,6 +20,8 @@ const params = {
   _fields: "dep_iata, dep_time, arr_iata, arr_time"
 }
 
+const myPageRouter = require('./routes/myPage')
+
 //application/x-www-form-urlencodec를 분석해서 가져오게 해줌
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -140,3 +142,5 @@ app.get('/api/users/logout', auth, (req, res) => {
 app.listen(port, () => {
   console.log(`포트 ${port} 에서 돌아가고 있으니까 localhost:${port}를 웹에 입력해주세요`)
 })
+
+app.use('/mypage', myPageRouter)
