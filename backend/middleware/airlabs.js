@@ -1,5 +1,6 @@
 const request = require("request");
 const api_base = "https://airlabs.co/api/v9/";
+const api_key = "8ddd0738-a38c-4bd1-be8b-952ec5c03464";
 
 //AirLabs API 호출
 //method: flights(항공기 위치), schedules(비행일정)
