@@ -1,23 +1,44 @@
 const express = require('express')
 const router = express.Router()
+const path = require("path");
+const bodyParser = require("body-parser");
 
-const User = require('../models/User')
-const Schedule = require('../models/Schedule')
+router.use(bodyParser.json()); // for parsing application/json
+router.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+
+const { User } = require('../models/User')
+const { Schedule } = require('../models/Schedule')
+
 
 
 // myPage 들어가면 현재 User의 정보 띄움
 // 현재는 name, email 정도 띄우고
 // 추후 User Schema에 user에 딸린 비행 일정, 그 외 프로필 추가 필요
-router.get('/', (req, res) => {
-    res.json({
-        data : req.session.user
-    })
+// ensureLogin 이용해서 로그인 됐을 때만 접속 가능하도록 할 예정
+router.get('/', async(req, res, next) => {
+    let userInfo;
+    try {
+        userInfo = await User.findById(req.params.id)
+        if (userInfo == null) {
+            res.status(404).json({
+                message: "계정을 찾을 수 없습니다!"
+            })
+        } 
+    } catch (err) {
+            return res.status(500).json({
+                message: err.message
+            })
+        }
+        res.userInfo = userInfo
+        next()
 })
 
 
 // myPage에서 
 // 여기서 id에 속한 여러가지 비행 일정 중에서 선택
-router.get('/:id', (req, res) => {
+// 아마 [비행일정] 버튼을 눌러서 비행일정 불러오기 해야될것같아요
+router.get('/schedule', (req, res) => {
     Schedule.getAllScheById(req.params.id)
     .then((scheData) => {
         res.json({
@@ -30,21 +51,29 @@ router.get('/:id', (req, res) => {
 
 // 복수의 비행일정 중에서 선택
 // id 값으로 받아오는 함수
-router.get('/:id', (req, res) => {
+router.get('/schedule/:id', (req, res) => {
     
 })
 
 // 내 비행 일정 등록하기
-// 로그인 여부 확인 필요
-router.post('/create', ensureLogin, function (req, res) {
-    Schedule.createSche(req.body, req.session.User)
-    .then(() => {
-        // 함수 호출하여 mongoDB에 등록 완료
-        res.status(200)
-    }).catch((err) => {
-        // 실패시 다시 create로 돌아감
-        res.redirect('/create')
+router.post('/create',  async (req, res) => {
+    const schedule = new Schedule({
+        name: req.body.name,
+        Flight_No: req.body.Flight_No,
+        From: req.body.From,
+        To: req.body.To,
+        Dep_Time: req.body.Dep_Time,
+        Gate: req.body.Gate,
     })
+    
+    try {
+        const newSchedule = await schedule.save()
+        res.status(201).json(newSchedule)
+    } catch (err) {
+        res.status(400).json({
+            message: err.message
+        })
+    }
 
 })
 
