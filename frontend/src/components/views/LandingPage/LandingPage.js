@@ -1,18 +1,14 @@
 import React, {useEffect} from 'react';
 import axios from 'axios';
+import $ from 'jquery';
+
 
 function LandingPage() {
 
-    useEffect(()=>{
-        axios.get('/api/hello')
-    },[])
 
   return (
-    <div style={{
-        display: 'flex', justifyContent: 'center', alignItems: 'center'
-        , width: '100%', height: '100vh'
-    }}>★프론트 입장 완료★</div>
-  )
+   <p>리액트 메인</p>
+  );
 }
 
 export default LandingPage
