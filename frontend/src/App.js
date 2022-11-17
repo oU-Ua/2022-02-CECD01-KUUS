@@ -12,6 +12,7 @@ import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import Auth from './hoc/auth';
 import Header from './components/views/header/header';
+import Footer from './components/views/footer/footer';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           </Switch>
         </div>
       </Router>
+      <Footer></Footer>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
 import Header from '../header/header';
 import HeaderBanner from '../banner/banner';
+import Images from '../sections/images';
 
 
 function LandingPage(props) {
@@ -27,7 +28,7 @@ function LandingPage(props) {
                 <button onClick={onClickHandler} >
                     로그아웃
                 </button>
-
+                <Images></Images>
             </div>
     )
 }
