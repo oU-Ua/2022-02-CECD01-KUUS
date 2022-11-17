@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 //css프레임웤
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+// import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import { applyMiddleware, createStore } from 'redux';
 //promise를 에러없이 받게해주는 미들웨어 
 import promiseMiddleware from 'redux-promise';
