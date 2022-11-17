@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import Axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 function LoginPage(props) {
     const dispatch = useDispatch();
-    const params = useParams();
-    const location = useLocation();
-    const navigate = useNavigate();
 
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
@@ -63,4 +59,4 @@ function LoginPage(props) {
     )
 }
 
-export default LoginPage
+export default withRouter(LoginPage)
