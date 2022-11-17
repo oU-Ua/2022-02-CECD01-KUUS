@@ -9,15 +9,15 @@ const Footer = () => {
                 <Row>
                     <Col lg="3" md="6" className="m-b-30">
                         <h5 className="m-b-20">Address</h5>
-                        <p>71 Amsteroum Avenue Cronish Night, NY 35098</p>
+                        <p>서울특별시 중구 필동로 1길 30</p>
                     </Col>
                     <Col lg="3" md="6" className="m-b-30">
                         <h5 className="m-b-20">Phone</h5>
-                        <p>Reception :  +205 123 4567 <br />Office :  +207 235 7890</p>
+                        <p>동국대학교 :  02-2260-3114 <br />컴퓨터공학과 :  02-2260-8742</p>
                     </Col>
                     <Col lg="3" md="6" className="m-b-30">
                         <h5 className="m-b-20">Email</h5>
-                        <p>Office :  <a href="#" className="link">info@wrappixel.com</a> <br />Site :  <a href="#" className="link">wrapkit@wrappixel.com</a></p>
+                        <p>이메일 :  <a href="#" className="link">cestaff@dongguk.edu</a> <br />홈페이지 :  <a href="https://cse.dongguk.edu/main" className="link">https://cse.dongguk.edu/</a></p>
                     </Col>
                     <Col lg="3" md="6">
                         <h5 className="m-b-20">Social</h5>

@@ -24,10 +24,9 @@ function LandingPage(props) {
             <div>
                 {/* <Header></Header> */}
                 <HeaderBanner></HeaderBanner>
-                <h2>시작 페이지</h2>
-                <button onClick={onClickHandler} >
+                {/* <button onClick={onClickHandler} >
                     로그아웃
-                </button>
+                </button> */}
                 <Images></Images>
             </div>
     )

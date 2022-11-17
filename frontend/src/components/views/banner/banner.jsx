@@ -9,9 +9,9 @@ const HeaderBanner = () => {
             <Container>
                 <Row className="justify-content-center">
                     <Col lg="8" md="6" className="align-self-center text-center">
-                        <h1 className="title">배너1</h1>
-                        <h4 className="subtitle font-light">Powerful Reactstrap UI Kit with<br /> Beautiful Pre-Built Demos</h4>
-                        <Link to="/coming" className="btn btn-md m-t-30 btn-info-gradiant font-14">Upgrade To Pro</Link>
+                        <h1 className="title">My Trip Flight</h1>
+                        <h4 className="subtitle font-light">Easy Search & <br />Easy Share</h4>
+                        <Link to="/login" className="btn btn-md m-t-30 btn-info-gradiant font-14">지금 시작하기</Link>
                     </Col>
                 </Row>
             </Container>
