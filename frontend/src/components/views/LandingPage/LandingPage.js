@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
+import Header from '../header/header';
+import HeaderBanner from '../banner/banner';
+
+
 function LandingPage(props) {
 
     const onClickHandler = () => {
@@ -15,17 +19,16 @@ function LandingPage(props) {
     }
 
     return (
-        <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh'
-        }}>
-            <h2>시작 페이지</h2>
+            
+            <div>
+                {/* <Header></Header> */}
+                <HeaderBanner></HeaderBanner>
+                <h2>시작 페이지</h2>
+                <button onClick={onClickHandler} >
+                    로그아웃
+                </button>
 
-            <button onClick={onClickHandler}>
-                로그아웃
-            </button>
-
-        </div>
+            </div>
     )
 }
 
