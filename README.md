@@ -16,3 +16,5 @@
 * [docs]: 문서;change docs
 * [refactor]: 코드리팩토링;code refactoring
 * * *
+ ### 실행화면
+ ![image](https://user-images.githubusercontent.com/80960504/202534745-123bb801-beb5-4790-8b23-db5d839e2791.png)
