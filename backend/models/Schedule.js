@@ -5,14 +5,10 @@ const mongoose = require('mongoose')
 const { User } = require('./User');
 
 var scheSchema = mongoose.Schema({
-    "name": {
-        type: String,
-        maxlength: 10,
-    },
+    
     "Flight_No" : {
         type: String,
-        maxlength: 10,
-        default: "00"
+        maxlength: 10
     },
     "From" : String,
     "To": String,
@@ -22,19 +18,6 @@ var scheSchema = mongoose.Schema({
 
 
 
-// 현재 id에 속한 모든 비행 일정 가져오는 함수
-// user의 id
-module.exports.getAllScheById = function (curUser) {
-    return new Promise(function (res, rej) {
-        Sches.find({ _id: curUser._id })
-            .then((scheData) => {
-                    res(scheData);
-            }).exec()
-            .catch((err) => {
-                rej("비행 일정이 없습니다!");
-            })
-        })
-}
 
 
 
