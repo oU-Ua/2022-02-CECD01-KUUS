@@ -10,34 +10,40 @@ router.use(bodyParser.urlencoded({ extended: true })); // for parsing applicatio
 const { User } = require('../models/User')
 const { Schedule } = require('../models/Schedule')
 
+// 리액트 + 노드 참고 페이지
+// https://duckgugong.tistory.com/223
+// https://velog.io/@secho/React-03리액트와-노드사이의-통신-노드의-데이터를-리액트에서-로드하기
+// https://wonyoung2257.tistory.com/6
+
+
+// /myPage, /myPage/create 완성
 
 
 // myPage 들어가면 현재 User의 정보 띄움
 // 현재는 name, email 정도 띄우고
 // 추후 User Schema에 user에 딸린 비행 일정, 그 외 프로필 추가 필요
-// ensureLogin 이용해서 로그인 됐을 때만 접속 가능하도록 할 예정
 router.get('/', async(req, res, next) => {
-    let userInfo;
+    let userInfo = await User.findOne({ id: req.params.id})
     try {
-        userInfo = await User.findById(req.params.id)
         if (userInfo == null) {
             res.status(404).json({
-                message: "계정을 찾을 수 없습니다!"
+                message: "계정을 찾을 수 없습니다!",
             })
+            res.send
         } 
     } catch (err) {
             return res.status(500).json({
                 message: err.message
             })
         }
-        res.userInfo = userInfo
+        res.send(userInfo)
         next()
 })
 
 
 // myPage에서 
 // 여기서 id에 속한 여러가지 비행 일정 중에서 선택
-// 아마 [비행일정] 버튼을 눌러서 비행일정 불러오기 해야될것같아요
+// [비행일정] 버튼을 눌러서 비행일정 불러오기
 router.get('/schedule', (req, res) => {
     Schedule.getAllScheById(req.params.id)
     .then((scheData) => {
@@ -50,14 +56,14 @@ router.get('/schedule', (req, res) => {
 })
 
 // 복수의 비행일정 중에서 선택
-// id 값으로 받아오는 함수
+// Schedule의 id 값으로 받아오는 함수
 router.get('/schedule/:id', (req, res) => {
     
 })
 
 // 내 비행 일정 등록하기
 router.post('/create',  async (req, res) => {
-    const schedule = new Schedule({
+    let schedule = new Schedule({
         name: req.body.name,
         Flight_No: req.body.Flight_No,
         From: req.body.From,
@@ -68,7 +74,7 @@ router.post('/create',  async (req, res) => {
     
     try {
         const newSchedule = await schedule.save()
-        res.status(201).json(newSchedule)
+        res.status(200).json({ data: newSchedule})
     } catch (err) {
         res.status(400).json({
             message: err.message

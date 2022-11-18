@@ -1,18 +1,18 @@
 // 유저의 비행 일정 담을 database
 
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema;
 
 const { User } = require('./User');
 
 var scheSchema = mongoose.Schema({
     "name": {
         type: String,
-        maxlength: 10
+        maxlength: 10,
     },
     "Flight_No" : {
         type: String,
-        maxlength: 10
+        maxlength: 10,
+        default: "00"
     },
     "From" : String,
     "To": String,
@@ -35,9 +35,6 @@ module.exports.getAllScheById = function (curUser) {
             })
         })
 }
-
-
-// Flight No. 이용해서 비행기 정보 조회하는 함수
 
 
 
