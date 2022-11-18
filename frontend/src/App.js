@@ -1,28 +1,39 @@
 import './App.css';
 import React from "react";
+import PropTypes from "prop-types";
 import {
   BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
+  Switch,
+  Route
 } from "react-router-dom";
 
-import LandingPage from './components/views/LandingPage/LandingPage';
+import LandingPage from './components/views/LandingPage/LandingPage.js';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
+import Auth from './hoc/auth';
+import Header from './components/views/header/header';
+import Footer from './components/views/footer/footer';
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route path="/" element = {<LandingPage />} />
-          <Route path="/login" element = {<LoginPage />} />
-          <Route path="/registerPage" element = {<RegisterPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <div>
+      <Header></Header>
+      <Router>
+        <div>
+        <Switch>
+            <Route exact path="/" component={Auth(LandingPage, null )  } />
+            <Route exact path="/login" component={Auth(LoginPage, false) } />
+            <Route exact path="/register" component={Auth(RegisterPage, false)} />
+          </Switch>
+        </div>
+      </Router>
+      <Footer></Footer>
+    </div>
   );
 }
+
+App.propTypes = {
+  classes: PropTypes.object
+};
 
 export default App;
