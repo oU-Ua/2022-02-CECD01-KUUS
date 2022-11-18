@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import Axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { auth } from '../_actions/user_action';
 
 export default function (SpecificComponent, option, adminRoute = null) {
-
+    // option선택(app.js에서 쓸 것)
     //null    =>  아무나 출입이 가능한 페이지
     //true    =>  로그인한 유저만 출입이 가능한 페이지
     //false   =>  로그인한 유저는 출입 불가능한 페이지
@@ -12,7 +11,6 @@ export default function (SpecificComponent, option, adminRoute = null) {
         const dispatch = useDispatch();
 
         useEffect(() => {
-
             dispatch(auth()).then(response => {
                 console.log(response)
                 //로그인 하지 않은 상태 

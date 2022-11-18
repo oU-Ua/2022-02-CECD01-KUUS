@@ -2,9 +2,9 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 
 import img1 from '../../../assets/images/ui/img7.jpg';
-import img2 from '../../../assets/images/ui/5.jpg';
 import img3 from '../../../assets/images/ui/img5.jpg';
 import KimEmoji from '../../../assets/images/ui/kimemoji.jpg'
+import Emoji from '../../../assets/images/ui/emoji.jpg'
 
 const Images = () => {
     return (
@@ -38,17 +38,17 @@ const Images = () => {
                         </Col>
                         <Col lg="3" className="text-center m-b-30">
                             <h6 className="card-subtitle">유유정<code>(frontend-develope & marketing)</code></h6>
-                            <img src={img2} alt="img" className="img-circle" width="290" />
+                            <img src={Emoji} alt="img" className="img-circle" width="290" />
                             <p className="m-t-15 m-b-0"></p>
                         </Col>
                         <Col lg="3" className="text-center m-b-30">
                             <h6 className="card-subtitle">송영창<code>(backend-develope & data analysis)</code></h6>
-                            <img src={img2} alt="img" className="img-circle" width="290" />
+                            <img src={Emoji} alt="img" className="img-circle" width="290" />
                             <p className="m-t-15 m-b-0"></p>
                         </Col>
                         <Col lg="3" className="text-center m-b-30">
                             <h6 className="card-subtitle">이유진<code>(backend-develope & customer service)</code></h6>
-                            <img src={img2} alt="img" className="img-circle" width="290" />
+                            <img src={Emoji} alt="img" className="img-circle" width="290" />
                             <p className="m-t-15 m-b-0"></p>
                         </Col>
                         

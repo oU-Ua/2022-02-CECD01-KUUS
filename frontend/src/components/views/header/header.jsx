@@ -35,7 +35,7 @@ const Header = () => {
                                 </NavItem>
                             </Nav>
                             <div className="act-buttons">
-                                <Link to="/coming" className="btn btn-success-gradiant font-14">로그인/회원가입</Link>
+                                <Link to="/login" className="btn btn-success-gradiant font-14">로그인/회원가입</Link>
                             </div>
                         </Collapse>
                     </Navbar>
@@ -43,6 +43,5 @@ const Header = () => {
             </div>
         </div>
     );
-
 }
 export default Header;

@@ -7,7 +7,6 @@ module.exports = function(app) {
       //백포트로 프록시
       target: 'http://localhost:5000',
       changeOrigin: true,
-      connection: 'upgrade',
     })
   );
 };
