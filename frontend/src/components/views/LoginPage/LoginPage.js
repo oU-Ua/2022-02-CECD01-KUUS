@@ -36,8 +36,6 @@ function LoginPage(props) {
                     alert('Error')
                 }
             })
-
-
     }
 
 
@@ -62,7 +60,7 @@ function LoginPage(props) {
                                                 </Col>
                                             </Form> */}
                                             <form className="row" onSubmit={onSubmitHandler} >
-                                                <FormGroup className="col-md-12" max-width="60">
+                                                <FormGroup className="col-md-6" >
                                                     <label>Email</label>
                                                     <input type="email" className="form-control" id="email" placeholder="Enter email" value={Email} onChange={onEmailHandler} />
                                                     <label>Password</label>
@@ -70,11 +68,20 @@ function LoginPage(props) {
                                                     <br />
                                                     <Col md="12">
                                                         <button type="submit"  className="btn btn-success waves-effect waves-light m-r-10">
-                                                            Login
-                                                        </button>
+                                                            로그인
+                                                        </button>                                                        
                                                     </Col>
-                                                </FormGroup>
+                                                </FormGroup>   
+                                                <div className="col-md-6">
+                                                    <h4 style={{color: 'white', margin:'60px 0'}} className="">회원이 아니신가요?</h4>
+                                                    <Link to="/register">   
+                                                        <button type="submit"  className="btn btn-success waves-effect waves-light m-r-10">
+                                                        회원가입 하기                                                          
+                                                        </button>   
+                                                    </Link>                                         
+                                                </div>                                             
                                             </form>
+                                            
                                         </Col>
                                     </Row>
                                 </Container>
