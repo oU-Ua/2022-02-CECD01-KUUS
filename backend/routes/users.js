@@ -3,7 +3,6 @@ const router = express.Router()
 const { auth } = require("../middleware/auth");
 const { User } = require('../models/User');
 
-
 //회원가입할 때 필요한 정보들을 client에서 가져오면 DB에 담아줌
 router.post('/register', (req, res) => {
     //req.body에는 {name:"kim" id:"~~"}이런걸 담고 있음

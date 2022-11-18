@@ -35,7 +35,6 @@ mongoose.connect(config.mongoURI, {
 }).then(() => console.log('몽고디비 연결됨'))
   .catch(err => console.log(err))
 
-
 app.get('/', (req, res) => {
   res.send('백이 연결되었습니다')
 })
