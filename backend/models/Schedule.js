@@ -5,15 +5,23 @@ const mongoose = require('mongoose')
 const { User } = require('./User');
 
 var scheSchema = mongoose.Schema({
-    
+    "ScheduleName": {
+        type: String,
+        required: true
+    },
     "Flight_No" : {
         type: String,
-        maxlength: 10
+        required: true
     },
-    "From" : String,
-    "To": String,
-    "Dep_Time": Date,
-    "Gate": String,
+    "author": {
+        type: String,
+    }
+    // IATA 형식으로 입력
+    // "From" : String,
+    // "To": String,
+    // "Dep_Time": Date,
+    // "Gate": String,
+    // 나머지는 api 이용해서 받아옴
 })
 
 

@@ -22,6 +22,23 @@ router.post('/register', (req, res) => {
 //이메일이 있다면 비밀번호가 맞는지 찾는다.
 //비밀번호가 맞다면 토큰을 생성한다.
 router.post('/login', (req, res) => {
+
+  // 세션 넣어줌
+  const paramName = req.body.name
+  const paramPW = req.body.password
+  const paramEmail = req.body.email
+
+  if(req.session.user) {
+    res.status(400).json({
+      message: "이미 로그인 상태입니다."
+    })
+  } else {
+      req.session.user = {
+        name: paramName,
+        pw: paramPW,
+        email: paramEmail
+  }
+
     // 데이터베이스에서 이메일 찾기
     User.findOne({ email: req.body.email }, (err, user) => {
       if (!user) {
@@ -49,6 +66,8 @@ router.post('/login', (req, res) => {
         })
       })
     })
+
+  }
   })
 
 //auth는 미들웨어로 리퀘스트받고 auth인지 확인하는 부분

@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 //비밀키를 가져올 변수
 const config = require('./config/dev');
 //AirLabsAPI 호출 함수
+const session = require('express-session')
+// session 세팅
 const { callAirLabs } = require("./middleware/airlabs");
 //AirLabsAPI 호출에 사용되는 매개변수
 const params = {
@@ -35,8 +37,28 @@ mongoose.connect(config.mongoURI, {
 }).then(() => console.log('몽고디비 연결됨'))
   .catch(err => console.log(err))
 
+// 세션 설정
+app.use(
+  session({
+    secret: "myTripFlight",
+    resave: true,
+    saveUninitialized: true,
+    duration: 60 * 60 * 1000, // 1시간동안 로그인 지속
+    activeDuration: 30 * 60 * 1000 // 활동이 있을 시 30분 연장
+  })
+);
+app.use(function (req, res, next) {
+  res.locals.session = req.session
+  next()
+})
+
 app.get('/', (req, res) => {
-  res.send('백이 연결되었습니다')
+  if (req.session.user) {
+    res.send('로그인상태입니당')
+  } else {
+    res.send('로그인해주세용')
+  }
+  // res.send('백이 연결되었습니다')
 })
 
 //사용자에게서 항공편명, 출발지를 입력받아 api로 비행일정 검색
