@@ -40,7 +40,16 @@ function LoginPage(props) {
 
 
     return (
-            <div className="static-slider-head">                
+            <div className="static-slider-head">
+                <div className="" id="forms-component">
+                    <Container>
+                        <Row className="justify-content-center">
+                            <Col md="7" className="text-center">
+                                <h4 className="title">로그인</h4>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>                 
                 <Container>
                     <Row className="justify-content-center">
                         <Col className="align-self-center text-center">
@@ -48,17 +57,6 @@ function LoginPage(props) {
                                 <Container>
                                     <Row>
                                         <Col md="12">
-                                            {/* <Form className="row">
-                                                <FormGroup className="col-md-6" max-width="60">
-                                                    <Label htmlFor="email">Email Address</Label>
-                                                    <Input type="email" className="form-control" id="email" placeholder="Enter email"  value={Email} onChange={onEmailHandler} />
-                                                    <Label htmlFor="password">Password</Label>
-                                                    <Input type="password" className="form-control" id="password" placeholder="Password" value={Password} onChange={onPasswordHandler}/>
-                                                </FormGroup>
-                                                <Col md="12">
-                                                    <Button type="submit" className="btn btn-success waves-effect waves-light m-r-10">Submit</Button>
-                                                </Col>
-                                            </Form> */}
                                             <form className="row" onSubmit={onSubmitHandler} >
                                                 <FormGroup className="col-md-6" >
                                                     <label>Email</label>
