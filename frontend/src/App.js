@@ -10,6 +10,7 @@ import {
 import LandingPage from './components/views/LandingPage/LandingPage.js';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
+import FlightSearchPage from './components/views/FlightSearchPage/FlightSearchPage';
 import Auth from './hoc/auth';
 import Header from './components/views/header/header';
 import Footer from './components/views/footer/footer';
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/" component={Auth(LandingPage, null )  } />
             <Route exact path="/login" component={Auth(LoginPage, false) } />
             <Route exact path="/register" component={Auth(RegisterPage, false)} />
+            <Route exact path="/flightsearch" component={Auth(FlightSearchPage, null )  } />
           </Switch>
         </div>
       </Router>
