@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'reactstrap';
 import img1 from '../../../assets/images/ui/img7.jpg';
 import img3 from '../../../assets/images/ui/img5.jpg';
 import KimEmoji from '../../../assets/images/ui/kimemoji.jpg'
+import LeeEmoji from '../../../assets/images/ui/leeemoji.jpg'
 import Emoji from '../../../assets/images/ui/emoji.jpg'
 
 const Images = () => {
@@ -32,23 +33,23 @@ const Images = () => {
                     <h4 className="text-center m-b-30">네 명의 팀원들이 여러분을 돕기위해 기다려요</h4>
                     <Row>
                         <Col lg="3" className="text-center m-b-30">
-                            <h6 className="card-subtitle">김성민<code>(frontend-develope & design)</code></h6>
+                            <h6 className="card-subtitle">김성민<br/><code>(frontend-develope & design)</code></h6>
                             <img src={KimEmoji} alt="img" className="img-circle" width="290" />
                             <p className="m-t-15 m-b-0"></p>
                         </Col>
                         <Col lg="3" className="text-center m-b-30">
-                            <h6 className="card-subtitle">유유정<code>(frontend-develope & marketing)</code></h6>
+                            <h6 className="card-subtitle">유유정<br/><code>(frontend-develope & marketing)</code></h6>
                             <img src={Emoji} alt="img" className="img-circle" width="290" />
                             <p className="m-t-15 m-b-0"></p>
                         </Col>
                         <Col lg="3" className="text-center m-b-30">
-                            <h6 className="card-subtitle">송영창<code>(backend-develope & data analysis)</code></h6>
+                            <h6 className="card-subtitle">송영창<br/><code>(backend-develope & data analysis)</code></h6>
                             <img src={Emoji} alt="img" className="img-circle" width="290" />
                             <p className="m-t-15 m-b-0"></p>
                         </Col>
                         <Col lg="3" className="text-center m-b-30">
-                            <h6 className="card-subtitle">이유진<code>(backend-develope & customer service)</code></h6>
-                            <img src={Emoji} alt="img" className="img-circle" width="290" />
+                            <h6 className="card-subtitle">이유진<br/><code>(backend-develope & customer service)</code></h6>
+                            <img src={LeeEmoji} alt="img" className="img-circle" width="290" />
                             <p className="m-t-15 m-b-0"></p>
                         </Col>
                         
