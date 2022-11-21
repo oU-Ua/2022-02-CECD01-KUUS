@@ -1,11 +1,8 @@
 import './App.css';
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useLocation} from "react-router-dom";
+import {useEffect} from 'react';
 
 import LandingPage from './components/views/LandingPage/LandingPage.js';
 import LoginPage from './components/views/LoginPage/LoginPage';
@@ -15,8 +12,18 @@ import MyPage from './components/views/MyPage/MyPage';
 import Auth from './hoc/auth';
 import Header from './components/views/header/header';
 import Footer from './components/views/footer/footer';
+let currentPath = "";
 
-function App() {
+function App() {  
+  //같은 Link를 클릭해도 새로고침 되도록 하기(여기서부터) 
+  let location = useLocation();
+  useEffect(() => {
+    if(currentPath === location.pathname) window.location.reload();
+     
+    currentPath = location.pathname;
+  }, [location]);
+  //같은 Link를 클릭해도 새로고침 되도록 하기(여기까지)
+
   return (
     <div>
       <Header></Header>
