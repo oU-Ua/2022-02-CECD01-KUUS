@@ -6,7 +6,7 @@ import img3 from '../../../assets/images/ui/img5.jpg';
 import KimEmoji from '../../../assets/images/ui/kimemoji.jpg'
 import LeeEmoji from '../../../assets/images/ui/leeemoji.jpg'
 import YuEmoji from '../../../assets/images/ui/yuemoji.jpg'
-import Emoji from '../../../assets/images/ui/emoji.jpg'
+import SongEmoji from '../../../assets/images/ui/songemoji.jpg'
 
 const Images = () => {
     return (
@@ -45,7 +45,7 @@ const Images = () => {
                         </Col>
                         <Col lg="3" className="text-center m-b-30">
                             <h6 className="card-subtitle">송영창<br/><code>(backend-develope & data analysis)</code></h6>
-                            <img src={Emoji} alt="img" className="img-circle" width="290" />
+                            <img src={SongEmoji} alt="img" className="img-circle" width="290" />
                             <p className="m-t-15 m-b-0"></p>
                         </Col>
                         <Col lg="3" className="text-center m-b-30">

@@ -97,7 +97,6 @@ function RegisterPage(props) {
                                                 </FormGroup>
                                                 <Col md="12">
                                                     <Button type="submit" className="btn btn-success waves-effect waves-light m-r-10">Submit</Button>
-                                                    <Button className="btn btn-inverse waves-effect waves-light">Cancel</Button>
                                                 </Col>
                                             </Form>
                                         </Col>

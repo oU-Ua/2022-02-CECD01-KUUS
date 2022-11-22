@@ -1,33 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
 import HeaderBanner from '../banner/banner';
 import Images from '../sections/images';
 import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
-
+import { auth } from '../../../_actions/user_action';
+import { useDispatch } from 'react-redux';
 
 function MyPage(props) {
-    const [Flight_iata, setFlight_iata] = useState("")
-    const [Dep_iata, setDep_iata] = useState("")
 
-    const onFlightHandler = (event) => {
-        setFlight_iata(event.currentTarget.value)
-    }
-    const onDepHandler = (event) => {
-        setDep_iata(event.currentTarget.value)
-    }
+        const dispatch = useDispatch();
 
-    const onClickHandler = () => {
-        axios.post("/api/schedules/find", {
-        })
-        .then(function (response) {
-             // response  
-        }).catch(function (error) {
-            console.log(error)
-        }).then(function() {
-            // 항상 실행
-        });
-    }
+        useEffect(() => {
+            dispatch(auth()).then(response => {
+                // console.log(response)
+                //로그인 하지 않은 상태 
+                if (response.payload.isAuth) {
+                    console.log('로그인 상태')
+                }else{
+                    //로그인한 상태
+                    console.log('로그인 아닌 상태')
+                }
+            })
+        }, [])
+
 
 
     return (
