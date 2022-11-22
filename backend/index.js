@@ -21,6 +21,7 @@ const params = {
 
 const usersRouter = require('./routes/users')
 const myPageRouter = require('./routes/myPage')
+const flightsearchRouter = require('./routes/flightsearch')
 
 //application/x-www-form-urlencodec를 분석해서 가져오게 해줌
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -87,3 +88,4 @@ app.listen(port, () => {
 })
 
 app.use('/mypage', myPageRouter)
+app.use('/flightsearch' , flightsearchRouter)
