@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const airportSchema = mongoose.Schema({
-
+    // 한글명(영문명)
     airport_name: {
         type: String
     },
