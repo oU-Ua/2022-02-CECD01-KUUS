@@ -13,25 +13,28 @@ const Header = () => {
     /*--------------------------------------------------------------------------------*/
     /*To open NAVBAR in MOBILE VIEW                                                   */
     /*--------------------------------------------------------------------------------*/
+    const onClickHandler = () => {
+        history.push("/mypage")
+    }
 
     return (
         <div className="topbar" id="top">
             <div className="header6">
                 <Container className="po-relative">
                     <Navbar className="navbar-expand-lg h6-nav-bar">
-                        <NavbarBrand href="/"><img src={logo} alt="wrapkit" /></NavbarBrand>
+                        <NavbarBrand href="/"><img src={logo}/></NavbarBrand>
                         <NavbarToggler onClick={toggle}><span className="ti-menu"></span></NavbarToggler>
                         <Collapse isOpen={isOpen} navbar className="hover-dropdown font-14 ml-auto" id="h6-info">
                             <Nav navbar className="ml-auto">
-                                <NavItem>
-                                    <Link className="nav-link" to={"/components"}>
+                                <NavItem href="/flightsearch">
+                                    <Link className="nav-link" to='/flightsearch'>
                                         항공일정 조회하기
 										</Link>
                                 </NavItem>
-                                <NavItem>
-                                    <Link className="nav-link" to={"/custom-components"}>
-                                        마이페이지
-                                    	</Link>
+                                <NavItem >
+                                    <Link className="nav-link" to="/mypage">
+                                    마이페이지    
+                                    </Link>
                                 </NavItem>
                             </Nav>
                             <div className="act-buttons">

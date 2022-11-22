@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
-import Header from '../header/header';
 import HeaderBanner from '../banner/banner';
 import Images from '../sections/images';
 
