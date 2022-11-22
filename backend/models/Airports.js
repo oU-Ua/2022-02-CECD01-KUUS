@@ -2,11 +2,7 @@ const mongoose = require('mongoose')
 
 const airportSchema = mongoose.Schema({
 
-    english_name: {
-        type: String
-    },
-
-    korean_name:{
+    airport_name: {
         type: String
     },
     iata_code: {

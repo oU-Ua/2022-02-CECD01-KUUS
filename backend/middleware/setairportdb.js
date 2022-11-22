@@ -26,8 +26,7 @@ for(var row =1; row<rows.length; row++){
     }
     // 공항 정보 만들어서 저장
     const airport = new Airport({
-        english_name: columns[0],
-        korean_name: columns[1],
+        airport_name: columns[1] + '(' + columns[0] +')',
         iata_code: columns[2],
         icao_code: columns[3]
     })
