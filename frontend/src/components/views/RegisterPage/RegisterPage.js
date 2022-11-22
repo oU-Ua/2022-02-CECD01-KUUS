@@ -55,10 +55,6 @@ function RegisterPage(props) {
 
 
     return (
-        // <div style={{
-        //     display: 'flex', justifyContent: 'center', alignItems: 'center'
-        //     , width: '100%', height: '100vh'
-        // }}>
         <div className="static-slider-head">
                 <div className="" id="forms-component">
                     <Container>
@@ -73,31 +69,7 @@ function RegisterPage(props) {
                 <Container>
                     <Row className="justify-content-center">
                         <Col className="align-self-center text-center">
-                            <div style={{maxWidth:'50vw'}}>                            
-                                {/* <Container>
-                                    <Row>
-                                        <Col md="6">
-                                            <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmitHandler}  >
-                                                <label>Email</label>
-                                                <input type="email" value={Email} onChange={onEmailHandler} />
-
-                                                <label>Name</label>
-                                                <input type="text" value={Name} onChange={onNameHandler} />
-
-                                                <label>Password</label>
-                                                <input type="password" value={Password} onChange={onPasswordHandler} />
-
-                                                <label>Confirm Password</label>
-                                                <input type="password" value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
-
-                                                <br />
-                                                <button type="submit"  className="btn btn-success waves-effect waves-light m-r-10">
-                                                    회원 가입
-                                                </button>
-                                            </form>
-                                        </Col>
-                                    </Row>
-                                </Container> */}
+                            <div style={{maxWidth:'50vw'}}>  
                                 
                             </div>
                         </Col>

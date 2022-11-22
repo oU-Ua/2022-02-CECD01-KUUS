@@ -6,7 +6,7 @@ import Images from '../sections/images';
 import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 
-function FlightSearchPage(props) {
+function MyPage(props) {
     const [Flight_iata, setFlight_iata] = useState("")
     const [Dep_iata, setDep_iata] = useState("")
 
@@ -19,8 +19,6 @@ function FlightSearchPage(props) {
 
     const onClickHandler = () => {
         axios.post("/api/schedules/find", {
-            flight_iata: Flight_iata,
-            dep_iata: Dep_iata
         })
         .then(function (response) {
              // response  
@@ -37,21 +35,14 @@ function FlightSearchPage(props) {
             <Container>
                 <Row className="justify-content-center" >
                     <Col md="7" className="text-center">
-                        <h4 className="title">비행서치</h4>
+                        <h4 className="title">마이페이지</h4>
                     </Col>
                 </Row>
             </Container>      
         <Container>
-            <form onSubmit={onClickHandler} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <label>Flight_iata</label>
-                <input type="text" id="flight_iata" value={Flight_iata} onChage={onFlightHandler}/>
-                <label>Dep_iata</label>
-                <input type="text" id="flight_iata" value={Dep_iata} onChange={onDepHandler}/>
-                <button type="submit">submit</button>
-            </form>
         </Container>            
     </div>
     )
 }
 
-export default withRouter(FlightSearchPage)
+export default withRouter(MyPage)
