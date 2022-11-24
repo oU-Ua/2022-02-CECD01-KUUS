@@ -7,15 +7,36 @@ const { User } = require('./User');
 var scheSchema = mongoose.Schema({
     "ScheduleName": {
         type: String,
+        default: "MySchedule",
         required: true
     },
-    "Flight_No" : {
+    "Flight_No" : { // iata code
         type: String,
         required: true
     },
     "author": {
         type: String,
+    },
+    "departure":{
+        type: String,
+    },
+    "dep_iata":{
+        type: String,
+    },
+    "arrival":{
+        type: String,
+    },
+    "arr_iata":{
+        type: String,
+    },
+    // 시간 형식은 ISO 8601, YYYY-MM-DD T HH:MM:SS
+    "dep_time_kr":{
+        type: String,
+    },
+    "dep_time_utc":{
+        type: String
     }
+
     // IATA 형식으로 입력
     // "From" : String,
     // "To": String,
