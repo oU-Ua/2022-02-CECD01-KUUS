@@ -23,9 +23,9 @@ function LandingPage(props) {
             <div>
                 {/* <Header></Header> */}
                 <HeaderBanner></HeaderBanner>
-                <button onClick={onClickHandler} >
+                {/* <button onClick={onClickHandler} >
                     로그아웃
-                </button>
+                </button> */}
                 <Images></Images>
             </div>
     )
