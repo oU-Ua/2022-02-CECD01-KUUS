@@ -7,6 +7,8 @@ import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstr
 import { auth } from '../../../_actions/user_action';
 import { useDispatch } from 'react-redux';
 
+// 참고 코드
+// https://velog.io/@devstone/React%EC%97%90%EC%84%9C-Axios%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4-API-%ED%98%B8%EC%B6%9C%ED%95%98%EA%B8%B0-feat.-fetch-ajax
 
 async function MyPage(props) {
     try {
