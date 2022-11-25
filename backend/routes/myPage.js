@@ -61,7 +61,7 @@ router.get('/', loginStatus, async(req, res, next) => {
                 message: err.message
             })
         }
-        res.send(userInfo)
+        res.json(userInfo)
         next()
 })
 
