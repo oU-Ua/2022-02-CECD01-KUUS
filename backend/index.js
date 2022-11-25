@@ -64,4 +64,4 @@ app.listen(port, () => {
 
 app.use('/api/users', usersRouter)
 app.use('/api/mypage', myPageRouter)
-app.use('/flightsearch' , flightsearchRouter)
+app.use('/api/flightsearch' , flightsearchRouter)
