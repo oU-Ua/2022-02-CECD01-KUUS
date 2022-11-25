@@ -44,7 +44,7 @@ function FlightSearchPage(props) {
                 </Container>    
             </div>
             <div className="spacer">
-                <h2 style={{color:'red'; text}} >이 페이지는 테스트 중입니다!!!!!!</h2>
+                {/* <h2 style={{color:'red'; text}} >이 페이지는 테스트 중입니다!!!!!!</h2> */}
                 <Container>
                     <form onSubmit={onClickHandler} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <label>Flight_iata</label>
