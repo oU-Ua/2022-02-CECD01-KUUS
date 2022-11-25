@@ -55,7 +55,8 @@ function RegisterPage(props) {
 
 
     return (
-        <div className="static-slider-head">
+        <div>
+            <div className="static-slider-head static-slider-head-top">
                 <div className="" id="forms-component">
                     <Container>
                         <Row className="justify-content-center">
@@ -65,45 +66,38 @@ function RegisterPage(props) {
                             </Col>
                         </Row>
                     </Container>
-                </div>                
+                </div>      
+            </div>
+            <div className='spacer'>
                 <Container>
-                    <Row className="justify-content-center">
-                        <Col className="align-self-center text-center">
-                            <div style={{maxWidth:'50vw'}}>  
-                                
-                            </div>
+                    <Row>
+                        <Col md="12">
+                            <Form className="row" onSubmit={onSubmitHandler}>
+                                <FormGroup className="col-md-6">
+                                    <Label htmlFor="name">이름</Label>
+                                    <Input type="text" className="form-control" id="name" placeholder="Enter Username" value={Name} onChange={onNameHandler}/>
+                                </FormGroup>
+                                <FormGroup className="col-md-6">
+                                    <Label htmlFor="email">이메일 주소</Label>
+                                    <Input type="email" className="form-control" id="email" placeholder="Enter email" value={Email} onChange={onEmailHandler}/>
+                                </FormGroup>
+                                <FormGroup className="col-md-6">
+                                    <Label htmlFor="password">비밀번호</Label>
+                                    <Input type="password" className="form-control" id="password" placeholder="Password" value={Password} onChange={onPasswordHandler}/>
+                                </FormGroup>
+                                <FormGroup className="col-md-6">
+                                    <Label htmlFor="confirmpwd">비밀번호 확인</Label>
+                                    <Input type="password" className="form-control" id="confirmpwd" placeholder="Confirm Password" value={ConfirmPassword} onChange={onConfirmPasswordHandler}/>
+                                </FormGroup>
+                                <Col md="12">
+                                    <Button type="submit" className="btn btn-success waves-effect waves-light m-r-10">가입하기</Button>
+                                </Col>
+                            </Form>
                         </Col>
                     </Row>
-                </Container> 
-                <Container>
-                                    <Row>
-                                        <Col md="12">
-                                            <Form className="row" onSubmit={onSubmitHandler}>
-                                                <FormGroup className="col-md-6">
-                                                    <Label htmlFor="name">User Name</Label>
-                                                    <Input type="text" className="form-control" id="name" placeholder="Enter Username" value={Name} onChange={onNameHandler}/>
-                                                </FormGroup>
-                                                <FormGroup className="col-md-6">
-                                                    <Label htmlFor="email">Email Address</Label>
-                                                    <Input type="email" className="form-control" id="email" placeholder="Enter email" value={Email} onChange={onEmailHandler}/>
-                                                </FormGroup>
-                                                <FormGroup className="col-md-6">
-                                                    <Label htmlFor="password">Password</Label>
-                                                    <Input type="password" className="form-control" id="password" placeholder="Password" value={Password} onChange={onPasswordHandler}/>
-                                                </FormGroup>
-                                                <FormGroup className="col-md-6">
-                                                    <Label htmlFor="confirmpwd">Confirm Password</Label>
-                                                    <Input type="password" className="form-control" id="confirmpwd" placeholder="Confirm Password" value={ConfirmPassword} onChange={onConfirmPasswordHandler}/>
-                                                </FormGroup>
-                                                <Col md="12">
-                                                    <Button type="submit" className="btn btn-success waves-effect waves-light m-r-10">Submit</Button>
-                                                </Col>
-                                            </Form>
-                                        </Col>
-                                    </Row>
-                                </Container>           
+                </Container>
             </div>
-        // </div>
+        </div>
     )
 }
 
