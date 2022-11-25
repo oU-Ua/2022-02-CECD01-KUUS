@@ -61,9 +61,9 @@ function LoginPage(props) {
                                             <Col md="12">
                                                 <form className="row" onSubmit={onSubmitHandler} >
                                                     <FormGroup className="col-md-6" >
-                                                        <label>Email</label>
+                                                        <label>이메일 주소</label>
                                                         <input type="email" className="form-control" id="email" placeholder="Enter email" value={Email} onChange={onEmailHandler} />
-                                                        <label>Password</label>
+                                                        <label>비밀번호</label>
                                                         <input type="password" className="form-control" id="password" placeholder="Password" value={Password} onChange={onPasswordHandler} />
                                                         <br />
                                                         <Col md="12">
