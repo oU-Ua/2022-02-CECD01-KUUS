@@ -88,8 +88,11 @@ router.post('/create',  async (req, res) => {
     // 일정 여러개 등록 가능 -> 이름 설정 필요 ex) 11/24 싱가포르 여행 | 12/04 뉴욕 출장
     let schedule = new Schedule({
         ScheduleName: req.body.ScheduleName,
-        Flight_No: req.body.Flight_No,
-        author: curUser.email
+        author: curUser.email,
+        flight_info: req.body.flight_info,
+        flight_schedule: req.body.flight_schedule,
+        airports: req.body.airports,
+
         //-> 로그인 과정에 쿠키 추가해서 세션 생성 예정 현재 유저의 정보 받아오는 용도
     })
     
