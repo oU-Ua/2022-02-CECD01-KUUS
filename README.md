@@ -17,4 +17,4 @@
 * [refactor]: 코드리팩토링;code refactoring
 * * *
  ### 실행화면
- ![image](https://user-images.githubusercontent.com/80960504/202534745-123bb801-beb5-4790-8b23-db5d839e2791.png)
+![image](https://user-images.githubusercontent.com/80960504/203919150-b3f6cf61-cd8f-43dc-a395-e19bb54bc800.png)
