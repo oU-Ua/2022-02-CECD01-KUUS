@@ -46,7 +46,12 @@ function refineResult(fa_result, callback) {
         actual_out: fa_result.actual_out,
         scheduled_in: fa_result.scheduled_in,
         estimated_in: fa_result.estimated_in,
-        actual_in: fa_result.actual_in
+        actual_in: fa_result.actual_in,
+        delay: {
+            departure_delay: fa_result.departure_delay,
+            arrival_delay: fa_result.arrival_delay
+
+        }
     }
     callback(info, schedule)
 }
