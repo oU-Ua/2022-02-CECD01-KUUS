@@ -6,25 +6,40 @@ import Images from '../sections/images';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
 import { auth } from '../../../_actions/user_action';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+
 
 function MyPage(props) {
 
         const dispatch = useDispatch();
 
+        const [users, setUsers] = useState([]);
+
         useEffect(() => {
-            dispatch(auth()).then(response => {
-                // console.log(response)
-                //로그인 하지 않은 상태 
-                if (response.payload.isAuth) {
-                    console.log('로그인 상태')
-                }else{
-                    //로그인한 상태
-                    console.log('로그인 아닌 상태')
+            try {
+                // dispatch(auth()).then(response => {
+                //     // console.log(response)
+                //     //로그인 하지 않은 상태 
+                //     if (response.payload.isAuth) {
+                //         console.log('로그인 상태')
+                //     }else{
+                //         //로그인한 상태
+                //         console.log('로그인 아닌 상태')
+                //     }
+                // },
+                const response = axios.get('/api/mypage', {validateStatus: false})
+                if (response.status === 200) {
+                    // console.log(response)
                 }
-            })
-        }, [])
-
-
+            } catch(err) {
+                console.log(err)
+            }
+            // axios.get(`/myPage`)
+            //          .then(response => {
+            //             setUsers(response.data.users);
+            //             console.log(response)
+            //          }) 
+            }, [])
 
     return (
         <div>
@@ -42,7 +57,8 @@ function MyPage(props) {
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="7" className="text-center">
-                            <h2 className="title font-bold">[김성민]님 환영합니다.</h2>
+                            <h2 className="title font-bold">
+                                {users.name}님 환영합니다.</h2>
                             <h6 className="subtitle">12345679@dgu.ac.kr</h6>
                         </Col>
                     </Row>

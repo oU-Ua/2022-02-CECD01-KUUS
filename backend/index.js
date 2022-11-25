@@ -56,12 +56,12 @@ app.get('/', (req, res) => {
   // res.send('백이 연결되었습니다')
 })
 
-app.use('/api/users', usersRouter)
 
 //$run start해서 제대로 실행이 되면 콘솔에서 포트 출력
 app.listen(port, () => {
   console.log(`포트 ${port} 에서 돌아가고 있으니까 localhost:${port}를 웹에 입력해주세요`)
 })
 
-app.use('/mypage', myPageRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/mypage', myPageRouter)
 app.use('/flightsearch' , flightsearchRouter)

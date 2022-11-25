@@ -35,7 +35,7 @@ function App() {
             <Route exact path="/register" component={Auth(RegisterPage, false)} />
             <Route exact path="/flightsearch" component={Auth(FlightSearchPage, null )  } />
             {/* mypage다 만들고 접근을 true로 바꾸기 */}
-            <Route exact path="/mypage" component={Auth(MyPage, null) } />
+            <Route exact path="/api/mypage" component={Auth(MyPage, null) } />
           </Switch>
         </div>
       </Router>
