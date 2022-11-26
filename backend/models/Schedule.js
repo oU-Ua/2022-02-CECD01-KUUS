@@ -7,10 +7,9 @@ const { User } = require('./User');
 var scheSchema = mongoose.Schema({
     ScheduleName: {
         type: String,
-        default: "MySchedule",
         required: true
     },
-    "author": {
+    author: {
         type: String,
     },
 
