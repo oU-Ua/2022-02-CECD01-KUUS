@@ -21,11 +21,17 @@ const userSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    schedules:  // 자신의 일정
-        [String]
-    ,
-    // 공유받은 일정, _id의 배열로 저장
-    sharedschedules: [ String ]
+    // 자신이 등록한 일정, _id는 일정의 _id를 그대로 받아온다
+    schedules: [{
+        ScheduleName: String,
+        _id: Object
+    }],
+    // 공유받은 일정 목록
+    sharedschedules: [{
+        ScheduleName: String,
+        author: String,
+        _id: Object
+    }]
 
 })
 
