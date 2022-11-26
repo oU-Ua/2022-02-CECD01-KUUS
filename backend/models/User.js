@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 const jwt = require('jsonwebtoken')
-
+const { Schedule } = require('./Schedule')
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -21,12 +21,12 @@ const userSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    token: {
-        type: String
-    },
-    tokenExp: {
-        type: Number
-    }
+    schedules:  // 자신의 일정
+        [String]
+    ,
+    // 공유받은 일정, _id의 배열로 저장
+    sharedschedules: [ String ]
+
 })
 
 
@@ -71,19 +71,19 @@ userSchema.methods.generateToken = function (callback) {
     user.token = token
     user.save(function (err, user) {
         if (err) return callback(err);
-         //에러없이 세이브됐으면 유저 정보만 보내준다.
+        //에러없이 세이브됐으면 유저 정보만 보내준다.
         callback(null, user)
     })
 }
 
 //토큰을 가져와서 decode하는 부분(auth관련)
-userSchema.statics.findByToken = function(token, callback) {
+userSchema.statics.findByToken = function (token, callback) {
     var user = this;
     // 토큰 decode
-    jwt.verify(token, 'secretToken', function(err, decoded) {
+    jwt.verify(token, 'secretToken', function (err, decoded) {
         //유저아이디로 유저찾고 클라이언트에서 가져온 토큰과 DB토큰이 일치하는지 확인
-        user.findOne({ "_id": decoded, "token": token }, function(err, user){
-            if(err) return callback(err);
+        user.findOne({ "_id": decoded, "token": token }, function (err, user) {
+            if (err) return callback(err);
             //에러없으면 유저정보 줌
             callback(null, user)
         })
