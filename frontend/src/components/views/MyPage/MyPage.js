@@ -10,40 +10,38 @@ import { useDispatch } from 'react-redux';
 // 참고 코드
 // https://velog.io/@devstone/React%EC%97%90%EC%84%9C-Axios%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4-API-%ED%98%B8%EC%B6%9C%ED%95%98%EA%B8%B0-feat.-fetch-ajax
 
-function MyPage(props) {
+async function MyPage(props) {
+    try {
+        const res = await axios.get('/api/mypage')
+        console.log(res)
+        // const dispatch = useDispatch();
+        // const [users, setUsers] = useState();
 
-    const [users, setUsers] = useState();
-
-
-    useEffect(() => {
-        try {
-
-
-            const res = axios.get('/api/mypage')
-                .then(res => setUsers(res))
-            console.log(res)
-            // const dispatch = useDispatch();
-
-            // useEffect(() => {
-            //     dispatch(auth())
-            //         .then(response => {
-            //             console.log('response: ' + response)
-            //             // 로그인 한 상태
-            //             if (response.payload) {
-            //                 console.log('로그인 됨')
-            //                 console.log(response.payload)
-            //             } else {
-            //                 //로그인 안 한 상태
-            //                 console.log('로그인 안됨')
-            //                 console.log(response.payload)
-            //             }
-            //         })
-            //         .then(response => setUsers(response))
-            //     console.log(users)
+        // useEffect(() => {
+        //     dispatch(auth())
+        //         .then(response => {
+        //             console.log('response: ' + response)
+        //             // 로그인 한 상태
+        //             if (response.payload) {
+        //                 console.log('로그인 됨')
+        //                 console.log(response.payload)
+        //             } else {
+        //                 //로그인 안 한 상태
+        //                 console.log('로그인 안됨')
+        //                 console.log(response.payload)
+        //             }
+        //         })
+        //         .then(response => setUsers(response))
+        //     console.log(users)
         } catch (err) {
             console.error(err)
         }
-    }, [])
+
+    //     useEffect(() => {
+    //         axios.get('/mypage')
+    //             .then(response => setUsers(response.data))
+    //     }, [])
+    // }
 
 
 

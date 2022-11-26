@@ -48,19 +48,19 @@ function loginStatus(req, res, next) {
 // 추후 User Schema에 user에 딸린 비행 일정, 그 외 프로필 추가 필요
 // 로그인 하지 않으면 접근 불가능 -> message: "로그인 해주세요!"
 router.get('/', loginStatus, async(req, res, next) => {
-    let userInfo = await User.findOne({ id: req.params.id })
+    let userInfo = await User.findOne({ id: req.params.id})
 
-    // try {
-    //     if (userInfo == null) {
-    //         res.status(404).json({
-    //             message: "계정을 찾을 수 없습니다!",
-    //         })
-    // } 
-    // } catch (err) {
-    //         return res.status(500).json({
-    //             message: err.message
-    //         })
-    //     }
+    try {
+        if (userInfo == null) {
+            res.status(404).json({
+                message: "계정을 찾을 수 없습니다!",
+            })
+    } 
+    } catch (err) {
+            return res.status(500).json({
+                message: err.message
+            })
+        }
         res.json(userInfo)
         next()
 })
