@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 //비밀키를 가져올 변수
 const config = require('./config/dev');
 // session 세팅
-const session = require('express-session')
+// const session = require('express-session')
 
 
 
@@ -33,27 +33,27 @@ mongoose.connect(config.mongoURI, {
   .catch(err => console.log(err))
 
 // 세션 설정
-app.use(
-  session({
-    secret: "myTripFlight",
-    resave: true,
-    saveUninitialized: true,
-    duration: 60 * 60 * 1000, // 1시간동안 로그인 지속
-    activeDuration: 30 * 60 * 1000 // 활동이 있을 시 30분 연장
-  })
-);
-app.use(function (req, res, next) {
-  res.locals.session = req.session
-  next()
-})
+// app.use(
+//   session({
+//     secret: "myTripFlight",
+//     resave: true,
+//     saveUninitialized: true,
+//     duration: 60 * 60 * 1000, // 1시간동안 로그인 지속
+//     activeDuration: 30 * 60 * 1000 // 활동이 있을 시 30분 연장
+//   })
+// );
+// app.use(function (req, res, next) {
+//   res.locals.session = req.session
+//   next()
+// })
 
 app.get('/', (req, res) => {
-  if (req.session.user) {
-    res.send('로그인상태입니당')
-  } else {
-    res.send('로그인해주세용')
-  }
-  // res.send('백이 연결되었습니다')
+  // if (req.session.user) {
+  //   res.send('로그인상태입니당')
+  // } else {
+  //   res.send('로그인해주세용')
+  // }
+  res.send('백이 연결되었습니다')
 })
 
 

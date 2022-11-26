@@ -92,4 +92,4 @@ userSchema.statics.findByToken = function(token, callback) {
 //스키마는 모델이 감싸야한다.
 const User = mongoose.model('User', userSchema)
 //다른 파일에서도 모듈을 쓸 수 있게
-module.exports = { User }
+module.exports = { User }, User
