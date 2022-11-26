@@ -55,7 +55,12 @@ router.get('/', (req, res) => {
                 return;
             }
             else {
-                var fa_result = JSON.parse(result.body).flights[0]
+                var fa_result = JSON.parse(result.body).flights
+                if(fa_result.length === 0){
+                    res.status(200).send("No results")
+                    return;
+                }
+                fa_result = fa_result[0]
                 // console.log(fa_result)
                 // 받아온 정보 처리
                 refineResult(fa_result, (info, schedule) => {
