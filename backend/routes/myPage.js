@@ -70,8 +70,11 @@ router.get('/', loginStatus, async(req, res, next) => {
 // myPage에서 
 // 여기서 id에 속한 여러가지 비행 일정 중에서 선택
 // [비행일정] 버튼을 눌러서 User에게 속한 비행일정 불러오기
+// 화면에는 일정 이름만 보여주기
 router.get('/schedule', (req, res) => {
-    
+   User.findOne({email: req.session.user.email}, (err, user) =>{
+        return res.send(user.schedules)
+   })
 })
 
 // 복수의 비행일정 중에서 하나의 일정 선택
@@ -92,13 +95,19 @@ router.post('/create',  async (req, res) => {
         flight_info: req.body.flight_info,
         flight_schedule: req.body.flight_schedule,
         airports: req.body.airports,
-
-        //-> 로그인 과정에 쿠키 추가해서 세션 생성 예정 현재 유저의 정보 받아오는 용도
     })
-    
     try {
-        let newSchedule = await schedule.save()
-        res.status(200).json(newSchedule)
+        // DB에 일정 저장
+        schedule.save()
+        // User DB에 생성한 일정 ID 저장
+        User.findOne({email: req.session.user.email}, (err, user) =>{
+            if(err) return res.status(400).json({
+                message: err.message
+            })
+            user.schedules.push({ScheduleName: schedule.ScheduleName,_id: schedule._id})
+            user.save();
+        })
+        return res.status(200).json(schedule)
     } catch (err) {
         res.status(400).json({
             message: err.message
