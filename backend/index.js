@@ -11,6 +11,10 @@ const config = require('./config/dev');
 // session 세팅
 const session = require('express-session')
 
+////cors 크로스오리진 접근 다 허용
+var cors = require('cors');
+app.use(cors());
+
 
 
 const usersRouter = require('./routes/users')
