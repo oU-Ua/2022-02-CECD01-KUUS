@@ -21,12 +21,15 @@ const userSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    // User에 저장되는 일정목록은 저장공간의 효율을 생각해 id와 이름만 저장
     // 자신이 등록한 일정, _id는 일정의 _id를 그대로 받아온다
-    schedules: [{
-        ScheduleName: String,
-        _id: Object
-    }],
-    // 공유받은 일정 목록
+    myschedules: [
+        {
+            ScheduleName: String,
+            _id: Object
+        }
+    ],
+    // 공유받은 일정 목록은 author까지 저장
     sharedschedules: [{
         ScheduleName: String,
         author: String,
