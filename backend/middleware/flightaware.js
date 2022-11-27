@@ -13,12 +13,19 @@ var options = {
     method: 'GET',
     uri: '',
     qs: {
-        start: ''
     }
 }
 
 // flights/{id}/map
-
+// flightaware에서 사용하는 고유 flight id를 통해
+// 실시간 항공기 위치 이미지를 base 64 인코딩된 스트링으로 받아옴
+// img 타입은 png
+function getMap(fa_flight_id, callback){
+    options.uri = url + fa_flight_id +"/map"
+    options.qs.show_data_block = true
+    options.qs.airports_expand_view = true
+    request.get(options, callback)
+}
 
 
 // flights/{ident}
@@ -55,4 +62,4 @@ function refineResult(fa_result, callback) {
     }
     callback(info, schedule)
 }
-module.exports = { getFlight, refineResult };
+module.exports = { getMap, getFlight, refineResult };
