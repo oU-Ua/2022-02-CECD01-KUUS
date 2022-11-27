@@ -11,37 +11,32 @@ import { useState } from 'react';
 
 function MyPage(props) {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
 
-        dispatch(auth()).then(response => {
-            // console.log(response)
-            // 로그인 하지 않은 상태 
-            if (response.payload.isAuth) {
-                console.log('로그인 상태')
-            } else {
-                //로그인한 상태
-                console.log('로그인 아닌 상태')
-            }
+        // dispatch(auth()).then(response => {
+        //     // console.log(response)
+        //     // 로그인 하지 않은 상태 
+        //     if (response.payload.isAuth) {
+        //         console.log('로그인 상태')
+        //     } else {
+        //         //로그인한 상태
+        //         console.log('로그인 아닌 상태')
+        //     }
 
             try {
-                const response = axios.get('/api/mypage', { validateStatus: false })
-                if (response.status === 200) {
-                    console.log(response)
-                }
+                console.log('try 진입')
+                const response = axios.get('/mypage')
+                                    .then(response => setUsers(response))
+                console.log('response: '+ response)
+                console.log('users: '+ users)
             } catch (err) {
                 console.log(err)
             }
-            // axios.get(`/myPage`)
-            //          .then(response => {
-            //             setUsers(response.data.users);
-            //             console.log(response)
-            //          }) 
         }, [])
-    })
 
         return (
             <div>
