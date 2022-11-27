@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
-import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 
 function FlightSearchPage(props) {
@@ -30,33 +30,34 @@ function FlightSearchPage(props) {
 
     const onClickHandler = (event) => {
         event.preventDefault();
-
+        axios.defaults.headers.Cookie = '';
+        
         var data = JSON.stringify({
             "departure": "인천",
             "arrival": "시애틀",
             "flight_iata": "OZ272",
             "date": "2022-11-25",
             "time": "18:05"
-        });
+          });
+          
+          var config = {
+            method: 'post',
+            url: 'http://localhost:5000/api/flightsearch',
+            headers: { 
+              'Content-Type': 'application/json', 
+              'Cookie': 'connect.sid=s%3A_ssjokE1UOgjBbc2Aqq3qTTx746evAF9.w70x2xxpzo2u0TikR5BtYGFPKRC%2F0FMy%2BA2SV98o2R4'
+            },
+            data : data
+          };
+          
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
-        var config = {
-        method: 'get',
-        url: 'http://localhost:5000/flightsearch',
-        headers: { 
-            'Content-Type': 'application/json', 
-            'Cookie': 'connect.sid=s%3AD-Wjqu0h7FAN3Zx6C8R-SmrcvODdvq6c.T2ogvOLGPICXgVUENmtddHF74O7DdVz%2FWsxmhQ06wgc'
-        },
-        data : data
-        };
-
-        axios(config)
-        .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-        console.log(error);
-        });
-            
 
     }
 
