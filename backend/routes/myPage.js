@@ -48,8 +48,11 @@ function loginStatus(req, res, next) {
 // 현재는 name, email 정도 띄우고
 // 추후 User Schema에 user에 딸린 비행 일정, 그 외 프로필 추가 필요
 // 로그인 하지 않으면 접근 불가능 -> message: "로그인 해주세요!"
-router.get('/', loginStatus, async(req, res, next) => {
-    let userInfo = await User.findOne({ id: req.params.id})
+router.get('/', async(req, res, next) => {
+
+    // let userInfo = await User.findOne({ id: req.params.id})
+    // 로그인 망가져서 잠시만 날 데이터로 test
+    let userInfo = await User.findOne({ email: "1234@naver.com"})
 
     try {
         if (userInfo == null) {

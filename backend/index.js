@@ -54,6 +54,7 @@ app.use(function (req, res, next) {
 app.get('/', (req, res) => {
   if (req.session.user) {
     res.send('로그인상태입니당')
+    res.send(req.session)
   } else {
     res.send('로그인해주세용')
   }
