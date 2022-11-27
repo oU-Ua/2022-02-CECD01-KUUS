@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
             // 사용자에게 입력받은 출발일, 출발시간 처리부분
             // flightaware에서 요구하는 형식으로 변환해 저장
             var daytime = DateTime.fromISO(req.body.date + "T" + req.body.time + ":00");
-            daytime.numberingSystem
             var time_kr = daytime.toISO({ suppressMilliseconds: true })
             var time_utc = daytime.toUTC().toISO({ suppressMilliseconds: true })
             // 출력 및 db 저장을 위한 json 객체틀
@@ -60,8 +59,17 @@ router.get('/', (req, res) => {
                     res.status(200).send("No results")
                     return;
                 }
-                fa_result = fa_result[0]
-                // console.log(fa_result)
+                // 여러개의 일정이 결과로 나올 수 있어
+                // 출발일자와 시간이 일치하는 일정만 선택하도록 함
+                else{
+                    for(let i=0; i<fa_result.length; i++ ){
+                        if(fa_result[i].scheduled_out===time_utc){
+                            fa_result=fa_result[i]
+                            break;
+                        }
+                    }
+                }
+                console.log(fa_result)
                 // 받아온 정보 처리
                 refineResult(fa_result, (info, schedule) => {
                     flight_info = info
