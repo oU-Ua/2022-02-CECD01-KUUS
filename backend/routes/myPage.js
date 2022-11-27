@@ -3,6 +3,7 @@ const router = express.Router()
 const path = require("path");
 const bodyParser = require("body-parser");
 const clientSessions = require("express-session");
+const { getMap } = require('../middleware/flightaware')
 
 
 router.use(bodyParser.json()); // for parsing application/json
@@ -73,14 +74,25 @@ router.get('/', loginStatus, async(req, res, next) => {
 // 화면에는 일정 이름만 보여주기
 router.get('/schedule', (req, res) => {
    User.findOne({email: req.session.user.email}, (err, user) =>{
-        return res.send(user.schedules)
+        return res.send(user.myschedules)
    })
 })
 
 // 복수의 비행일정 중에서 하나의 일정 선택
-// Schedule의 id 값으로 받아오는 함수
+// Schedule의 id 값으로 받아오는 함수, id는 몽고db _id값
+// response로 해당 db에서 id의 schedule 넘겨줌
+// 또 api를 통해 가져온 실시간 비행기 위치 이미지(base64 인코딩)를 넘겨줌
 router.get('/schedule/:id', (req, res) => {
-    
+    console.log(req.params.id)
+     Schedule.findById(req.params.id, (err, schedule)=>{
+        if(err) return res.status(400).json({message: err.message})
+        getMap(schedule.flight_info.fa_flight_id, (err, result)=>{
+            if(err){
+                return res.status(400).json({message: err.message})
+            }
+            return res.status(200).send({schedule: schedule, map: JSON.parse(result.body).map})
+        })
+     })
 })
 
 // 내 비행 일정 등록하기
@@ -104,10 +116,10 @@ router.post('/create',  async (req, res) => {
             if(err) return res.status(400).json({
                 message: err.message
             })
-            user.schedules.push({ScheduleName: schedule.ScheduleName,_id: schedule._id})
+            user.myschedules.push({ScheduleName: schedule.ScheduleName, _id: schedule._id})
             user.save();
         })
-        return res.status(200).json(schedule)
+        return res.status(200).json({success: true})
     } catch (err) {
         res.status(400).json({
             message: err.message
