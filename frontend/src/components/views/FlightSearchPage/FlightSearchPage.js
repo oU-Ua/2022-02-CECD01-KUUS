@@ -11,6 +11,8 @@ function FlightSearchPage(props) {
     const [date, setdate] = useState("")
     const [time, settime] = useState("")
 
+    const [data, setData] = useState([]);
+
 
     const onDepartureHandler = (event) => {
         setdeparture(event.currentTarget.value)
@@ -53,6 +55,7 @@ function FlightSearchPage(props) {
           axios(config)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
+            setData(JSON.stringify(response.data));
           })
           .catch(function (error) {
             console.log(error);
@@ -98,6 +101,10 @@ function FlightSearchPage(props) {
                     <p>date: {date}</p>
                     <p>time: {time}</p>
                 </Container>
+                <Container>
+                    <p>결과(이따가 정리하겠음): {data}</p>
+                </Container>
+
             </div>
         </div>
         
