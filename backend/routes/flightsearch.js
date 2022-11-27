@@ -7,7 +7,7 @@ const { getFlight, refineResult } = require('../middleware/flightaware')
 router.use(bodyParser.json());
 
 // req 입력값: departure, arrival, flight_iata, date(YYYY-MM-DD), time(HH:MM)
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
     Airport.findByNames(req.body.departure, req.body.arrival, (err, results) => {
         if (err) {
             res.status(400).send(err)
