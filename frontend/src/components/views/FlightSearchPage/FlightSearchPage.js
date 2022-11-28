@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import FlightInfo from '../../../assets/images/flightsearch/FlightInfo.jpg'
 
 
 function FlightSearchPage(props) {
@@ -78,22 +79,44 @@ function FlightSearchPage(props) {
             </div>
             <div className="spacer">
                 <h2 style={{color:'red'}} >이 페이지는 테스트 중입니다!!!!!!</h2>
+                
                 <Container>
-                    <form onClick={onClickHandler}  style={{display: 'flex',flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <label>departure</label>
-                        <input type="text" id='departure' value={departure} onChange={onDepartureHandler}/>
-                        <label>arrival</label>
-                        <input type="text" value={arrival} onChange={onArrivalHandler}/>
-                        <label>flight_iata</label>
-                        <input type="text" value={flight_iata} onChange={onFlight_iataHandler}/>
-                        <label>date</label>
-                        <input type="text" value={date} onChange={onDateHandler}/>
-                        <label>time</label>
-                        <input type="text" value={time} onChange={ontTimeHandler}/>
+                    <Row>
+                        <Col md="6">
+                            <Form >
+                                <FormGroup >
+                                    <Label>출발지</Label>
+                                    <Input type="text" id='departure' value={departure} onChange={onDepartureHandler}/>
+                                </FormGroup>
+                                <FormGroup >
+                                    <Label>도착지</Label>
+                                    <Input type="text" value={arrival} onChange={onArrivalHandler}/>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>항공편명</Label>
+                                    <Input type="text" value={flight_iata} onChange={onFlight_iataHandler}/>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>출발일</Label>
+                                    <Input type="date" value={date} onChange={onDateHandler}/>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>출발시간</Label>
+                                    <Input type="time" value={time} onChange={ontTimeHandler}/>
+                                </FormGroup>
+                                <Col>
+                                <FormGroup>
+                                    <Button type="submit" onClick={onClickHandler} className="btn-success  waves-light m-r-10">Submit</Button>
+                                </FormGroup>                                    
+                                </Col>
+                            </Form>
+                        </Col>
+                        <Col md="6">
+                        <img src={FlightInfo} alt="img" className="img-responsive img-rounded" width="200" />
 
-                        <button type="submit">submit</button>                        
-                    </form>
-                </Container> 
+                        </Col>
+                    </Row>
+                </Container>
                 <Container>
                     <p>departure: {departure}</p>
                     <p>arrival: {arrival}</p>
