@@ -55,6 +55,9 @@ router.post('/', (req, res) => {
             }
             else {
                 var fa_result = JSON.parse(result.body).flights
+                if(fa_result===undefined){
+                    return res.status(400).json({success: false, undefined: true})
+                }
                 if(fa_result.length === 0){
                     res.status(200).send("No results")
                     return;
