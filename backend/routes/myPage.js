@@ -4,7 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const clientSessions = require("express-session");
 const { getMap } = require('../middleware/flightaware')
-
+const { sendMessage } = require('../middleware/smsapi')
 
 router.use(bodyParser.json()); // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -27,12 +27,12 @@ const { read } = require('fs');
 router.use(function (req, res, next) {
     res.locals.session = req.session;
     next();
-  });
+});
 
 // 로그인 상태 체크
 // 로그인상태 아니면 myPage 접근 불가하도록
 function loginStatus(req, res, next) {
-    if(!req.session.user) {
+    if (!req.session.user) {
         // 세션에 유저가 없으면 = 로그인 상태가 아니면
         // 오류 띄우고 로그인화면 or 메인화면으로 redirect
         res.status(400).json({
@@ -48,37 +48,34 @@ function loginStatus(req, res, next) {
 // 현재는 name, email 정도 띄우고
 // 추후 User Schema에 user에 딸린 비행 일정, 그 외 프로필 추가 필요
 // 로그인 하지 않으면 접근 불가능 -> message: "로그인 해주세요!"
-router.get('/', async(req, res, next) => {
+router.get('/', async (req, res, next) => {
 
     // let userInfo = await User.findOne({ id: req.params.id})
     // 로그인 망가져서 잠시만 날 데이터로 test
-    let userInfo = await User.findOne({ email: "1234@naver.com"})
+    let userInfo = await User.findOne({ email: "1234@naver.com" })
 
     try {
         if (userInfo == null) {
             res.status(404).json({
                 message: "계정을 찾을 수 없습니다!",
             })
-    } 
-    } catch (err) {
-            return res.status(500).json({
-                message: err.message
-            })
         }
-        res.send(userInfo)
-        next()
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message
+        })
+    }
+    res.send(userInfo)
+    next()
 })
 
-
-
-// myPage에서 
 // 여기서 id에 속한 여러가지 비행 일정 중에서 선택
 // [비행일정] 버튼을 눌러서 User에게 속한 비행일정 불러오기
 // 화면에는 일정 이름만 보여주기
 router.get('/schedule', (req, res) => {
-   User.findOne({email: req.session.user.email}, (err, user) =>{
+    User.findOne({ email: req.session.user.email }, (err, user) => {
         return res.send(user.myschedules)
-   })
+    })
 })
 
 // 복수의 비행일정 중에서 하나의 일정 선택
@@ -87,19 +84,35 @@ router.get('/schedule', (req, res) => {
 // 또 api를 통해 가져온 실시간 비행기 위치 이미지(base64 인코딩)를 넘겨줌
 router.get('/schedule/:id', (req, res) => {
     console.log(req.params.id)
-     Schedule.findById(req.params.id, (err, schedule)=>{
-        if(err) return res.status(400).json({message: err.message})
-        getMap(schedule.flight_info.fa_flight_id, (err, result)=>{
-            if(err){
-                return res.status(400).json({message: err.message})
+    Schedule.findById(req.params.id, (err, schedule) => {
+        if (err) return res.status(400).json({ message: err.message })
+        getMap(schedule.flight_info.fa_flight_id, (err, result) => {
+            if (err) {
+                return res.status(400).json({ message: err.message })
             }
-            return res.status(200).send({schedule: schedule, map: JSON.parse(result.body).map})
+            return res.status(200).send({ schedule: schedule, map: JSON.parse(result.body).map })
         })
-     })
+    })
+})
+
+// /schedule/:id 에서 넘어옴
+// schedule의 _id와 사용자가 입력한 공유할 사람의 전화번호 넘겨받음
+// sendMessage 메소드 통해 sms로 공유할 일정 링크 보내줌
+router.post('/schedule/share', (req, res) => {
+    var id = req.body.id
+    var phone = req.body.phone
+    var url = `http://localhost:5000/api/share/${id}`;
+    var name = req.session.user.name    
+        sendMessage(url, name, phone, (err, result)=>{
+                 if (err) {
+                     return res.json({message: err.message})
+                 }
+                 return res.send(result)            
+         })    
 })
 
 // 내 비행 일정 등록하기
-router.post('/create',  async (req, res) => {
+router.post('/create', async (req, res) => {
 
     const curUser = req.session.user
     // IATA 형식 받아와서 api 호출 -> 코드만 입력하면 일정이 뜨도록
@@ -115,14 +128,14 @@ router.post('/create',  async (req, res) => {
         // DB에 일정 저장
         schedule.save()
         // User DB에 생성한 일정 ID 저장
-        User.findOne({email: req.session.user.email}, (err, user) =>{
-            if(err) return res.status(400).json({
+        User.findOne({ email: req.session.user.email }, (err, user) => {
+            if (err) return res.status(400).json({
                 message: err.message
             })
-            user.myschedules.push({ScheduleName: schedule.ScheduleName, _id: schedule._id})
+            user.myschedules.push({ ScheduleName: schedule.ScheduleName, _id: schedule._id })
             user.save();
         })
-        return res.status(200).json({success: true})
+        return res.status(200).json({ success: true })
     } catch (err) {
         res.status(400).json({
             message: err.message
@@ -130,4 +143,23 @@ router.post('/create',  async (req, res) => {
     }
 })
 
+// 공유받은 일정 목록
+router.post('/shared', (req,res)=>{
+    User.findOne({ email: req.session.user.email }, (err, user) => {
+        return res.send(user.sharedschedules)
+    })
+})
+
+// 복수의 공유받은 일정 목록 중 하나 선택해서 보여줌
+router.get('/shared/:id', (req, res) => {
+    Schedule.findById(req.params.id, (err, schedule) => {
+        if (err) return res.status(400).json({ message: err.message })
+        getMap(schedule.flight_info.fa_flight_id, (err, result) => {
+            if (err) {
+                return res.status(400).json({ message: err.message })
+            }
+            return res.status(200).send({ schedule: schedule, map: JSON.parse(result.body).map })
+        })
+    })
+})
 module.exports = router
