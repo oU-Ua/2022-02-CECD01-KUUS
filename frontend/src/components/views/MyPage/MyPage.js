@@ -29,8 +29,9 @@ function MyPage(props) {
 
 
         try {
+            console.log('try진입')
             axios(config)
-                .then(response => setUsers(response))
+                .then(response => setUsers(response.data))
             console.log('users:' + JSON.stringify(users));
         } catch (error) {
             console.log(error);
@@ -56,8 +57,8 @@ function MyPage(props) {
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
                                 <h2 className="title font-bold">
-                                    {users.name}님 환영합니다.</h2>
-                                <h6 className="subtitle">12345679@dgu.ac.kr</h6>
+                                    {users.data.name}님 환영합니다.</h2>
+                                <h6 className="subtitle">{users.data.email}</h6>
                             </Col>
                         </Row>
                     </Container>
