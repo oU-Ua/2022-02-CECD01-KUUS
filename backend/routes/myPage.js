@@ -35,10 +35,11 @@ const { read } = require('fs');
 router.get('/', async (req, res, next) => {
 
     // let userInfo = req.user
-    let userInfo = await User.findOne({ email: "1234@naver.com" })
-    console.log('req.user - userInfo'+userInfo)
-
+    const userInfo = await User.findOne({ email: "1234@naver.com" })
+    
     try {
+        console.log('userInfo: '+userInfo)
+
         if (userInfo == null) {
             res.status(404).json({
                 message: "계정을 찾을 수 없습니다!",

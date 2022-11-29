@@ -9,31 +9,48 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 
+
+// 무한반복 해결하기 
+// https://sir.kr/qa/422561
+
 function MyPage(props) {
 
     // const dispatch = useDispatch();
 
     const [users, setUsers] = useState([]);
-    
-    var config = {
-        method: 'get',
-        url: 'http://localhost:5000/api/mypage',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+
+    // var config = {
+    //     method: 'get',
+    //     url: 'http://localhost:5000/api/mypage',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+
+
+    // axios(config)
+    //     .then(response => setUsers(response))
+    //     .catch ((err) => {
+    //         console.log(err)
+    //     })
+
+
+
+    async function getUsers() {
+        console.log('func 진입')
+        axios.get('http://localhost:5000/api/mypage')
+            .then((response) => {
+                setUsers(response.data)
+                console.log('users:' + JSON.stringify(users));
+            }).catch(function (error) {
+                console.error(error)
+            })
     }
 
-    try {
-        console.log('try진입')
-        axios(config)
-            .then(response => setUsers(response))
-            .catch ((err) => {
-                console.log(err)
-            })
-        console.log('users:' + JSON.stringify(users));
-    } catch (error) {
-        console.log(error);
-    }
+    useEffect(function () {
+        getUsers()
+    }, [])
+
+    console.log(users)
 
     return (
         <div>
@@ -52,8 +69,8 @@ function MyPage(props) {
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
                                 <h2 className="title font-bold">
-                                    {users.data.name}님 환영합니다.</h2>
-                                <h6 className="subtitle">{users.data.email}</h6>
+                                    {users.name}님 환영합니다.</h2>
+                                <h6 className="subtitle">{users.email}</h6>
                             </Col>
                         </Row>
                     </Container>
