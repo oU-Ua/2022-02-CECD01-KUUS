@@ -100,7 +100,7 @@ function FlightSearchPage(props) {
             console.log("인포",flight_info_obj);
             console.log("스케줄",flight_schedule_obj);
 
-            const airports_line = "출발지: "+airports_obj["departure"]+"\n도착지: "+airports_obj["arrival"];
+            const airports_line = "\n출발지: "+airports_obj["departure"]+"\n도착지: "+airports_obj["arrival"];
             setData_airport(airports_line);
 
             // 유정님 여기 수정해주세요~

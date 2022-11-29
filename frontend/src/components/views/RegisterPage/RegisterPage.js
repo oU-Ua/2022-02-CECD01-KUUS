@@ -12,6 +12,7 @@ function RegisterPage(props) {
     const [Name, setName] = useState("")
     const [Password, setPassword] = useState("")
     const [ConfirmPassword, setConfirmPassword] = useState("")
+    const [Phone, setPhone] = useState("")
 
 
     const onEmailHandler = (event) => {
@@ -30,6 +31,10 @@ function RegisterPage(props) {
         setConfirmPassword(event.currentTarget.value)
     }
 
+    const onPhoneHandler = (event) => {
+        setPhone(event.currentTarget.value)
+    }
+
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
@@ -40,7 +45,8 @@ function RegisterPage(props) {
         let body = {
             email: Email,
             password: Password,
-            name: Name
+            name: Name,
+            phone: Phone,
         }
         dispatch(registerUser(body))
             .then(response => {
@@ -82,6 +88,10 @@ function RegisterPage(props) {
                                     <Input type="email" className="form-control" id="email" placeholder="Enter email" value={Email} onChange={onEmailHandler}/>
                                 </FormGroup>
                                 <FormGroup className="col-md-6">
+                                    <Label htmlFor="phone">전화번호</Label>
+                                    <Input type="phone" className="form-control" id="phone" placeholder="Phone Number" value={Phone} onChange={onPhoneHandler}/>
+                                </FormGroup>
+                                <FormGroup className="col-md-6">
                                     <Label htmlFor="password">비밀번호</Label>
                                     <Input type="password" className="form-control" id="password" placeholder="Password" value={Password} onChange={onPasswordHandler}/>
                                 </FormGroup>
@@ -89,6 +99,7 @@ function RegisterPage(props) {
                                     <Label htmlFor="confirmpwd">비밀번호 확인</Label>
                                     <Input type="password" className="form-control" id="confirmpwd" placeholder="Confirm Password" value={ConfirmPassword} onChange={onConfirmPasswordHandler}/>
                                 </FormGroup>
+                                
                                 <Col md="12">
                                     <Button type="submit" className="btn btn-success waves-effect waves-light m-r-10">가입하기</Button>
                                 </Col>
