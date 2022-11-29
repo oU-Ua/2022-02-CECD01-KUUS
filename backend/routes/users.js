@@ -61,7 +61,7 @@ router.post('/login', (req, res) => {
 
           //토큰을 저장한다. 쿠키에 저장할 예정. 개발자창에서 쿠키 확인 가능
           //개발자창에서 name:x_auth, value:khsdfhkfhsmdfdk 이런식으로 확인 가능
-          return res.cookie("x_auth", user.token)
+          res.cookie("x_auth", user.token)
             .status(200)
             .json({ loginSuccess: true, userId: user._id })
         })
@@ -74,7 +74,8 @@ router.get('/auth', auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id,
     email: req.user.email,
-    name: req.user.email
+    isAuth: true,
+    name: req.user.name
   })
 })
 
