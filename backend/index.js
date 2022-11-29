@@ -20,7 +20,7 @@ app.use(cors());
 const usersRouter = require('./routes/users')
 const myPageRouter = require('./routes/myPage')
 const flightsearchRouter = require('./routes/flightsearch')
-
+const shareRouter = require('./routes/share')
 //application/x-www-form-urlencodec를 분석해서 가져오게 해줌
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -70,3 +70,4 @@ app.listen(port, () => {
 app.use('/api/users', usersRouter)
 app.use('/api/mypage', myPageRouter)
 app.use('/api/flightsearch' , flightsearchRouter)
+app.use('/api/share',shareRouter )
