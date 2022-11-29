@@ -4,10 +4,12 @@ const bodyParser = require("body-parser");
 const { DateTime } = require('luxon')
 const { Airport } = require('../models/Airports');
 const { getFlight, refineResult } = require('../middleware/flightaware')
+const { auth } = require('../middleware/auth')
+
 router.use(bodyParser.json());
 
 // req 입력값: departure, arrival, flight_iata, date(YYYY-MM-DD), time(HH:MM)
-router.post('/', (req, res) => {
+router.post('/', auth, (req, res) => {
     Airport.findByNames(req.body.departure, req.body.arrival, (err, results) => {
         if (err) {
             res.status(400).send(err)
@@ -55,16 +57,19 @@ router.post('/', (req, res) => {
             }
             else {
                 var fa_result = JSON.parse(result.body).flights
-                if(fa_result.length === 0){
+                if (fa_result === undefined) {
+                    return res.status(400).json({ success: false, undefined: true })
+                }
+                if (fa_result.length === 0) {
                     res.status(200).send("No results")
                     return;
                 }
                 // 여러개의 일정이 결과로 나올 수 있어
                 // 출발일자와 시간이 일치하는 일정만 선택하도록 함
-                else{
-                    for(let i=0; i<fa_result.length; i++ ){
-                        if(fa_result[i].scheduled_out===time_utc){
-                            fa_result=fa_result[i]
+                else {
+                    for (let i = 0; i < fa_result.length; i++) {
+                        if (fa_result[i].scheduled_out === time_utc) {
+                            fa_result = fa_result[i]
                             break;
                         }
                     }
