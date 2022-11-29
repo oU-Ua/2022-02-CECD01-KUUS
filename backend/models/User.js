@@ -13,6 +13,9 @@ const userSchema = mongoose.Schema({
         trim: true,
         unique: 1
     },
+    phone: {
+        type: String,
+    },
     password: {
         type: String,
         maxlength: 100
@@ -34,7 +37,10 @@ const userSchema = mongoose.Schema({
         ScheduleName: String,
         author: String,
         _id: Object
-    }]
+    }],
+    token:{
+        type: String
+    }
 
 })
 
@@ -56,7 +62,7 @@ userSchema.pre('save', function (next) {
                 next()
             })
         })
-    } else {
+    }else{
         next()
     }
 })
