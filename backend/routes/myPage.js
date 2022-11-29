@@ -82,7 +82,7 @@ router.get('/schedule/:id', auth, (req, res) => {
 // /schedule/:id 에서 넘어옴
 // schedule의 _id와 사용자가 입력한 공유할 사람의 전화번호 넘겨받음
 // sendMessage 메소드 통해 sms로 공유할 일정 링크 보내줌
-router.post('/schedule/share', auth, (req, res) => {
+router.post('/schedule/share', (req, res) => {
     var id = req.body.id
     var phone = req.body.phone
     var url = `http://localhost:5000/api/share/${id}`;
@@ -128,7 +128,7 @@ router.post('/create', async (req, res) => {
 })
 
 // 공유받은 일정 목록
-router.post('/shared',auth, (req,res)=>{
+router.post('/shared', (req,res)=>{
     User.findOne({ email: req.user.email }, (err, user) => {
         return res.send(user.sharedschedules)
     })
