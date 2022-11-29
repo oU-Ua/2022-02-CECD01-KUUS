@@ -13,6 +13,9 @@ const userSchema = mongoose.Schema({
         trim: true,
         unique: 1
     },
+    phone: {
+        type: String,
+    },
     password: {
         type: String,
         maxlength: 100
