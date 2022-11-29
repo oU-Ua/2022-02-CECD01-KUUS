@@ -2,7 +2,7 @@ const { serviceId, accessKey, secretKey, sendNumber  } = require('../config/dev'
 const requrl = `https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`
 const CryptoJS = require('crypto-js')
 var request = require('request')
-function sendMessage(url, name, phoneNumber, callback) {
+function sendMessage(content, phoneNumber, callback) {
 
     var timestamp = Date.now().toString();
     let signature = makeSignature(timestamp,accessKey, secretKey)
@@ -25,7 +25,7 @@ function sendMessage(url, name, phoneNumber, callback) {
             "messages": [
                 {
                     "to": phoneNumber,
-                    "content": name + " 님이 비행일정을 공유하고자 합니다. " + url
+                    "content": content
                 }
             ]
         }
