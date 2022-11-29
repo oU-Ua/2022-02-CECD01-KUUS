@@ -25,36 +25,19 @@ const { read } = require('fs');
 // https://www.a-mean-blog.com/ko/blog/Node-JS-첫걸음/게시판-만들기/게시판-Post-User-관계-relationship-만들기
 
 
-router.use(function (req, res, next) {
-    res.locals.session = req.session;
-    next();
-});
-
-// 로그인 상태 체크
-// 로그인상태 아니면 myPage 접근 불가하도록
-function loginStatus(req, res, next) {
-    if (!req.session.user) {
-        // 세션에 유저가 없으면 = 로그인 상태가 아니면
-        // 오류 띄우고 로그인화면 or 메인화면으로 redirect
-        res.status(400).json({
-            message: "로그인해주세요!"
-        })
-    } else {
-        next();
-    }
-}
-
 
 // myPage 들어가면 현재 User의 정보 띄움
 // 현재는 name, email 정도 띄우고
 // 추후 User Schema에 user에 딸린 비행 일정, 그 외 프로필 추가 필요
 // 로그인 하지 않으면 접근 불가능 -> message: "로그인 해주세요!"
-router.get('/', auth, async (req, res, next) => {
 
-    // let userInfo = await User.findOne({ id: req.params.id})
-    // 로그인 망가져서 잠시만 날 데이터로 test
-    let userInfo = req.user
-    console.log(userInfo)
+// 잠시 auth 지우고 통짜 데이터로 프론트 하겠슴다 ㅠㅅㅜ 로그인 해결하고 돌릴게요
+router.get('/', async (req, res, next) => {
+
+    // let userInfo = req.user
+    let userInfo = await User.findOne({ email: "1234@naver.com" })
+    console.log('req.user - userInfo'+userInfo)
+
     try {
         if (userInfo == null) {
             res.status(404).json({
@@ -66,7 +49,7 @@ router.get('/', auth, async (req, res, next) => {
             message: err.message
         })
     }
-    res.send(userInfo)
+    res.status(200).send(userInfo)
     next()
 })
 
@@ -113,7 +96,7 @@ router.post('/schedule/share', auth, (req, res) => {
 })
 
 // 내 비행 일정 등록하기
-router.post('/create', auth, async (req, res) => {
+router.post('/create', async (req, res) => {
 
     const curUser = req.user
     // IATA 형식 받아와서 api 호출 -> 코드만 입력하면 일정이 뜨도록

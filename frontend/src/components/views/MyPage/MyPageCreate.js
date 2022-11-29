@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import HeaderBanner from '../banner/banner';
-import Images from '../sections/images';
-import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { auth } from '../../../_actions/user_action';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 
@@ -17,7 +14,7 @@ function MyPage(props) {
     
     var config = {
         method: 'get',
-        url: 'http://localhost:5000/api/mypage',
+        url: 'http://localhost:5000/api/mypage/create',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -26,10 +23,7 @@ function MyPage(props) {
     try {
         console.log('try진입')
         axios(config)
-            .then(response => setUsers(response))
-            .catch ((err) => {
-                console.log(err)
-            })
+            .then(response => setUsers(JSON.stringify(response)))
         console.log('users:' + JSON.stringify(users));
     } catch (error) {
         console.log(error);
@@ -52,29 +46,31 @@ function MyPage(props) {
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
                                 <h2 className="title font-bold">
-                                    {users.data.name}님 환영합니다.</h2>
-                                <h6 className="subtitle">{users.data.email}</h6>
+                                    {users.name}님 환영합니다.</h2>
+                                <h6 className="subtitle">{users.email}</h6>
                             </Col>
                         </Row>
                     </Container>
                 </div>
                 <Container>
-                    <Row>
+                    <Row md = "6">
                         <Col md="6">
-                            <h3 className="title font-bold text-center">나의 일정</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle>일정1</CardTitle>
-                                <CardText>뉴욕출장</CardText>
-                                <Button>자세히 보기</Button>
-                            </Card>
-                        </Col>
-                        <Col md="6">
-                            <h3 className="title font-bold text-center">나의 일정</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle>일정2</CardTitle>
-                                <CardText>파리 출장</CardText>
-                                <Button>자세히 보기</Button>
-                            </Card>
+                            <h3 className="title font-bold text-center">일정 등록하기</h3>
+                            <Form>
+                                <FormGroup >
+                                    <Label>Schedule Name</Label>
+                                    <Input/>
+                                </FormGroup>
+                                <FormGroup >
+                                    <Label>author</Label>
+                                    <h3>{users.email}</h3>
+                                </FormGroup>
+                                <FormGroup >
+                                    <Label>받아온 정보 자동 입력</Label>
+                                    <Input/>
+                                </FormGroup>
+
+                            </Form>
                         </Col>
                     </Row>
                 </Container>
