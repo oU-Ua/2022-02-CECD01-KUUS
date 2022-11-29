@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const router = express.Router()
 const { User } = require('../models/User');
+const {auth }= require('../middleware/auth')
 
 //회원가입할 때 필요한 정보들을 client에서 가져오면 DB에 담아줌
 router.post('/register', (req, res) => {
@@ -36,39 +37,65 @@ router.post('/login', (req, res) => {
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (!isMatch)
         return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다." })
+
+        user.generateToken((err,res)=>{
+          if (err) return res.status(400).send(err);
+
+          res.cookie("x_auth", user.token).status(200)
+          .json({loginSuccess: true, userId: user._id})
+        })
     })
 
-    // 세션 넣어줌
-    if (req.session.user) {
-      return res.status(400).json({
-        message: "이미 로그인 상태입니다."
-      })
-    }
-    req.session.user = {
-      email: req.body.email,
-      name: user.name
-    }
 
-    return res.status(200).send({
-      success: true,
-      name: req.session.user.name,
-      email: req.session.user.email
-    })
+
+    // // 세션 넣어줌
+    // if (req.session.user) {
+    //   return res.status(400).json({
+    //     message: "이미 로그인 상태입니다."
+    //   })
+    // }
+    // req.session.user = {
+    //   email: req.body.email,
+    //   name: user.name
+    // }
+
+    // return res.status(200).send({
+    //   success: true,
+    //   name: req.session.user.name,
+    //   email: req.session.user.email
+    // })
+  })
+})
+
+router.get('/auth', auth, (req, res)=>{
+  res.status(200).json({
+    _id: req.user._id,
+    email: req.user.email,
+    name: req.user.email
   })
 })
 
 //로그아웃하는 부분
-router.get('/logout', (req, res) => {
+router.get('/logout', auth, (req, res) => {
 
-  if (!req.session.user) {
-    return res.status(400).send({ success: false })
-  }
-  req.session.destroy(function (err) {
-    if (err) return res.json({ success: false, err })
-  })
-  return res.status(200).send({
-    success: true
-  })
+  User.findOneAndUpdate({_id: req.user._id},
+    {token: ""},
+    (err, user) =>{
+      if(err) return res.json({err: err.message});
+      return res.status(200).json({
+        success: true
+      })
+    })
+
+  // if (!req.session.user) {
+  //   return res.status(400).send({ success: false })
+  // }
+  // req.session.destroy(function (err) {
+  //   if (err) return res.json({ success: false, err })
+  // })
+  // return res.status(200).send({
+  //   success: true
+  // })
 })
 
 module.exports = router
