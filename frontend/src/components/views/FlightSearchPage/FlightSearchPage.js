@@ -41,6 +41,8 @@ function FlightSearchPage(props) {
 
     const [data, setData] = useState([]);
     const [data_airport, setData_airport] = useState([]);
+    const [data_info, setData_data_info] = useState([]);
+    const [data_schedule, setData_data_schedule] = useState([]);
 
     let airports_obj, flight_info_obj, flight_schedule_obj;
 
@@ -101,6 +103,9 @@ function FlightSearchPage(props) {
             const airports_line = "출발지: "+airports_obj["departure"]+"\n도착지: "+airports_obj["arrival"];
             setData_airport(airports_line);
 
+            // 유정님 여기 수정해주세요~
+            setData_data_info(airports_line);
+            setData_data_schedule(airports_line);
           })
           .catch(function (error) {
             console.log(error);
@@ -156,8 +161,8 @@ function FlightSearchPage(props) {
                                         <ModalHeader toggle={toggle.bind(null)}>비행 인포메이션</ModalHeader>
                                         <ModalBody>
                                         <p>공항 정보: {data_airport}</p>
-                                        <p>인포: {flight_info_obj}</p>
-                                        <p>스케줄: {flight_schedule_obj}</p>
+                                        <p>인포: {data_info}</p>
+                                        <p>스케줄: {data_schedule}</p>
                                         </ModalBody>
                                         <ModalFooter>
                                             <Button color="primary" onClick={toggle.bind(null)}>내 일정으로 등록</Button>{' '}
@@ -183,9 +188,6 @@ function FlightSearchPage(props) {
                 </Container>
                 <Container>
                     <p>결과(이따가 정리하겠음): {data}</p>
-                    <p>공항 정보: {data_airport}</p>
-                    <p>인포: {flight_info_obj}</p>
-                    <p>스케줄: {flight_schedule_obj}</p>
                 </Container>
 
             </div>
