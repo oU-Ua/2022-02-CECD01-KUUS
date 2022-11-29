@@ -37,7 +37,10 @@ const userSchema = mongoose.Schema({
         ScheduleName: String,
         author: String,
         _id: Object
-    }]
+    }],
+    token:{
+        type: String
+    }
 
 })
 
