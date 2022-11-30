@@ -9,6 +9,7 @@ import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import FlightSearchPage from './components/views/FlightSearchPage/FlightSearchPage';
 import MyPage from './components/views/MyPage/MyPage';
+import MyPageSchedule from './components/views/MyPage/MyPageSchedule';
 import MyPageShared from './components/views/MyPage/MyPageShared';
 import MyPageCreate from './components/views/MyPage/MyPageCreate';
 import Auth from './hoc/auth';
@@ -38,6 +39,7 @@ function App() {
             <Route exact path="/flightsearch" component={Auth(FlightSearchPage, null )  } />
             {/* mypage다 만들고 접근을 true로 바꾸기 */}
             <Route exact path="/mypage" component={Auth(MyPage, null) } />
+            <Route exact path="/mypage/:id" component={Auth(MyPageSchedule, null) } />
             <Route exact path="/mypage/shared" component={Auth(MyPageShared, null) } />
             <Route exact path="/mypage/create" component={Auth(MyPageCreate, null) } />
           </Switch>

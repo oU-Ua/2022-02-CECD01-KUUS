@@ -17,24 +17,24 @@ function MyPage(props) {
 
     // const dispatch = useDispatch();
 
-    const [users, setUsers] = useState([]);
+    const [schedules, setSchedules] = useState([]);
 
-    async function getUsers() {
+    async function getSchedules() {
         console.log('func 진입')
-        axios.get('http://localhost:5000/api/mypage')
+        axios.get('http://localhost:5000/api/mypage/:id')
             .then((response) => {
-                setUsers(response.data)
-                console.log('users:' + JSON.stringify(users));
+                setSchedules(response.data)
+                console.log('schedules:' + JSON.stringify(schedules));
             }).catch(function (error) {
                 console.error(error)
             })
     }
 
     useEffect(function () {
-        getUsers()
+        getSchedules()
     }, [])
 
-    console.log(users)
+    console.log(schedules)
 
     return (
         <div>
@@ -42,7 +42,7 @@ function MyPage(props) {
                 <Container>
                     <Row className="justify-content-center" >
                         <Col md="7" className="text-center">
-                            <h4 className="title">마이페이지</h4>
+                            <h4 className="title">비행 일정 상세</h4>
                         </Col>
                     </Row>
                 </Container>
@@ -53,8 +53,8 @@ function MyPage(props) {
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
                                 <h2 className="title font-bold">
-                                    {users.name}님 환영합니다.</h2>
-                                <h6 className="subtitle">{users.email}</h6>
+                                    🛫{schedules.schedulename}님의 비행 일정🛬</h2>
+                                <h6 className="subtitle">{schedules.email}</h6>
                             </Col>
                         </Row>
                     </Container>

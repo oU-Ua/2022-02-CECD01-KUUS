@@ -35,7 +35,7 @@ const { read } = require('fs');
 router.get('/', async (req, res, next) => {
 
     // let userInfo = req.user
-    const userInfo = await User.findOne({ email: "1234@naver.com" })
+    const userInfo = await User.findOne({ email: "test1@gamil.com" })
     
     try {
         console.log('userInfo: '+userInfo)
@@ -67,7 +67,7 @@ router.get('/schedule', auth, (req, res) => {
 // Schedule의 id 값으로 받아오는 함수, id는 몽고db _id값
 // response로 해당 db에서 id의 schedule 넘겨줌
 // 또 api를 통해 가져온 실시간 비행기 위치 이미지(base64 인코딩)를 넘겨줌
-router.get('/schedule/:id', auth, (req, res) => {
+router.get('/:id', auth, (req, res) => {
     console.log(req.params.id)
     Schedule.findById(req.params.id, (err, schedule) => {
         if (err) return res.status(400).json({ message: err.message })
