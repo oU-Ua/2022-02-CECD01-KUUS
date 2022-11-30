@@ -31,7 +31,7 @@ function MyPage({ match }) {
                         setUsers(response.data)
                         console.log('front MyPage.js입니다 response.data:');
                         console.log(JSON.stringify(response.data))
-                        // setScheName(JSON.stringify(response.data["myschedules"][0].ScheduleName))
+                        setScheName(JSON.stringify(response.data["myschedules"][0].ScheduleName))
                         // setScheAuthor(JSON.stringify(response.data["myschedules"][0].author))
                     }).catch(function (error) {
                         console.error(error)
@@ -85,7 +85,7 @@ function MyPage({ match }) {
                             <h3 className="title font-bold text-center">나의 일정</h3>
                             <Card body className="card-shadow">
                                 <CardTitle>일정 1</CardTitle>
-                                {/* <CardText>{scheName}</CardText> */}
+                                <CardText>{scheName}</CardText>
                                 <Button>자세히 보기</Button>
                             </Card>
                         </Col>

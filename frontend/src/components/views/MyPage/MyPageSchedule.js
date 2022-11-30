@@ -3,6 +3,8 @@ import axios from 'axios';
 import { withRouter, useRouteMatch } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { auth } from '../../../_actions/user_action';
 
 
 // 데이터 호출 클릭 이벤트 등등
@@ -11,12 +13,31 @@ import { useState } from 'react';
 function MyPage(props) {
 
     const match = useRouteMatch();
-
+    const dispatch = useDispatch()
 
     const [schedules, setSchedules] = useState([]);
 
     async function getSchedules() {
         console.log('func 진입')
+
+        // dispatch(auth())
+        //     .then(response =>
+        //         axios.get('http://localhost:5000/api/mypage/:id', {
+        //             withCredentials: true
+        //         })
+        //             .then((response) => {
+        //                 console.log('front MyPage-스케줄입니다 response: ')
+        //                 console.log(response)
+        //                 setSchedules(response.data)
+        //                 console.log('front MyPage-스케줄입니다 response.data:');
+        //                 console.log(JSON.stringify(response.data))
+        //                 // setScheName(JSON.stringify(response.data["myschedules"][0].ScheduleName))
+        //                 // setScheAuthor(JSON.stringify(response.data["myschedules"][0].author))
+        //             }).catch(function (error) {
+        //                 console.error(error)
+        //             })
+        //     )
+
         axios.get('http://localhost:5000/api/mypage/:id')
             .then((response) => {
                 setSchedules(response.data)
@@ -26,11 +47,17 @@ function MyPage(props) {
             })
     }
 
+
+    
+
+
+
     useEffect(function () {
         getSchedules()
     }, [])
 
-    console.log(schedules)
+    console.log('프론트 마이페이지 스케줄! schedules.data')
+    console.log(schedules.data)
 
     return (
         <div>
@@ -48,9 +75,9 @@ function MyPage(props) {
                     <Container>
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
-                                <h2 className="title font-bold">
-                                    🛫{schedules.author}님의 비행 일정🛬</h2>
-                                <h6 className="subtitle">{schedules.email}</h6>
+                                {/* <h2 className="title font-bold">
+                                    🛫{schedules.author}님의 {schedules.ScheduleName} 일정🛬</h2>
+                                <h6 className="subtitle">{schedules.email}</h6> */}
                             </Col>
                         </Row>
                     </Container>

@@ -31,7 +31,6 @@ const { read } = require('fs');
 // 추후 User Schema에 user에 딸린 비행 일정, 그 외 프로필 추가 필요
 // 로그인 하지 않으면 접근 불가능 -> message: "로그인 해주세요!"
 
-// 잠시 auth 지우고 통짜 데이터로 프론트 하겠슴다 ㅠㅅㅜ 로그인 해결하고 돌릴게요
 router.get('/', auth, (req, res, next) => {
 
     let userInfo = req.user
@@ -69,7 +68,7 @@ router.get('/schedule', auth, (req, res) => {
 // Schedule의 id 값으로 받아오는 함수, id는 몽고db _id값
 // response로 해당 db에서 id의 schedule 넘겨줌
 // 또 api를 통해 가져온 실시간 비행기 위치 이미지(base64 인코딩)를 넘겨줌
-router.get('/:id', (req, res) => {
+router.get('/:id', auth, (req, res) => {
     console.log(req.params.id)
     Schedule.findById(req.params.id, (err, schedule) => {
         if (err) return res.status(400).json({ message: err.message })
