@@ -32,11 +32,13 @@ const { read } = require('fs');
 // 로그인 하지 않으면 접근 불가능 -> message: "로그인 해주세요!"
 
 // 잠시 auth 지우고 통짜 데이터로 프론트 하겠슴다 ㅠㅅㅜ 로그인 해결하고 돌릴게요
-router.get('/', async (req, res, next) => {
+router.get('/', auth, (req, res, next) => {
 
-    // let userInfo = req.user
-    const userInfo = await User.findOne({ email: "sss@gmail.com" })
-    
+    let userInfo = req.user
+    // const userInfo = await User.findOne({ email: "sss@gmail.com" })
+    console.log(userInfo)
+
+
     try {
         console.log('userInfo: '+userInfo)
 

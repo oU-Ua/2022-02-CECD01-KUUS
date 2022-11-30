@@ -3,30 +3,41 @@ import axios from 'axios';
 import { withRouter, Switch, Route } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { auth } from '../../../_actions/user_action';
 
 // 무한반복 해결하기 
 // https://sir.kr/qa/422561
 
 function MyPage({ match }) {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const [users, setUsers] = useState([]);
     const [scheName, setScheName] = useState([])
     // const [scheAuthor, setScheAuthor] = useState([])
-    
+
 
     async function getUsers() {
         console.log('func 진입')
-        axios.get('http://localhost:5000/api/mypage')
-            .then((response) => {
-                setUsers(response.data)
-                // console.log('response.data:' + JSON.stringify(response.data));
-                setScheName(JSON.stringify(response.data["myschedules"][0].ScheduleName))
-                // setScheAuthor(JSON.stringify(response.data["myschedules"][0].author))
-            }).catch(function (error) {
-                console.error(error)
-            })
+        dispatch(auth())
+            .then(response =>
+                axios.get('http://localhost:5000/api/mypage', {
+                    withCredentials: true
+                })
+                    .then((response) => {
+                        console.log('front MyPage.js입니다 response: ')
+                        console.log(response)
+                        setUsers(response.data)
+                        console.log('front MyPage.js입니다 response.data:');
+                        console.log(JSON.stringify(response.data))
+                        // setScheName(JSON.stringify(response.data["myschedules"][0].ScheduleName))
+                        // setScheAuthor(JSON.stringify(response.data["myschedules"][0].author))
+                    }).catch(function (error) {
+                        console.error(error)
+                    })
+            )
+
     }
 
     useEffect(function () {
@@ -40,7 +51,7 @@ function MyPage({ match }) {
     // console.log('usersKey')
     // console.log(usersKey)
 
-    console.log('scheName: '+ scheName)
+    console.log('scheName: ' + scheName)
 
 
 
@@ -74,7 +85,7 @@ function MyPage({ match }) {
                             <h3 className="title font-bold text-center">나의 일정</h3>
                             <Card body className="card-shadow">
                                 <CardTitle>일정 1</CardTitle>
-                                <CardText>{scheName}</CardText>
+                                {/* <CardText>{scheName}</CardText> */}
                                 <Button>자세히 보기</Button>
                             </Card>
                         </Col>
