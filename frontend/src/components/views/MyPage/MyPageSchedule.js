@@ -1,21 +1,17 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import HeaderBanner from '../banner/banner';
-import Images from '../sections/images';
+import { withRouter, useRouteMatch } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
-import { auth } from '../../../_actions/user_action';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 
-
-// 무한반복 해결하기 
-// https://sir.kr/qa/422561
+// 데이터 호출 클릭 이벤트 등등
+// https://goddino.tistory.com/154
 
 function MyPage(props) {
 
-    // const dispatch = useDispatch();
+    const match = useRouteMatch();
+
 
     const [schedules, setSchedules] = useState([]);
 
@@ -53,7 +49,7 @@ function MyPage(props) {
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
                                 <h2 className="title font-bold">
-                                    🛫{schedules.schedulename}님의 비행 일정🛬</h2>
+                                    🛫{schedules.author}님의 비행 일정🛬</h2>
                                 <h6 className="subtitle">{schedules.email}</h6>
                             </Col>
                         </Row>
