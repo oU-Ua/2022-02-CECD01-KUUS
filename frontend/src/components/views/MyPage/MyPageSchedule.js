@@ -5,18 +5,27 @@ import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstr
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../../_actions/user_action';
+import {
+    Modal, ModalHeader, ModalBody, ModalFooter, Carousel,
+    CarouselItem,
+    CarouselControl,
+    CarouselIndicators,
+    CarouselCaption,
+} from 'reactstrap';
 
 
 // 데이터 호출 클릭 이벤트 등등
 // https://goddino.tistory.com/154
 
-function MyPage() {
+function MyPage(props) {
 
     const match = useRouteMatch();
     const dispatch = useDispatch()
 
+    // *********************************************
+
     const [schedule, setSchedule] = useState([])
-    
+
     const [scheName, setScheName] = useState([])
 
     const [airport, setAirport] = useState([])
@@ -25,6 +34,15 @@ function MyPage() {
 
     const [flight_schedule, setFlight_schedule] = useState([])
 
+    // *********************************************
+
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => {
+        setModal(!modal);
+    }
+
+    // *********************************************
 
 
     const onScheNameHandler = (event) => {
@@ -37,8 +55,6 @@ function MyPage() {
             withCredentials: true
         })
             .then((response) => {
-                setSchedule(response.data)
-                setScheName(response.data.schedule.ScheduleName)
                 setAirport(response.data.schedule["airports"])
                 setFlight_info(response.data.schedule["flight_info"])
                 setFlight_schedule(response.data.schedule["flight_schedule"])
@@ -64,7 +80,6 @@ function MyPage() {
 
     console.log('**공항', airport, '**flight_info', flight_info, '**flight_schedule', flight_schedule)
 
-    console.log(schedule, scheName)
 
     return (
         <div>
@@ -84,7 +99,7 @@ function MyPage() {
                             <Col md="7" className="text-center">
                                 <h1 type="text" value={scheName} onChange={onScheNameHandler}>
                                     <br></br>
-                                    🛫 {scheName} 상세 보기 🛬
+                                    🛫 {scheName} 🛬
                                 </h1>
                             </Col>
                         </Row>
@@ -113,9 +128,32 @@ function MyPage() {
                                 <h2 className="title">상세상세상세상세</h2>
                                 <h2 className="title">상세상세상세상세</h2>
                                 <h2 className="title">상세상세상세상세</h2>
+                                <br></br><br></br>
                             </Col>
                         </Row>
                     </Container>
+                </div>
+                <div>
+                    <Container>
+                        {/* <Row className="justify-content-center" >
+                            <Col md="7" className="text-center">
+                                <Button color="success font-size-30"> 공유하기 </Button>{' '}
+                            </Col>
+                        </Row> */}
+                        <Button type="button" onClick={toggle.bind(null)} className="btn btn-block waves-effect waves-light btn-outline-primary"> 공유하기 </Button>
+                        <Modal size="md" isOpen={modal} toggle={toggle.bind(null)} className={props.className}>
+                            <ModalHeader toggle={toggle.bind(null)}>공유하기</ModalHeader>
+                            <ModalBody>
+                                여기 폼 넣어서 번호 입력받아서 /mypage/share로 보냄 <br></br>
+                                이거 안되면.. 그냥 페이지 하나 만들어서 보내기
+                            </ModalBody>
+                            <ModalFooter className="justify-content-center">
+                                <Button color="primary" onClick={toggle.bind(null)}>Cancel</Button>
+                            </ModalFooter>
+                        </Modal>
+                    </Container>
+                    
+                    
                 </div>
             </div>
         </div>
