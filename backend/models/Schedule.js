@@ -2,8 +2,7 @@
 
 const { DateTime } = require('luxon');
 const mongoose = require('mongoose')
-const { User } = require('./User');
-
+const { getFlight } = require('../middleware/flightaware')
 var scheSchema = mongoose.Schema({
     ScheduleName: {
         type: String,
@@ -88,7 +87,43 @@ var scheSchema = mongoose.Schema({
 
 })
 
+scheSchema.methods.updateSchedule = function (flight_iata, scheduled_out, callback) {
+    var schedule = this
+    getFlight(flight_iata, scheduled_out, (err, result) => {
+        var fa_result = JSON.parse(result.body).flights
+        if (fa_result === undefined) {
+            console.log("undefined")
+            return;
+        }
+        else {
+            for (let i = 0; i < fa_result.length; i++) {
+                if (fa_result[i].scheduled_out === scheduled_out) {
+                    fa_result = fa_result[i]
+                    break;
+                }
+            }
+        }
+        var flight_schedule = {
+            scheduled_out: fa_result.scheduled_out,
+            estimated_out: fa_result.estimated_out,
+            actual_out: fa_result.actual_out,
+            scheduled_in: fa_result.scheduled_in,
+            estimated_in: fa_result.estimated_in,
+            actual_in: fa_result.actual_in,
+            delay: {
+                departure_delay: fa_result.departure_delay,
+                arrival_delay: fa_result.arrival_delay
+            }
+        }
+        Schedule.findByIdAndUpdate({_id: schedule._id.toString()}, { flight_schedule: flight_schedule }, {new: true}, (err, doc)=>{
+            callback(null, doc)
+        })
+        
+    })
+}
+
 
 const Schedule = mongoose.model('Schedule', scheSchema)
 //다른 파일에서도 모듈을 쓸 수 있게
 module.exports = { Schedule }
+

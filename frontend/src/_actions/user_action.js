@@ -6,7 +6,7 @@ import {
 } from './types';
 export function loginUser(dataToSubmit) {
 
-    const request = axios.post('/api/users/login', dataToSubmit)
+    const request = axios.post('http://localhost:5000/api/users/login', dataToSubmit, { withCredentials: true })
         .then(response => response.data)
 
     return {
@@ -17,7 +17,7 @@ export function loginUser(dataToSubmit) {
 
 export function registerUser(dataToSubmit) {
 
-    const request = axios.post('/api/users/register', dataToSubmit)
+    const request = axios.post('http://localhost:5000/api/users/register', dataToSubmit)
         .then(response => response.data)
 
     return {
@@ -27,10 +27,9 @@ export function registerUser(dataToSubmit) {
 }
 
 
-
 export function auth() {
 
-    const request = axios.get('/api/users/auth')
+    const request = axios.get('http://localhost:5000/api/users/auth', { withCredentials: true })
         .then(response => response.data)
 
     return {

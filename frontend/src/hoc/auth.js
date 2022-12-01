@@ -12,7 +12,8 @@ export default function (SpecificComponent, option, adminRoute = null) {
 
         useEffect(() => {
             dispatch(auth()).then(response => {
-                console.log(response)
+                console.log('front의 auth입니다! response.payload: ')
+                console.log(response.payload)
                 //로그인 하지 않은 상태 
                 if (!response.payload.isAuth) {
                     if (option) {

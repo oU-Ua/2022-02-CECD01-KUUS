@@ -74,7 +74,8 @@ router.get('/auth', auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id,
     email: req.user.email,
-    name: req.user.email
+    isAuth: true,
+    name: req.user.name
   })
 })
 

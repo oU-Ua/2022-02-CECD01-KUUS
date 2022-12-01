@@ -13,7 +13,7 @@ const session = require('express-session')
 
 ////cors 크로스오리진 접근 다 허용
 var cors = require('cors');
-app.use(cors());
+app.use(cors({credentials: true, origin:"http://localhost:3000"}));
 
 
 
