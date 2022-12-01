@@ -80,37 +80,47 @@ function MyPage() {
                 </Container>
             </div>
             <div className="bottom-spacer">
-                <div className="spacer" id="card-component">
+                <div className="spacer form-control-dark" id="card-component">
                     <Container>
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
-                                <h2 type = "text" value={scheName} onChange={onScheduleHandler}>
-                                    🛫{scheAuthor}님의 {scheName} 일정🛬</h2>
-                                <h6 className="subtitle">{schedules.email}</h6>
+                                <h2 type="text" value={scheName} onChange={onScheduleHandler}>
+                                    {scheAuthor}의</h2>
+                                <h1>
+                                    <br></br>
+                                    🛫 {scheName} 상세 보기 🛬
+                                </h1>
                             </Col>
                         </Row>
                     </Container>
                 </div>
-                <Container>
-                    <Row>
-                        <Col md="6">
-                            <h3 className="title font-bold text-center">나의 일정</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle>일정1</CardTitle>
-                                <CardText>뉴욕출장</CardText>
-                                <Button>자세히 보기</Button>
-                            </Card>
-                        </Col>
-                        <Col md="6">
-                            <h3 className="title font-bold text-center">나의 일정</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle>일정2</CardTitle>
-                                <CardText>파리 출장</CardText>
-                                <Button>자세히 보기</Button>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
+
+                <div>
+                    <Container>
+                        <Row className="justify-content-center" >
+                            <Col md="7" className="text-center">
+                                <h1 className="title">
+                                    <br></br>
+                                    아아아아아아아아아아</h1>
+                                <h1>아아아아아아아아아아</h1>
+                                <h1>아아아아아아아아아아</h1>
+                                <h1>아아아아아아아아아아</h1>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+                <div>
+                    <Container>
+                        <Row className="justify-content-center" >
+                            <Col md="7" className="text-center">
+                                <h2 className="title">상세상세상세상세</h2>
+                                <h2 className="title">상세상세상세상세</h2>
+                                <h2 className="title">상세상세상세상세</h2>
+                                <h2 className="title">상세상세상세상세</h2>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
             </div>
         </div>
 
