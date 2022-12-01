@@ -1,43 +1,23 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import HeaderBanner from '../banner/banner';
-import Images from '../sections/images';
+import { withRouter, BrowserRouter } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
-import { auth } from '../../../_actions/user_action';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { auth } from '../../../_actions/user_action';
+import { scheduleJob } from 'node-schedule';
+import MyPageSchedule from './MyPageSchedule';
+
+// 무한반복 해결하기 
+// https://sir.kr/qa/422561
+
+function MyPage() {
 
 
-function MyPage(props) {
+    function mypageClick(e) {
+        window.location.href = 'http://localhost:3000/mypage'
+    }
 
-    // const dispatch = useDispatch();
-
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-
-        
-
-        var config = {
-            method: 'get',
-            url: 'http://localhost:5000/api/mypage',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-
-        try {
-            axios(config)
-                .then(response => setUsers(response))
-            console.log('users:' + JSON.stringify(users));
-        } catch (error) {
-            console.log(error);
-        };
-
-
-    }, [])
 
     return (
         <div>
@@ -45,31 +25,27 @@ function MyPage(props) {
                 <Container>
                     <Row className="justify-content-center" >
                         <Col md="7" className="text-center">
-                            <h4 className="title">공유받은 일정</h4>
+                            <h4 className="title"></h4>
                         </Col>
                     </Row>
                 </Container>
             </div>
-            <div className="spacer">
+            <div className="bottom-spacer">
+                <div className="spacer" id="card-component">
+                    <Container>
+                        <Row className="justify-content-center">
+                            <Col md="7" className="text-center">
+                                <h2 className="title font-bold">
+                                    공유 완료 </h2>
+                                <h6 className="subtitle">문자를 확인하세요!</h6>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
                 <Container>
-                    <Row>
-                        <Col md="6">
-                            <h3 className="title font-bold text-center">일정1</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle>일정 타이틀</CardTitle>
-                                <CardText>내용</CardText>
-                                <Button>자세히 보기</Button>
-                            </Card>
-                        </Col>
-                        <Col md="6">
-                            <h3 className="title font-bold text-center">일정2</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle>일정 타이틀</CardTitle>
-                                <CardText>내용</CardText>
-                                <Button>자세히 보기</Button>
-                            </Card>
-                        </Col>
-                    </Row>
+                    <Col className="text-center">
+                    <Button outline color="warning" onClick={mypageClick}>마이페이지로 돌아가기</Button>
+                    </Col>
                 </Container>
             </div>
         </div>

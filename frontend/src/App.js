@@ -40,7 +40,7 @@ function App() {
             {/* mypage다 만들고 접근을 true로 바꾸기 */}
             <Route exact path="/mypage" component={Auth(MyPage, null) } />
             <Route exact path="/mypage/schedules/:id" component={Auth(MyPageSchedule, null) } />
-            <Route exact path="/mypage/shared" component={Auth(MyPageShared, null) } />
+            <Route exact path="/mypage/schedule/share" component={Auth(MyPageShared, null) } />
             <Route exact path="/mypage/create" component={Auth(MyPageCreate, null) } />
           </Switch>
         </div>
