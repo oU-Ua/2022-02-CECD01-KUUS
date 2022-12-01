@@ -10,54 +10,67 @@ import { auth } from '../../../_actions/user_action';
 // 데이터 호출 클릭 이벤트 등등
 // https://goddino.tistory.com/154
 
-function MyPage(props) {
+function MyPage() {
 
     const match = useRouteMatch();
     const dispatch = useDispatch()
 
     const [schedules, setSchedules] = useState([]);
+    const [scheName, setScheName] = useState([])
+    const [scheAuthor, setScheAuthor] = useState([])
 
-    async function getSchedules() {
-        console.log('func 진입')
-
-        // dispatch(auth())
-        //     .then(response =>
-        //         axios.get('http://localhost:5000/api/mypage/:id', {
-        //             withCredentials: true
-        //         })
-        //             .then((response) => {
-        //                 console.log('front MyPage-스케줄입니다 response: ')
-        //                 console.log(response)
-        //                 setSchedules(response.data)
-        //                 console.log('front MyPage-스케줄입니다 response.data:');
-        //                 console.log(JSON.stringify(response.data))
-        //                 // setScheName(JSON.stringify(response.data["myschedules"][0].ScheduleName))
-        //                 // setScheAuthor(JSON.stringify(response.data["myschedules"][0].author))
-        //             }).catch(function (error) {
-        //                 console.error(error)
-        //             })
-        //     )
-
-        axios.get('http://localhost:5000/api/mypage/:id')
-            .then((response) => {
-                setSchedules(response.data)
-                console.log('schedules:' + JSON.stringify(schedules));
-            }).catch(function (error) {
-                console.error(error)
-            })
+    const onNameHandler = (event) => {
+        //밸류 수정하기
+        setSchedules(event.currentTarget.value)
+    }
+    const ontAuthorHandler = (event) => {
+        //밸류 수정하기
+        setScheAuthor(event.currentTarget.value)
     }
 
+    function getSchedules() {
+        console.log('func 진입')
 
-    
+        dispatch(auth())
+            .then(response =>
+                axios.get('http://localhost:5000/api/mypage/638783419048fabb21ae6ff7', {
+                    withCredentials: true
+                })
+                    .then((response) => {
+                        console.log('front MyPage-스케줄입니다 response: ')
+                        console.log(response)
+                        setSchedules(response.data)
+                        // console.log('front MyPage-스케줄입니다 response.data:');
+                        // console.log(JSON.stringify(response.data))
+                        setScheName(JSON.stringify(response.data["schedule"].ScheduleName))
+                        setScheAuthor(JSON.stringify(response.data["schedule"].author))
+                    }).catch(function (error) {
+                        console.error(error)
+                    })
+            )
 
-
+        // axios.get('http://localhost:5000/api/mypage/638783419048fabb21ae6ff7')
+        //     .then((response) => {
+        //         setSchedules(response.data)
+        //         console.log('schedules:' + JSON.stringify(schedules));
+        //     }).catch(function (error) {
+        //         console.error(error)
+        //     })
+    }
 
     useEffect(function () {
         getSchedules()
     }, [])
 
-    console.log('프론트 마이페이지 스케줄! schedules.data')
-    console.log(schedules.data)
+    console.log('프론트 마이페이지 스케줄! schedules: ')
+    console.log(schedules)
+    // get 안됨 수정 필요
+
+    console.log('프론트 마이페이지 스케줄! scheName: ')
+    console.log(scheName)
+
+    console.log('프론트 마이페이지 스케줄! scheAuthor: ')
+    console.log(scheAuthor)
 
     return (
         <div>
@@ -75,9 +88,9 @@ function MyPage(props) {
                     <Container>
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
-                                {/* <h2 className="title font-bold">
-                                    🛫{schedules.author}님의 {schedules.ScheduleName} 일정🛬</h2>
-                                <h6 className="subtitle">{schedules.email}</h6> */}
+                                <h2 type = "text" value={scheName} onChange={onNameHandler}>
+                                    🛫{scheAuthor}님의 {scheName} 일정🛬</h2>
+                                <h6 className="subtitle">{schedules.email}</h6>
                             </Col>
                         </Row>
                     </Container>

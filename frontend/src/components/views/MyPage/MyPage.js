@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
-import { withRouter, Switch, Route } from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';

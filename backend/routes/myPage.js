@@ -69,7 +69,7 @@ router.get('/schedule', auth, (req, res) => {
 // response로 해당 db에서 id의 schedule 넘겨줌
 // 또 api를 통해 가져온 실시간 비행기 위치 이미지(base64 인코딩)를 넘겨줌
 router.get('/:id', auth, (req, res) => {
-    console.log(req.params.id)
+    console.log('Back myPage.js입니다! Schedule id: ' + req.params.id)
     Schedule.findById(req.params.id, (err, schedule) => {
         if (err) return res.status(400).json({ message: err.message })
         getMap(schedule.flight_info.fa_flight_id, (err, result) => {
