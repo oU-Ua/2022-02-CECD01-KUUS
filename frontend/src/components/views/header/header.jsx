@@ -2,10 +2,11 @@
 import React, { useState,useEffect } from 'react';
 // import { HashLink as Link } from 'react-router-hash-link';
 import { useDispatch } from 'react-redux';
-import { Container, NavbarBrand, Navbar, Nav, NavItem, NavbarToggler, Collapse } from 'reactstrap';
+import { Container, NavbarBrand, Navbar, Nav, NavItem, NavbarToggler, Collapse, Button } from 'reactstrap';
 import {Link} from 'react-router-dom'
 import logo from '../../../assets/images/logos/kuus-white-text.png';
 import { auth } from '../../../_actions/user_action';
+import axios from 'axios';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,20 @@ const Header = () => {
     /*--------------------------------------------------------------------------------*/
     const onClickHandler = () => {
         history.push("/mypage")
+    }
+
+    const logoutHandler = (e) => {
+        e.preventDefault();
+        
+        const url = "http://localhost:5000/api/users/logout";
+        axios.get(url)
+        .then(function(response) {
+            console.log("성공");
+            alert('로그아웃되었습니다.');
+        })
+        .catch(function(error) {
+            alert('로그아웃에 실패했습니다.');
+        }) 
     }
 
     // function AuthenticationCheck(props) {
@@ -69,6 +84,7 @@ const Header = () => {
                             </Nav>
                             <div className="act-buttons">
                                 <Link to="/login" className="btn btn-success-gradiant font-14">로그인/회원가입</Link>
+                                <Button className="btn btn-success-gradiant font-14" onClick={logoutHandler}>로그아웃</Button>
                             </div>
                         </Collapse>
                     </Navbar>
