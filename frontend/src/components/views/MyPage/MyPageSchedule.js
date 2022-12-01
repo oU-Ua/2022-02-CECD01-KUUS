@@ -29,7 +29,7 @@ function MyPage() {
 
         dispatch(auth())
             .then(response =>
-                axios.get('http://localhost:5000/api/mypage/638783419048fabb21ae6ff7', {
+                axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
                     withCredentials: true
                 })
                     .then((response) => {

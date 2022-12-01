@@ -39,7 +39,7 @@ function App() {
             <Route exact path="/flightsearch" component={Auth(FlightSearchPage, null )  } />
             {/* mypage다 만들고 접근을 true로 바꾸기 */}
             <Route exact path="/mypage" component={Auth(MyPage, null) } />
-            <Route exact path="/mypage/:id" component={Auth(MyPageSchedule, null) } />
+            <Route exact path="/mypage/schedules/:id" component={Auth(MyPageSchedule, null) } />
             <Route exact path="/mypage/shared" component={Auth(MyPageShared, null) } />
             <Route exact path="/mypage/create" component={Auth(MyPageCreate, null) } />
           </Switch>
