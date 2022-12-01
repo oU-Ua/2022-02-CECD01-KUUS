@@ -26,13 +26,14 @@ function MyPage({ match }) {
                     withCredentials: true
                 })
                     .then((response) => {
-                        console.log('front MyPage.js입니다 response: ')
-                        console.log(response)
+                        // console.log('front MyPage.js입니다 response: ')
+                        // console.log(response)
                         setUsers(response.data)
-                        console.log('front MyPage.js입니다 response.data:');
-                        console.log(JSON.stringify(response.data))
-                        setScheName(JSON.stringify(response.data["myschedules"][0].ScheduleName))
-                        // setScheAuthor(JSON.stringify(response.data["myschedules"][0].author))
+                        // console.log('front MyPage.js입니다 response.data:');
+                        // console.log(response.data)
+                        const myschedules = response.data["myschedules"]
+                        setScheName(myschedules[0].ScheduleName)
+                        // setScheAuthor(response.data["myschedules"][0].author)
                     }).catch(function (error) {
                         console.error(error)
                     })
@@ -44,8 +45,8 @@ function MyPage({ match }) {
         getUsers()
     }, [])
 
-    console.log('users 아래에 띄움')
-    console.log(users)
+    // console.log('users 아래에 띄움')
+    // console.log(users)
 
     // const usersKey = Object.keys(users)
     // console.log('usersKey')
@@ -85,7 +86,7 @@ function MyPage({ match }) {
                             <h3 className="title font-bold text-center">나의 일정</h3>
                             <Card body className="card-shadow">
                                 <CardTitle>일정 1</CardTitle>
-                                <CardText>{scheName}</CardText>
+                                <CardText className='font-bold display-7'>{scheName}</CardText>
                                 <Button>자세히 보기</Button>
                             </Card>
                         </Col>
@@ -93,7 +94,7 @@ function MyPage({ match }) {
                             <h3 className="title font-bold text-center">공유받은 일정</h3>
                             <Card body className="card-shadow">
                                 <CardTitle>일정2</CardTitle>
-                                <CardText>파리 출장</CardText>
+                                <CardText className='font-bold display-7'>{scheName}</CardText>
                                 <Button>자세히 보기</Button>
                             </Card>
                         </Col>

@@ -15,58 +15,56 @@ function MyPage() {
     const match = useRouteMatch();
     const dispatch = useDispatch()
 
-    const [schedules, setSchedules] = useState([]);
+    const [schedule, setSchedule] = useState([])
+    
     const [scheName, setScheName] = useState([])
-    const [scheAuthor, setScheAuthor] = useState([])
 
-    const onScheduleHandler = (event) => {
-        setSchedules(event.currentTarget.value)
+    const [airport, setAirport] = useState([])
+
+    const [flight_info, setFlight_info] = useState([])
+
+    const [flight_schedule, setFlight_schedule] = useState([])
+
+
+
+    const onScheNameHandler = (event) => {
+        setScheName(event.currentTarget.value)
     }
-
 
     function getSchedules() {
         console.log('func 진입')
+        axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
+            withCredentials: true
+        })
+            .then((response) => {
+                setSchedule(response.data)
+                setScheName(response.data.schedule.ScheduleName)
+                setAirport(response.data.schedule["airports"])
+                setFlight_info(response.data.schedule["flight_info"])
+                setFlight_schedule(response.data.schedule["flight_schedule"])
 
-        dispatch(auth())
-            .then(response =>
-                axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
-                    withCredentials: true
-                })
-                    .then((response) => {
-                        console.log('front MyPage-스케줄입니다 response: ')
-                        console.log(response)
-                        setSchedules(response.data)
-                        // console.log('front MyPage-스케줄입니다 response.data:');
-                        // console.log(JSON.stringify(response.data))
-                        setScheName(JSON.stringify(response.data["schedule"].ScheduleName))
-                        setScheAuthor(JSON.stringify(response.data["schedule"].author))
-                    }).catch(function (error) {
-                        console.error(error)
-                    })
-            )
-
-        // axios.get('http://localhost:5000/api/mypage/638783419048fabb21ae6ff7')
-        //     .then((response) => {
-        //         setSchedules(response.data)
-        //         console.log('schedules:' + JSON.stringify(schedules));
-        //     }).catch(function (error) {
-        //         console.error(error)
-        //     })
+            }).catch(function (error) {
+                console.error(error)
+            })
     }
+    // axios.get('http://localhost:5000/api/mypage/638783419048fabb21ae6ff7')
+    //     .then((response) => {
+    //         setSchedules(response.data)
+    //         console.log('schedules:' + JSON.stringify(schedules));
+    //     }).catch(function (error) {
+    //         console.error(error)
+    //     })
+
 
     useEffect(function () {
         getSchedules()
     }, [])
 
-    console.log('프론트 마이페이지 스케줄! schedules: ')
-    console.log(schedules)
-    // get 안됨 수정 필요
 
-    console.log('프론트 마이페이지 스케줄! scheName: ')
-    console.log(scheName)
 
-    console.log('프론트 마이페이지 스케줄! scheAuthor: ')
-    console.log(scheAuthor)
+    console.log('**공항', airport, '**flight_info', flight_info, '**flight_schedule', flight_schedule)
+
+    console.log(schedule, scheName)
 
     return (
         <div>
@@ -84,9 +82,7 @@ function MyPage() {
                     <Container>
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
-                                <h2 type="text" value={scheName} onChange={onScheduleHandler}>
-                                    {scheAuthor}의</h2>
-                                <h1>
+                                <h1 type="text" value={scheName} onChange={onScheNameHandler}>
                                     <br></br>
                                     🛫 {scheName} 상세 보기 🛬
                                 </h1>
