@@ -1,4 +1,6 @@
 import React from 'react';
+import { Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+
 
 const PageForm = () => {
     return (

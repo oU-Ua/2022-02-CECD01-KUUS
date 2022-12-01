@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
 import { withRouter, useRouteMatch } from 'react-router-dom';
-import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../../_actions/user_action';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Buttons from '../sections/buttons';
+import Buttons from '../sections/typography';
 
 
 
@@ -84,17 +84,17 @@ function MyPage(props) {
                 <Container>
                     <Row className="justify-content-center" >
                         <Col md="7" className="text-center">
-                            <h4 className="title">비행 일정 상세</h4>
+                            <h4 className="title">상세 비행 일정</h4>
                         </Col>
                     </Row>
                 </Container>
             </div>
             <div className="bottom-spacer">
-                <div className="spacer form-control-dark" id="card-component">
+                <div className="spacer" id="card-component">
                     <Container>
                         <Row className="justify-content-center">
-                            <Col md="7" className="text-center">
-                                <h1 type="text" value={scheName} onChange={onScheNameHandler}>
+                            <Col md="5" className='text-center'>
+                                <h1 type="text" className="title" value={scheName} onChange={onScheNameHandler}>
                                     <br></br>
                                     🛫 {scheName} 🛬
                                 </h1>
@@ -103,61 +103,51 @@ function MyPage(props) {
                     </Container>
                     <br></br>
                 </div>
-                <div>
+                <div className= "form-control-dark">
                     <br></br>
                     <Container>
                         <Row className="justify-content-center" >
-                            <Col md="7" className="text-center">
+                            <Col md="4" className="text-center">
                                 <h1 className="title">공항 정보</h1>
                                 <br></br>
                                 <h2>🛫 출발지 🛬</h2>
+                                <br></br>
                                 <h4>{airport.departure}</h4>
                                 <br></br>
                                 <h2>🛫 도착지 🛬</h2>
+                                <br></br>
                                 <h4>{airport.arrival}</h4>
                                 <br></br>
-                                <h1>아아아아아아아아아아</h1>
-                                <h1>아아아아아아아아아아</h1>
                             </Col>
-                        </Row>
-                    </Container>
-                    <br></br>
-                </div>
-                <div className="form-control-dark">
-                    <br></br>
-                    <Container>
-                        <Row className="justify-content-center" >
-                            <Col md="7" className="text-center">
+                            <Col md="4" className="text-center">
                                 <h1 className="title">비행 정보</h1>
                                 <br></br>
-                                <h2>🛫 출발지 🛬</h2>
-                                <h4>{airport.departure}</h4>
+                                <h2>🛫 비행 편명 (iata 코드) 🛬</h2>
                                 <br></br>
-                                <h2>🛫 도착지 🛬</h2>
-                                <h4>{airport.arrival}</h4>
+                                <h4>{flight_info.flight_iata}</h4>
                                 <br></br>
-                                <h1>아아아아아아아아아아</h1>
-                                <h1>아아아아아아아아아아</h1>
+                                <h2>🛫 결항여부 🛬</h2>
+                                <br></br>
+                                <h4>{flight_info.cancelled}</h4>
+                                <br></br>
+                                <h2>🛫 출국 게이트 🛬</h2>
+                                <br></br>
+                                <h4>{flight_info.gate_origin}</h4>
+                                <br></br>
+                                <h2>🛫 입국 게이트 🛬</h2>
+                                <br></br>
+                                <h4>{flight_info.destination}</h4>
+                                <br></br>
                             </Col>
-                        </Row>
-                    </Container>
-                    <br></br>
-                </div>
-                <div>
-                    <br></br>
-                    <Container>
-                        <Row className="justify-content-center" >
-                            <Col md="7" className="text-center">
+                            <Col md="4" className="text-center">
                                 <h1 className="title">스케줄 정보</h1>
                                 <br></br>
-                                <h2>🛫 출발지 🛬</h2>
-                                <h4>{airport.departure}</h4>
+                                <h2>🛫 이륙 시각 🛬</h2>
+                                <h4>{flight_schedule.scheduled_in}</h4>
                                 <br></br>
-                                <h2>🛫 도착지 🛬</h2>
-                                <h4>{airport.arrival}</h4>
+                                <h2>🛫 착륙 시각 🛬</h2>
+                                <h4>{flight_schedule.scheduled_out}</h4>
                                 <br></br>
-                                <h1>아아아아아아아아아아</h1>
-                                <h1>아아아아아아아아아아</h1>
                             </Col>
                         </Row>
                     </Container>
