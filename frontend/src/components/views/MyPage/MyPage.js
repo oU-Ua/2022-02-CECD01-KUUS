@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
-import { withRouter} from 'react-router-dom';
+import { withRouter, BrowserRouter } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -17,6 +17,9 @@ function MyPage({ match }) {
     const [scheName, setScheName] = useState([])
     // const [scheAuthor, setScheAuthor] = useState([])
 
+    function detailClick(e) {
+        window.location.href = 'http://localhost:3000/mypage/schedules/638759c936462573ed5c6e23'
+    }
 
     async function getUsers() {
         console.log('func 진입')
@@ -87,7 +90,7 @@ function MyPage({ match }) {
                             <Card body className="card-shadow">
                                 <CardTitle>일정 1</CardTitle>
                                 <CardText className='font-bold display-7'>{scheName}</CardText>
-                                <Button>자세히 보기</Button>
+                                <Button onClick = {detailClick}>자세히 보기</Button>
                             </Card>
                         </Col>
                         <Col md="6">
@@ -95,7 +98,7 @@ function MyPage({ match }) {
                             <Card body className="card-shadow">
                                 <CardTitle>일정2</CardTitle>
                                 <CardText className='font-bold display-7'>{scheName}</CardText>
-                                <Button>자세히 보기</Button>
+                                <Button onClick={detailClick}>자세히 보기</Button>
                             </Card>
                         </Col>
                     </Row>
