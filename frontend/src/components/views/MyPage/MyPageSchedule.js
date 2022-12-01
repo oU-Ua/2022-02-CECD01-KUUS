@@ -37,6 +37,15 @@ function MyPage(props) {
         setModal(!modal);
     }
 
+    // 공유 페이지(/mypage/schedule/share)로 이동
+    // 공유 페이지 따로 안 만들어도 됨
+    // 정보를 공유 페이지로 넘기기만 하면 정보를 req로 받아 함수 자동 실행
+    // 근데 정보만 보내고 페이지는 렌더링 안하면 안되나,, -> 방법 고민해보겠음
+    function confirmClick(e) {
+        window.location.href = 'http://localhost:3000/mypage/schedule/share'
+    }
+
+
     // *********************************************
 
 
@@ -44,7 +53,7 @@ function MyPage(props) {
         setScheName(event.currentTarget.value)
     }
 
-    function getSchedules() {
+    const getSchedules = () => {
         console.log('func 진입')
         axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
             withCredentials: true
@@ -59,22 +68,12 @@ function MyPage(props) {
                 console.error(error)
             })
     }
-    // axios.get('http://localhost:5000/api/mypage/638783419048fabb21ae6ff7')
-    //     .then((response) => {
-    //         setSchedules(response.data)
-    //         console.log('schedules:' + JSON.stringify(schedules));
-    //     }).catch(function (error) {
-    //         console.error(error)
-    //     })
-
 
     useEffect(function () {
         getSchedules()
     }, [])
 
-
     console.log(scheName)
-
     console.log('**공항', airport, '**flight_info', flight_info, '**flight_schedule', flight_schedule)
 
 
@@ -164,7 +163,7 @@ function MyPage(props) {
                                 이거 안되면.. 그냥 페이지 하나 만들어서 보내기
                             </ModalBody>
                             <ModalFooter className="justify-content-center">
-                                <Button color="danger" onClick={toggle.bind(null)}> 확인 </Button>
+                                <Button color="danger" onClick={confirmClick} > 확인 </Button>
                                 <Button color="secondary" onClick={toggle.bind(null)}> 취소 </Button>
                             </ModalFooter>
                         </Modal>
