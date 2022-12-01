@@ -8,7 +8,7 @@ import Images from '../sections/images';
 function LandingPage(props) {
 
     const onClickHandler = () => {
-        axios.get(`/api/users/logout`)
+        axios.get(`http://localhost:5000/api/users/logout`)
             .then(response => {
                 if (response.data.success) {
                     props.history.push("/login")
@@ -21,7 +21,6 @@ function LandingPage(props) {
     return (
             
             <div>
-                {/* <Header></Header> */}
                 <HeaderBanner></HeaderBanner>
                 {/* <button onClick={onClickHandler} >
                     로그아웃

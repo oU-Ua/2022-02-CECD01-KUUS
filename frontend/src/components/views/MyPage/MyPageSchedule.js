@@ -19,14 +19,10 @@ function MyPage() {
     const [scheName, setScheName] = useState([])
     const [scheAuthor, setScheAuthor] = useState([])
 
-    const onNameHandler = (event) => {
-        //밸류 수정하기
+    const onScheduleHandler = (event) => {
         setSchedules(event.currentTarget.value)
     }
-    const ontAuthorHandler = (event) => {
-        //밸류 수정하기
-        setScheAuthor(event.currentTarget.value)
-    }
+
 
     function getSchedules() {
         console.log('func 진입')
@@ -88,7 +84,7 @@ function MyPage() {
                     <Container>
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
-                                <h2 type = "text" value={scheName} onChange={onNameHandler}>
+                                <h2 type = "text" value={scheName} onChange={onScheduleHandler}>
                                     🛫{scheAuthor}님의 {scheName} 일정🛬</h2>
                                 <h6 className="subtitle">{schedules.email}</h6>
                             </Col>

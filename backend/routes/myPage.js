@@ -58,6 +58,11 @@ router.get('/', auth, (req, res, next) => {
 // 여기서 id에 속한 여러가지 비행 일정 중에서 선택
 // [비행일정] 버튼을 눌러서 User에게 속한 비행일정 불러오기
 // 화면에는 일정 이름만 보여주기
+
+// **************************
+// ********** 안씀 **********
+// **************************
+// 마이페이지에서 리스트 한번에 보여줌
 router.get('/schedule', auth, (req, res) => {
     User.findOne({ email: req.user.email }, (err, user) => {
         return res.send(user.myschedules)
@@ -68,7 +73,8 @@ router.get('/schedule', auth, (req, res) => {
 // Schedule의 id 값으로 받아오는 함수, id는 몽고db _id값
 // response로 해당 db에서 id의 schedule 넘겨줌
 // 또 api를 통해 가져온 실시간 비행기 위치 이미지(base64 인코딩)를 넘겨줌
-router.get('/:id', auth, (req, res) => {
+
+router.get('/schedules/:id', auth, (req, res) => {
     console.log('Back myPage.js입니다! Schedule id: ' + req.params.id)
     Schedule.findById(req.params.id, (err, schedule) => {
         if (err) return res.status(400).json({ message: err.message })
@@ -78,6 +84,13 @@ router.get('/:id', auth, (req, res) => {
             }
             return res.status(200).send({ schedule: schedule, map: JSON.parse(result.body).map })
         })
+
+        // getMap(schedule.flight_info.fa_flight_id, (err, result) => {
+        //     if (err) {
+        //         return res.status(400).json({ message: err.message })
+        //     }
+        //     return res.status(200).send({ schedule: schedule, map: JSON.parse(result.body).map })
+        // })
     })
 })
 
@@ -98,7 +111,7 @@ router.post('/schedule/share', (req, res) => {
 })
 
 // 내 비행 일정 등록하기
-router.post('/create', async (req, res) => {
+router.post('/create', auth, async (req, res) => {
 
     const curUser = req.user
     // IATA 형식 받아와서 api 호출 -> 코드만 입력하면 일정이 뜨도록
@@ -130,6 +143,10 @@ router.post('/create', async (req, res) => {
 })
 
 // 공유받은 일정 목록
+// **************************
+// ********** 안씀 **********
+// **************************
+// 마이페이지에서 리스트 한번에 보여줌
 router.post('/shared', (req,res)=>{
     User.findOne({ email: req.user.email }, (err, user) => {
         return res.send(user.sharedschedules)
@@ -137,6 +154,11 @@ router.post('/shared', (req,res)=>{
 })
 
 // 복수의 공유받은 일정 목록 중 하나 선택해서 보여줌
+// 공유받은 일정 목록
+// **************************
+// ********** 안씀 **********
+// **************************
+// 마이페이지에서 schedule id 받아서 /schedules/:id로 상세 조회 (비행 상세는 my/shared 구분 없음)
 router.get('/shared/:id', (req, res) => {
     Schedule.findById(req.params.id, (err, schedule) => {
         if (err) return res.status(400).json({ message: err.message })
