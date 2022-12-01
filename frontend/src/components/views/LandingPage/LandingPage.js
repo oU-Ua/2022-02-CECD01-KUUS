@@ -7,24 +7,28 @@ import Images from '../sections/images';
 
 function LandingPage(props) {
 
-    const onClickHandler = () => {
-        axios.get(`http://localhost:5000/api/users/logout`)
-            .then(response => {
-                if (response.data.success) {
-                    props.history.push("/login")
-                } else {
-                    alert('로그아웃 하는데 실패 했습니다.')
-                }
-            })
-    }
+    const onClickHandler = (event) => {
+        event.preventDefault();
+        
+        const url = "http://localhost:5000/api/users/logout";
+        axios.get(url)
+        .then(function(response) {
+            console.log("성공");
+            alert('로그아웃되었습니다.');
+        })
+        .catch(function(error) {
+            alert('로그아웃에 실패했습니다.');
+        })    
+    
+        }
 
     return (
             
             <div>
                 <HeaderBanner></HeaderBanner>
-                {/* <button onClick={onClickHandler} >
+                <button onClick={onClickHandler} >
                     로그아웃
-                </button> */}
+                </button>
                 <Images></Images>
             </div>
     )
