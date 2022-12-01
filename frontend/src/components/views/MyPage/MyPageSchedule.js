@@ -5,13 +5,9 @@ import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstr
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../../_actions/user_action';
-import {
-    Modal, ModalHeader, ModalBody, ModalFooter, Carousel,
-    CarouselItem,
-    CarouselControl,
-    CarouselIndicators,
-    CarouselCaption,
-} from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Buttons from '../sections/buttons';
+
 
 
 // 데이터 호출 클릭 이벤트 등등
@@ -20,7 +16,6 @@ import {
 function MyPage(props) {
 
     const match = useRouteMatch();
-    const dispatch = useDispatch()
 
     // *********************************************
 
@@ -55,6 +50,7 @@ function MyPage(props) {
             withCredentials: true
         })
             .then((response) => {
+                setScheName(response.data.schedule.ScheduleName)
                 setAirport(response.data.schedule["airports"])
                 setFlight_info(response.data.schedule["flight_info"])
                 setFlight_schedule(response.data.schedule["flight_schedule"])
@@ -77,6 +73,7 @@ function MyPage(props) {
     }, [])
 
 
+    console.log(scheName)
 
     console.log('**공항', airport, '**flight_info', flight_info, '**flight_schedule', flight_schedule)
 
@@ -104,43 +101,72 @@ function MyPage(props) {
                             </Col>
                         </Row>
                     </Container>
+                    <br></br>
                 </div>
-
                 <div>
+                    <br></br>
                     <Container>
                         <Row className="justify-content-center" >
                             <Col md="7" className="text-center">
-                                <h1 className="title">
-                                    <br></br>
-                                    아아아아아아아아아아</h1>
-                                <h1>아아아아아아아아아아</h1>
+                                <h1 className="title">공항 정보</h1>
+                                <br></br>
+                                <h2>🛫 출발지 🛬</h2>
+                                <h4>{airport.departure}</h4>
+                                <br></br>
+                                <h2>🛫 도착지 🛬</h2>
+                                <h4>{airport.arrival}</h4>
+                                <br></br>
                                 <h1>아아아아아아아아아아</h1>
                                 <h1>아아아아아아아아아아</h1>
                             </Col>
                         </Row>
                     </Container>
+                    <br></br>
                 </div>
-                <div>
+                <div className="form-control-dark">
+                    <br></br>
                     <Container>
                         <Row className="justify-content-center" >
                             <Col md="7" className="text-center">
-                                <h2 className="title">상세상세상세상세</h2>
-                                <h2 className="title">상세상세상세상세</h2>
-                                <h2 className="title">상세상세상세상세</h2>
-                                <h2 className="title">상세상세상세상세</h2>
-                                <br></br><br></br>
+                                <h1 className="title">비행 정보</h1>
+                                <br></br>
+                                <h2>🛫 출발지 🛬</h2>
+                                <h4>{airport.departure}</h4>
+                                <br></br>
+                                <h2>🛫 도착지 🛬</h2>
+                                <h4>{airport.arrival}</h4>
+                                <br></br>
+                                <h1>아아아아아아아아아아</h1>
+                                <h1>아아아아아아아아아아</h1>
                             </Col>
                         </Row>
                     </Container>
+                    <br></br>
                 </div>
                 <div>
+                    <br></br>
                     <Container>
-                        {/* <Row className="justify-content-center" >
+                        <Row className="justify-content-center" >
                             <Col md="7" className="text-center">
-                                <Button color="success font-size-30"> 공유하기 </Button>{' '}
+                                <h1 className="title">스케줄 정보</h1>
+                                <br></br>
+                                <h2>🛫 출발지 🛬</h2>
+                                <h4>{airport.departure}</h4>
+                                <br></br>
+                                <h2>🛫 도착지 🛬</h2>
+                                <h4>{airport.arrival}</h4>
+                                <br></br>
+                                <h1>아아아아아아아아아아</h1>
+                                <h1>아아아아아아아아아아</h1>
                             </Col>
-                        </Row> */}
-                        <Button type="button" onClick={toggle.bind(null)} className="btn btn-block waves-effect waves-light btn-outline-primary"> 공유하기 </Button>
+                        </Row>
+                    </Container>
+                    <br></br>
+                </div>
+                <div>
+                    <br></br>
+                    <Container>
+                        <Button type="button" onClick={toggle.bind(null)} className="btn btn-block waves-effect waves-light btn-info"> 공유하기 </Button>
                         <Modal size="md" isOpen={modal} toggle={toggle.bind(null)} className={props.className}>
                             <ModalHeader toggle={toggle.bind(null)}>공유하기</ModalHeader>
                             <ModalBody>
@@ -148,12 +174,13 @@ function MyPage(props) {
                                 이거 안되면.. 그냥 페이지 하나 만들어서 보내기
                             </ModalBody>
                             <ModalFooter className="justify-content-center">
-                                <Button color="primary" onClick={toggle.bind(null)}>Cancel</Button>
+                                <Button color="danger" onClick={toggle.bind(null)}> 확인 </Button>
+                                <Button color="secondary" onClick={toggle.bind(null)}> 취소 </Button>
                             </ModalFooter>
                         </Modal>
                     </Container>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
