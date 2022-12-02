@@ -5,8 +5,6 @@ import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstr
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../../_actions/user_action';
-import { scheduleJob } from 'node-schedule';
-import MyPageSchedule from './MyPageSchedule';
 
 // 무한반복 해결하기 
 // https://sir.kr/qa/422561

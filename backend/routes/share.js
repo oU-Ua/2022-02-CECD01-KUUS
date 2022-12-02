@@ -8,11 +8,6 @@ const { detectDelay } = require('../middleware/delay')
 
 
 // 공유받은 일정 정보 보여줌
-
-// **************************
-// ********** 안씀 **********
-// **************************
-// 마이페이지에서 schedule id 받아서 /schedules/:id로 상세 조회 (비행 상세는 my/shared 구분 없음)
 router.get('/:id', auth, (req, res) => {
     Schedule.findById(req.params.id, (err, schedule) => {
         if (err) { return res.status(400).json({ message: err.message }) }

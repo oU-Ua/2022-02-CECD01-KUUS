@@ -10,7 +10,8 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import FlightSearchPage from './components/views/FlightSearchPage/FlightSearchPage';
 import MyPage from './components/views/MyPage/MyPage';
 import MyPageSchedule from './components/views/MyPage/MyPageSchedule';
-import MyPageShared from './components/views/MyPage/MyPageShared';
+import MyPageShare from './components/views/MyPage/MyPageShare';
+import SharedPage from './components/views/SharedPage/SharedPage';
 import MyPageCreate from './components/views/MyPage/MyPageCreate';
 import Auth from './hoc/auth';
 import Header from './components/views/header/header';
@@ -40,8 +41,9 @@ function App() {
             {/* mypage다 만들고 접근을 true로 바꾸기 */}
             <Route exact path="/mypage" component={Auth(MyPage, null) } />
             <Route exact path="/mypage/schedules/:id" component={Auth(MyPageSchedule, null) } />
-            <Route exact path="/mypage/schedule/share" component={Auth(MyPageShared, null) } />
+            <Route exact path="/mypage/schedule/share" component={Auth(MyPageShare, null) } />
             <Route exact path="/mypage/create" component={Auth(MyPageCreate, null) } />
+            <Route exact path="/share/:id" component={Auth(SharedPage, null) } />
           </Switch>
         </div>
       </Router>
