@@ -29,7 +29,7 @@ const Header = () => {
                     console.log("로그인중");
                     setisUser(true);
                 }else{
-                    console.log("비회원임")
+                    console.log("로그아웃 상태임")
                 }
             })
         }, [])
@@ -45,6 +45,7 @@ const Header = () => {
           axios(config)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
+            props.history.push("/login")
           })
           .catch(function (error) {
             console.log(error);

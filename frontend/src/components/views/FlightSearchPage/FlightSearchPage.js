@@ -151,7 +151,6 @@ function FlightSearchPage(props) {
 
     //////일정 등록에 관한 코드 시작 ----seongmin
     const [ScheduleName,setScheduleName] = useState("")
-    const [CreatSuccess,setCreatSuccess] = useState("")
     const NameHandler = (event) => {
         event.preventDefault();
         setScheduleName(event.currentTarget.value);
@@ -164,6 +163,8 @@ function FlightSearchPage(props) {
     }
 
     const CreateHandler = (event) => {
+        setModal(!modal);
+
         if(ScheduleName === ""){ console.log("일정명 없음");}
         console.log(ScheduleName);
 
@@ -185,14 +186,16 @@ function FlightSearchPage(props) {
         axios(config)
         .then(function (response) {
         console.log(JSON.stringify(response.data));
-        setCreatSuccess("1");
-        alert("일정이 등록되었습니다.");
+        setTimeout(function() {
+            alert("["+ScheduleName+"] 일정이 등록되었습니다.");
+          }, 500);
+          setScheduleName("");
         })
         .catch(function (error) {
         console.log(error);
         });
         
-        setModal(!modal);
+        
     }
     //////일정 등록에 관한 코드 끝 ----seongmin
 
