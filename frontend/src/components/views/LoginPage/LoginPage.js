@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
-import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Container, Row, Col, FormGroup} from 'reactstrap';
 import {Link} from 'react-router-dom'
 
 function LoginPage(props) {
