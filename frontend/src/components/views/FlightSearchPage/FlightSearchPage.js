@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
-import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, Label, Input, Button, UncontrolledPopover,Popover, PopoverBody,PopoverHeader} from 'reactstrap';
 import {
      Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
@@ -41,7 +41,7 @@ function FlightSearchPage(props) {
 
     let airports_obj, flight_info_obj, flight_schedule_obj;
 
-    const[ScheduleName,setScheduleName] = useState("(일정 이름을 입력해주세요)")
+    
 
     const onDepartureHandler = (event) => {
         setdeparture(event.currentTarget.value)
@@ -147,15 +147,22 @@ function FlightSearchPage(props) {
           });
     }
 
+    
+
+    //////일정 등록에 관한 코드 ----seongmin
+    const [ScheduleName,setScheduleName] = useState("")
     const NameHandler = (event) => {
         event.preventDefault();
         setScheduleName(event.currentTarget.value);
     }
-
     const CreateHandler = (event) => {
         event.preventDefault();        
-        if(ScheduleName === "(일정 이름을 입력해주세요)"){ setScheduleName("알 수 없는 일정");}
+        if(ScheduleName === ""){ console.log("일정명 없음");}
         console.log(ScheduleName);
+    }
+    const ClearHandler = (event) => {
+        event.preventDefault();
+        setScheduleName("");
     }
 
 
@@ -211,9 +218,16 @@ function FlightSearchPage(props) {
                                         <p><h4 className="title">항공기 정보</h4>{data_info_status} <br /> {data_info_cancelled} <br /> {data_info_gate}<br /> {data_info_desgate}</p>
                                         <p><h4 className="title">항공기 스케줄</h4> {data_schedule_schout}  <br />{data_schedule_schin} <br /> <br /> {data_schedule_estout}  <br />{data_schedule_estin} <br /><br /> {data_schedule_actout}  <br />{data_schedule_actin}</p>
                                         </ModalBody>
-                                        <ModalFooter>
-                                            <Button color="primary" onClick={CreateHandler}>내 일정<Input type="text" value={ScheduleName} onChange={NameHandler}></Input>으로 등록</Button>{' '}
-                                            <Button color="secondary" onClick={toggle.bind(null)}>나가기</Button>
+                                        <ModalFooter>                                        
+                                            <Button color="primary" >
+                                                <Row>
+                                                <Col>
+                                                    <Input className=" text-center" type="text" value={ScheduleName} onChange={NameHandler} placeholder="(일정 이름)"></Input>
+                                                </Col>
+                                                <p style={{paddingTop:"7px"}} class="m-b-0 m-r-5" onClick={CreateHandler}>으로 일정 등록</p>
+                                                </Row>   
+                                            </Button>                                            
+                                            <Button color="secondary" onClick={ClearHandler}>나가기</Button>
                                         </ModalFooter>
                                     </Modal>
                                 </FormGroup>                                    
@@ -223,7 +237,11 @@ function FlightSearchPage(props) {
                     </Row>
                 </Container>
                 <Container>
-                    <Button>일정등록 버튼 테스트함</Button>
+                    <Button onClick={CreateHandler}>일정등록 버튼 테스트함</Button>
+                </Container>
+                <Container>
+                <div>
+</div>
                 </Container>
 
             </div>
