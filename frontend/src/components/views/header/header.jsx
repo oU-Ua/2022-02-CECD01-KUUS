@@ -36,6 +36,7 @@ const Header = () => {
     ///////////////////////////
 
     const logoutHandler = (e) => {
+        axios.defaults.withCredentials = true;
         var config = {
             method: 'get',
             url: 'http://localhost:5000/api/users/logout'

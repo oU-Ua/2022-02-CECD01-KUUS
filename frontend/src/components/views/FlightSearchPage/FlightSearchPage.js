@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
-import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, Label, Input, Button, UncontrolledPopover,Popover, PopoverBody,PopoverHeader} from 'reactstrap';
 import {
-     Modal, ModalHeader, ModalBody, ModalFooter, Carousel,
-    CarouselItem,
-    CarouselControl,
-    CarouselIndicators,
-    CarouselCaption,
+     Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 import FlightInfo from '../../../assets/images/flightsearch/FlightInfo.jpg'
 
@@ -17,18 +13,8 @@ function FlightSearchPage(props) {
 
     //
     const [modal, setModal] = useState(false);
-    const [modal1, setModal1] = useState(false);
-    const [modal2, setModal2] = useState(false);
     const toggle = () => {
         setModal(!modal);
-    }
-
-    const toggle1 = () => {
-        setModal1(!modal1);
-    }
-
-    const toggle2 = () => {
-        setModal2(!modal2);
     }
 
 
@@ -39,7 +25,7 @@ function FlightSearchPage(props) {
     const [date, setdate] = useState("")
     const [time, settime] = useState("")
 
-    const [data, setData] = useState([]);
+    const [Fulldata, setFullData] = useState([]);
     const [data_airport_dep, setData_airport_dep] = useState([]);
     const [data_airport_arr, setData_airport_arr] = useState([]);
     const [data_info_status, setData_data_info_status] = useState([]);
@@ -55,6 +41,7 @@ function FlightSearchPage(props) {
 
     let airports_obj, flight_info_obj, flight_schedule_obj;
 
+    
 
     const onDepartureHandler = (event) => {
         setdeparture(event.currentTarget.value)
@@ -99,7 +86,7 @@ function FlightSearchPage(props) {
           axios(config)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
-            setData(JSON.stringify(response.data));
+            setFullData(response.data);
             
             let res = response.data;
             airports_obj = res["airports"];
@@ -158,9 +145,54 @@ function FlightSearchPage(props) {
           .catch(function (error) {
             console.log(error);
           });
-
-
     }
+
+    
+
+    //////일정 등록에 관한 코드 시작 ----seongmin
+    const [ScheduleName,setScheduleName] = useState("")
+    const NameHandler = (event) => {
+        event.preventDefault();
+        setScheduleName(event.currentTarget.value);
+    }
+
+    const ClearHandler = (event) => {
+        event.preventDefault();
+        setModal(!modal);
+        setScheduleName("");
+    }
+
+    const CreateHandler = (event) => {
+        if(ScheduleName === ""){ console.log("일정명 없음");}
+        console.log(ScheduleName);
+
+        axios.defaults.withCredentials = true;
+        event.preventDefault();
+        // console.log("데이타1:",typeof(Fulldata));
+        Fulldata.ScheduleName = ScheduleName;
+        console.log("넣을 데이터:",Fulldata);
+
+        var config = {
+        method: 'post',
+        url: 'http://localhost:5000/api/myPage/create',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : JSON.stringify(Fulldata)
+        };
+
+        axios(config)
+        .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        alert("일정이 등록되었습니다.");
+        })
+        .catch(function (error) {
+        console.log(error);
+        });
+        
+        setModal(!modal);
+    }
+    //////일정 등록에 관한 코드 끝 ----seongmin
 
 
     return (
@@ -174,11 +206,12 @@ function FlightSearchPage(props) {
                     </Row>
                 </Container>    
             </div>
-            <div className="spacer">
-                
-                
+            <div className="spacer">    
                 <Container>
                     <Row>
+                        <Col md="6">
+                            <img src={FlightInfo} alt="img" className="img-responsive img-rounded" width="200" />
+                        </Col>
                         <Col md="6">
                             <Form >
                                 <FormGroup >
@@ -212,56 +245,29 @@ function FlightSearchPage(props) {
                                         <p><h4 className="title">항공기 정보</h4>{data_info_status} <br /> {data_info_cancelled} <br /> {data_info_gate}<br /> {data_info_desgate}</p>
                                         <p><h4 className="title">항공기 스케줄</h4> {data_schedule_schout}  <br />{data_schedule_schin} <br /> <br /> {data_schedule_estout}  <br />{data_schedule_estin} <br /><br /> {data_schedule_actout}  <br />{data_schedule_actin}</p>
                                         </ModalBody>
-                                        <ModalFooter>
-                                            <Button color="primary" onClick={toggle.bind(null)}>내 일정으로 등록</Button>{' '}
-                                            <Button color="secondary" onClick={toggle.bind(null)}>나가기</Button>
+                                        <ModalFooter>                                        
+                                            <Button color="primary" >
+                                                <Row>
+                                                <Col>
+                                                    <Input className=" text-center" type="text" value={ScheduleName} onChange={NameHandler} placeholder="(일정 이름)"></Input>
+                                                </Col>
+                                                <p style={{paddingTop:"7px"}} class="m-b-0 m-r-5" onClick={CreateHandler}>으로 일정 등록</p>
+                                                </Row>   
+                                            </Button>                                            
+                                            <Button color="secondary" onClick={ClearHandler}>나가기</Button>
                                         </ModalFooter>
                                     </Modal>
                                 </FormGroup>                                    
                                 </Col>
                             </Form>
-                        </Col>
-                        <Col md="6">
-                        <img src={FlightInfo} alt="img" className="img-responsive img-rounded" width="200" />
-
-                        </Col>
+                        </Col>                        
                     </Row>
                 </Container>
                 <Container>
-                    <p>departure: {departure}</p>
-                    <p>arrival: {arrival}</p>
-                    <p>flight_iata: {flight_iata}</p>
-                    <p>date: {date}</p>
-                    <p>time: {time}</p>
+                    {/* <Button onClick={test}>craete테스트</Button> */}
                 </Container>
-                <Container>
-                    <p>결과(이따가 정리하겠음): {data}</p>
-                </Container>
-
             </div>
 
-            {/*  */}
-            <Container>
-                <Row className="m-b-40">
-                    <Col md="6">
-                        {/* <Button type="button" onClick={toggle.bind(null)} className="btn btn-block waves-effect waves-light btn-outline-primary m-b-30">Large Modal</Button>
-                        <Modal size="lg" isOpen={modal} toggle={toggle.bind(null)} className={props.className}>
-                            <ModalHeader toggle={toggle.bind(null)}>Modal title</ModalHeader>
-                            <ModalBody>
-                                바디
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color="primary" onClick={toggle.bind(null)}>Do Something</Button>{' '}
-                                <Button color="secondary" onClick={toggle.bind(null)}>Cancel</Button>
-                            </ModalFooter>
-                        </Modal> */}
-                    </Col>
-                    <Col md="6">
-                        
-                    </Col>
-                </Row>
-            </Container>
-            {/*  */}
         </div>
         
     )
