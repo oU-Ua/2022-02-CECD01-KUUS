@@ -3,11 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
 import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import {
-     Modal, ModalHeader, ModalBody, ModalFooter, Carousel,
-    CarouselItem,
-    CarouselControl,
-    CarouselIndicators,
-    CarouselCaption,
+     Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 import FlightInfo from '../../../assets/images/flightsearch/FlightInfo.jpg'
 
@@ -17,18 +13,8 @@ function FlightSearchPage(props) {
 
     //
     const [modal, setModal] = useState(false);
-    const [modal1, setModal1] = useState(false);
-    const [modal2, setModal2] = useState(false);
     const toggle = () => {
         setModal(!modal);
-    }
-
-    const toggle1 = () => {
-        setModal1(!modal1);
-    }
-
-    const toggle2 = () => {
-        setModal2(!modal2);
     }
 
 
@@ -55,6 +41,7 @@ function FlightSearchPage(props) {
 
     let airports_obj, flight_info_obj, flight_schedule_obj;
 
+    const[ScheduleName,setScheduleName] = useState("(일정 이름을 입력해주세요)")
 
     const onDepartureHandler = (event) => {
         setdeparture(event.currentTarget.value)
@@ -158,8 +145,17 @@ function FlightSearchPage(props) {
           .catch(function (error) {
             console.log(error);
           });
+    }
 
+    const NameHandler = (event) => {
+        event.preventDefault();
+        setScheduleName(event.currentTarget.value);
+    }
 
+    const CreateHandler = (event) => {
+        event.preventDefault();        
+        if(ScheduleName === "(일정 이름을 입력해주세요)"){ setScheduleName("알 수 없는 일정");}
+        console.log(ScheduleName);
     }
 
 
@@ -179,6 +175,9 @@ function FlightSearchPage(props) {
                 
                 <Container>
                     <Row>
+                        <Col md="6">
+                            <img src={FlightInfo} alt="img" className="img-responsive img-rounded" width="200" />
+                        </Col>
                         <Col md="6">
                             <Form >
                                 <FormGroup >
@@ -213,29 +212,18 @@ function FlightSearchPage(props) {
                                         <p><h4 className="title">항공기 스케줄</h4> {data_schedule_schout}  <br />{data_schedule_schin} <br /> <br /> {data_schedule_estout}  <br />{data_schedule_estin} <br /><br /> {data_schedule_actout}  <br />{data_schedule_actin}</p>
                                         </ModalBody>
                                         <ModalFooter>
-                                            <Button color="primary" onClick={toggle.bind(null)}>내 일정으로 등록</Button>{' '}
+                                            <Button color="primary" onClick={CreateHandler}>내 일정<Input type="text" value={ScheduleName} onChange={NameHandler}></Input>으로 등록</Button>{' '}
                                             <Button color="secondary" onClick={toggle.bind(null)}>나가기</Button>
                                         </ModalFooter>
                                     </Modal>
                                 </FormGroup>                                    
                                 </Col>
                             </Form>
-                        </Col>
-                        <Col md="6">
-                        <img src={FlightInfo} alt="img" className="img-responsive img-rounded" width="200" />
-
-                        </Col>
+                        </Col>                        
                     </Row>
                 </Container>
                 <Container>
-                    <p>departure: {departure}</p>
-                    <p>arrival: {arrival}</p>
-                    <p>flight_iata: {flight_iata}</p>
-                    <p>date: {date}</p>
-                    <p>time: {time}</p>
-                </Container>
-                <Container>
-                    <p>결과(이따가 정리하겠음): {data}</p>
+                    <Button>일정등록 버튼 테스트함</Button>
                 </Container>
 
             </div>
