@@ -36,6 +36,7 @@ function MyPage(props) {
     const toggle = () => {
         setModal(!modal);
     }
+    const [phone, setPhone] = useState([]);
 
     // 공유 페이지(/mypage/schedule/share)로 이동
     // 공유 페이지 따로 안 만들어도 됨
@@ -52,6 +53,12 @@ function MyPage(props) {
     const onScheNameHandler = (event) => {
         setScheName(event.currentTarget.value)
     }
+    const handleChange = (e) => {
+        const regex = /^[0-9\b -]{0,13}$/;
+        if (regex.test(e.target.value)) {
+          setPhone(e.target.value);
+        }
+      }
 
     const getSchedules = () => {
         console.log('func 진입')
@@ -72,6 +79,15 @@ function MyPage(props) {
     useEffect(function () {
         getSchedules()
     }, [])
+    useEffect(() => {
+        if (phone.length === 10) {
+          setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+        }
+        if (phone.length === 13) {
+          setPhone(phone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+        }
+      }, [phone]);
+
 
     console.log(scheName)
     console.log('**공항', airport, '**flight_info', flight_info, '**flight_schedule', flight_schedule)
@@ -159,8 +175,9 @@ function MyPage(props) {
                         <Modal size="md" isOpen={modal} toggle={toggle.bind(null)} className={props.className}>
                             <ModalHeader toggle={toggle.bind(null)}>공유하기</ModalHeader>
                             <ModalBody>
-                                여기 폼 넣어서 번호 입력받아서 /mypage/share로 보냄 <br></br>
-                                이거 안되면.. 그냥 페이지 하나 만들어서 보내기
+                            <p> <h4 className="title">누구와 공유하고 싶으신가요 ? </h4> </p>
+                            공유하고 싶은 사람의 전화번호를 입력해주세요 <br/>
+                            <input type="text" onChange={handleChange} value={phone} />
                             </ModalBody>
                             <ModalFooter className="justify-content-center">
                                 <Button color="danger" onClick={confirmClick} > 확인 </Button>

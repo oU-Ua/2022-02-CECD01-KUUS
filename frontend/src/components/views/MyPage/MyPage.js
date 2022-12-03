@@ -24,7 +24,6 @@ function MyPage({ match }) {
     const [users, setUsers] = useState([]);
     const [mySchedule, setMySchedule] = useState([])
     const [sharedSchedule, setSharedSchedule] = useState([])
-    const [phone, setPhone] = useState([]);
 
     const [modal, setModal] = useState(false);
     const [modal1, setModal1] = useState(false);
@@ -38,14 +37,6 @@ function MyPage({ match }) {
     const onClickHandler = (event) =>{
         setModal(!modal);
     }
-    const handleChange = (e) => {
-        const regex = /^[0-9\b -]{0,13}$/;
-        if (regex.test(e.target.value)) {
-          setPhone(e.target.value);
-        }
-      }
-    
-    
 
     function detailClick(e) {
         window.location.href = 'http://localhost:3000/mypage/schedules/638759c936462573ed5c6e23'
@@ -79,15 +70,6 @@ function MyPage({ match }) {
         getUsers()
     }, [])
 
-    useEffect(() => {
-        if (phone.length === 10) {
-          setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
-        }
-        if (phone.length === 13) {
-          setPhone(phone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
-        }
-      }, [phone]);
-
     return (
         <div>
             <div className="static-slider-head-top static-slider-head">
@@ -118,20 +100,7 @@ function MyPage({ match }) {
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{mySchedule.ScheduleName}</CardTitle>
                                 <CardText></CardText>
-                                <Button type="button" onClick={onClickHandler} className="btn btn-block waves-effect waves-light btn-outline-primary m-b-30">일정 공유하기</Button>
-                                <Modal size="lg" isOpen={modal} toggle={toggle.bind(null)} >
-                                        <ModalHeader toggle={toggle.bind(null)}>일정 공유하기</ModalHeader>
-                                        <ModalBody>
-                                        <p> <h4 className="title">누구와 공유하고 싶으신가요 ? </h4> </p>
-                                        공유하고 싶은 사람의 전화번호를 입력해주세요 <br/>
-                                        <input type="text" onChange={handleChange} value={phone} />
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <Button color="primary" onClick={toggle.bind(null)}>공유하기</Button>{' '}
-                                            <Button color="secondary" onClick={toggle.bind(null)}>나가기</Button>
-                                        </ModalFooter>
-                                </Modal>
-                                <Button type="button" onClick={onClickHandler} className="btn btn-block waves-effect waves-light btn-outline-danger m-b-30">자세히보기</Button>
+                                <Button type="button" onClick={detailClick} className="btn btn-block waves-effect waves-light btn-outline-secondary m-b-30">자세히보기</Button>
                             </Card>
                         </Col>
                         <Col md="6">
