@@ -149,7 +149,7 @@ function FlightSearchPage(props) {
 
     
 
-    //////일정 등록에 관한 코드 ----seongmin
+    //////일정 등록에 관한 코드 시작 ----seongmin
     const [ScheduleName,setScheduleName] = useState("")
     const NameHandler = (event) => {
         event.preventDefault();
@@ -166,6 +166,60 @@ function FlightSearchPage(props) {
         setScheduleName("");
     }
 
+    const test = (event) => {
+        event.preventDefault();
+
+        var data = JSON.stringify({
+        "SchedulName": "테스팅",
+        "airports": {
+            "departure": "성민이가 테스트중",
+            "dep_iata": "ICN",
+            "arrival": "시애틀 타코마 국제공항(Seattle Tacoma International Airport)",
+            "arr_iata": "SEA"
+        },
+        "flight_info": {
+            "fa_flight_id": "AAR272-1669194360-schedule-0958",
+            "cancelled": false,
+            "status": "도착함 / 게이트 도착",
+            "gate_origin": "22",
+            "gate_destination": "22",
+            "flight_iata": "OZ272"
+        },
+        "flight_schedule": {
+            "scheduled_out": "2022-11-25T09:05:00Z",
+            "estimated_out": "2022-11-25T09:05:00Z",
+            "actual_out": "2022-11-25T09:06:00Z",
+            "scheduled_in": "2022-11-25T19:00:00Z",
+            "estimated_in": "2022-11-25T19:01:00Z",
+            "actual_in": "2022-11-25T18:59:00Z",
+            "delay": {
+            "departure_delay": 60,
+            "arrival_delay": -60
+            },
+            "dep_time_kr": "2022-11-25T18:05:00+09:00"
+        }
+        });
+
+        var config = {
+        method: 'post',
+        url: 'http://localhost:5000/api/myPage/create',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : data
+        };
+
+        axios(config)
+        .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+        console.log(error);
+        });
+
+    }
+    //////일정 등록에 관한 코드 끝 ----seongmin
+
 
     return (
         <div>
@@ -178,9 +232,7 @@ function FlightSearchPage(props) {
                     </Row>
                 </Container>    
             </div>
-            <div className="spacer">
-                
-                
+            <div className="spacer">    
                 <Container>
                     <Row>
                         <Col md="6">
@@ -238,37 +290,21 @@ function FlightSearchPage(props) {
                     </Row>
                 </Container>
                 <Container>
-                    <Button onClick={CreateHandler}>일정등록 버튼 테스트함</Button>
+                    <Button onClick={test}>craete테스트</Button>
+                    <Button onClick={()=>{
+                        axios.defaults.withCredentials = true;
+                        axios
+                        .get('http://localhost:5000/api/users/logout')
+                        .then((response) => {
+                            console.log(response.status);
+                            console.log(response.data);
+                        })
+                        .catch((e) => console.log('에러', e));
+                        
+                    }}>logout</Button>
                 </Container>
-                <Container>
-                <div>
-</div>
-                </Container>
-
             </div>
 
-            {/*  */}
-            <Container>
-                <Row className="m-b-40">
-                    <Col md="6">
-                        {/* <Button type="button" onClick={toggle.bind(null)} className="btn btn-block waves-effect waves-light btn-outline-primary m-b-30">Large Modal</Button>
-                        <Modal size="lg" isOpen={modal} toggle={toggle.bind(null)} className={props.className}>
-                            <ModalHeader toggle={toggle.bind(null)}>Modal title</ModalHeader>
-                            <ModalBody>
-                                바디
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color="primary" onClick={toggle.bind(null)}>Do Something</Button>{' '}
-                                <Button color="secondary" onClick={toggle.bind(null)}>Cancel</Button>
-                            </ModalFooter>
-                        </Modal> */}
-                    </Col>
-                    <Col md="6">
-                        
-                    </Col>
-                </Row>
-            </Container>
-            {/*  */}
         </div>
         
     )
