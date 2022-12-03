@@ -4,6 +4,14 @@ import { withRouter, BrowserRouter } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import {
+    Modal, ModalHeader, ModalBody, ModalFooter, Carousel,
+   CarouselItem,
+   CarouselControl,
+   CarouselIndicators,
+   CarouselCaption,
+} from 'reactstrap';
+
 import { auth } from '../../../_actions/user_action';
 
 // 무한반복 해결하기 
@@ -16,6 +24,19 @@ function MyPage({ match }) {
     const [users, setUsers] = useState([]);
     const [mySchedule, setMySchedule] = useState([])
     const [sharedSchedule, setSharedSchedule] = useState([])
+
+    const [modal, setModal] = useState(false);
+    const [modal1, setModal1] = useState(false);
+    const toggle = () => {
+        setModal(!modal);
+    }
+
+    const toggle1 = () => {
+        setModal1(!modal1);
+    }
+    const onClickHandler = (event) =>{
+        setModal(!modal);
+    }
 
     function detailClick(e) {
         window.location.href = 'http://localhost:3000/mypage/schedules/638759c936462573ed5c6e23'
@@ -79,7 +100,7 @@ function MyPage({ match }) {
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{mySchedule.ScheduleName}</CardTitle>
                                 <CardText></CardText>
-                                <Button onClick = {detailClick}>자세히 보기</Button>
+                                <Button type="button" onClick={detailClick} className="btn btn-block waves-effect waves-light btn-outline-secondary m-b-30">자세히보기</Button>
                             </Card>
                         </Col>
                         <Col md="6">
