@@ -162,6 +162,7 @@ function FlightSearchPage(props) {
     }
     const ClearHandler = (event) => {
         event.preventDefault();
+        setModal(!modal);
         setScheduleName("");
     }
 
