@@ -25,7 +25,7 @@ function FlightSearchPage(props) {
     const [date, setdate] = useState("")
     const [time, settime] = useState("")
 
-    const [data, setData] = useState([]);
+    const [Fulldata, setFullData] = useState([]);
     const [data_airport_dep, setData_airport_dep] = useState([]);
     const [data_airport_arr, setData_airport_arr] = useState([]);
     const [data_info_status, setData_data_info_status] = useState([]);
@@ -86,7 +86,7 @@ function FlightSearchPage(props) {
           axios(config)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
-            setData(JSON.stringify(response.data));
+            setFullData(response.data);
             
             let res = response.data;
             airports_obj = res["airports"];
@@ -155,50 +155,22 @@ function FlightSearchPage(props) {
         event.preventDefault();
         setScheduleName(event.currentTarget.value);
     }
-    const CreateHandler = (event) => {
-        event.preventDefault();        
-        if(ScheduleName === ""){ console.log("일정명 없음");}
-        console.log(ScheduleName);
-    }
+
     const ClearHandler = (event) => {
         event.preventDefault();
         setModal(!modal);
         setScheduleName("");
     }
 
-    const test = (event) => {
-        event.preventDefault();
+    const CreateHandler = (event) => {
+        if(ScheduleName === ""){ console.log("일정명 없음");}
+        console.log(ScheduleName);
 
-        var data = JSON.stringify({
-        "SchedulName": "테스팅",
-        "airports": {
-            "departure": "성민이가 테스트중",
-            "dep_iata": "ICN",
-            "arrival": "시애틀 타코마 국제공항(Seattle Tacoma International Airport)",
-            "arr_iata": "SEA"
-        },
-        "flight_info": {
-            "fa_flight_id": "AAR272-1669194360-schedule-0958",
-            "cancelled": false,
-            "status": "도착함 / 게이트 도착",
-            "gate_origin": "22",
-            "gate_destination": "22",
-            "flight_iata": "OZ272"
-        },
-        "flight_schedule": {
-            "scheduled_out": "2022-11-25T09:05:00Z",
-            "estimated_out": "2022-11-25T09:05:00Z",
-            "actual_out": "2022-11-25T09:06:00Z",
-            "scheduled_in": "2022-11-25T19:00:00Z",
-            "estimated_in": "2022-11-25T19:01:00Z",
-            "actual_in": "2022-11-25T18:59:00Z",
-            "delay": {
-            "departure_delay": 60,
-            "arrival_delay": -60
-            },
-            "dep_time_kr": "2022-11-25T18:05:00+09:00"
-        }
-        });
+        axios.defaults.withCredentials = true;
+        event.preventDefault();
+        // console.log("데이타1:",typeof(Fulldata));
+        Fulldata.ScheduleName = ScheduleName;
+        console.log("넣을 데이터:",Fulldata);
 
         var config = {
         method: 'post',
@@ -206,17 +178,19 @@ function FlightSearchPage(props) {
         headers: { 
             'Content-Type': 'application/json'
         },
-        data : data
+        data : JSON.stringify(Fulldata)
         };
 
         axios(config)
         .then(function (response) {
         console.log(JSON.stringify(response.data));
+        alert("일정이 등록되었습니다.");
         })
         .catch(function (error) {
         console.log(error);
         });
-
+        
+        setModal(!modal);
     }
     //////일정 등록에 관한 코드 끝 ----seongmin
 
@@ -290,18 +264,7 @@ function FlightSearchPage(props) {
                     </Row>
                 </Container>
                 <Container>
-                    <Button onClick={test}>craete테스트</Button>
-                    <Button onClick={()=>{
-                        axios.defaults.withCredentials = true;
-                        axios
-                        .get('http://localhost:5000/api/users/logout')
-                        .then((response) => {
-                            console.log(response.status);
-                            console.log(response.data);
-                        })
-                        .catch((e) => console.log('에러', e));
-                        
-                    }}>logout</Button>
+                    {/* <Button onClick={test}>craete테스트</Button> */}
                 </Container>
             </div>
 
