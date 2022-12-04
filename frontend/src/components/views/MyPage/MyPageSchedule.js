@@ -4,9 +4,7 @@ import { withRouter, useRouteMatch } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'reactstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { auth } from '../../../_actions/user_action';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Buttons from '../sections/typography';
 
 
 

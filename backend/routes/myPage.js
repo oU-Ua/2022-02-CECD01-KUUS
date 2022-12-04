@@ -46,13 +46,14 @@ router.get('/', auth, (req, res, next) => {
                 message: "계정을 찾을 수 없습니다!",
             })
         }
+
+        res.status(200).send(userInfo)
+        next()
     } catch (err) {
         return res.status(500).json({
             message: err.message
         })
-    }
-    res.status(200).send(userInfo)
-    next()
+    } throw(err)
 })
 
 // 여기서 id에 속한 여러가지 비행 일정 중에서 선택
@@ -139,7 +140,7 @@ router.post('/create', auth, async (req, res) => {
         res.status(400).json({
             message: err.message
         })
-    }
+    } throw(err)
 })
 
 // 공유받은 일정 목록

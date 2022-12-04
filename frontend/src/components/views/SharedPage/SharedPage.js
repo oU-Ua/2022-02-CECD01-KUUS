@@ -90,7 +90,7 @@ function SharedPage(props) {
                 </Container>
             </div>
             <div className="bottom-spacer">
-                <div className="spacer" id="card-component">
+                <div className="spacer form-control-dark" id="card-component">
                     <Container>
                         <Row className="justify-content-center">
                             <Col md="5" className='text-center'>
