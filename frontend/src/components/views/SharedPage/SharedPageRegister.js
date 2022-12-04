@@ -5,13 +5,6 @@ import axios from 'axios';
 
 function SharedPage() {
 
-    const getSchedules = () => {
-        console.log('func 진입')
-        axios.get('http://localhost:5000/api/share/register/${id}', {
-            withCredentials: true
-        })
-    }
-
     function mypageClick(e) {
         window.location.href = 'http://localhost:3000/mypage'
     }

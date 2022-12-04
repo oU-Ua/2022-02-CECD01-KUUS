@@ -14,6 +14,8 @@ function SharedPage(props) {
 
     const [scheduleID, setScheduleID] = useState([])
 
+    const [map, setMap] = useState([])
+
     const [scheName, setScheName] = useState([])
 
     const [airport, setAirport] = useState([])
@@ -44,7 +46,7 @@ function SharedPage(props) {
 
     const getSchedules = () => {
         console.log('func 진입')
-        axios.get(`http://localhost:5000/api/share`, {
+        axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
             withCredentials: true
         })
             .then((response) => {
@@ -53,6 +55,7 @@ function SharedPage(props) {
                 setAirport(response.data.schedule["airports"])
                 setFlight_info(response.data.schedule["flight_info"])
                 setFlight_schedule(response.data.schedule["flight_schedule"])
+                setMap('data:image/png;base64,' + response.data.map)
 
             }).catch(function (error) {
                 console.error(error)
@@ -66,6 +69,8 @@ function SharedPage(props) {
     function registerClick(e) {
         window.location.href = `http://localhost:3000/share/register/${scheduleID}`
     }
+
+    console.log('ID:', scheduleID)
 
     return (
         <div>
@@ -91,6 +96,14 @@ function SharedPage(props) {
                         </Row>
                     </Container>
                     <br></br>
+                </div>
+                <div className="bottom-spacer">
+                    <div className="spacer" id="card-component">
+                        <Container className='text-center'>
+                            <img src={map} />
+                        </Container>
+                        <br></br>
+                    </div>
                 </div>
                 <div className= "form-control-dark">
                     <br></br>

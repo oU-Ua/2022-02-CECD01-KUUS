@@ -21,6 +21,8 @@ function MyPage(props) {
 
     const [schedule, setSchedule] = useState([])
 
+    const [map, setMap] = useState([])
+
     const [scheName, setScheName] = useState([])
 
     const [airport, setAirport] = useState([])
@@ -52,26 +54,26 @@ function MyPage(props) {
         e.preventDefault();
         // console.log("데이타1:",typeof(Fulldata));
         Fulldata.phone = phone;
-        Fulldata._id=_id;
-        console.log("share에 필요한 정보:",Fulldata);
+        Fulldata._id = _id;
+        console.log("share에 필요한 정보:", Fulldata);
 
         var config = {
-        method: 'post',
-        url: 'http://localhost:5000/api/myPage/schedule/share',
-        headers: { 
-            'Content-Type': 'application/json'
-        },
-        data : JSON.stringify(Fulldata)
+            method: 'post',
+            url: 'http://localhost:5000/api/myPage/schedule/share',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(Fulldata)
         };
 
         axios(config)
-        .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        setPhone("");
-        })
-        .catch(function (error) {
-        console.log(error);
-        });
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                setPhone("");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         window.location.href = 'http://localhost:3000/mypage/schedule/share'
 
     }
@@ -86,9 +88,9 @@ function MyPage(props) {
     const handleChange = (e) => {
         const regex = /^[0-9\b -]{0,13}$/;
         if (regex.test(e.target.value)) {
-          setPhone(e.target.value);
+            setPhone(e.target.value);
         }
-      }
+    }
 
     const getSchedules = () => {
         console.log('func 진입')
@@ -101,6 +103,8 @@ function MyPage(props) {
                 setAirport(response.data.schedule["airports"])
                 setFlight_info(response.data.schedule["flight_info"])
                 setFlight_schedule(response.data.schedule["flight_schedule"])
+                setMap('data:image/png;base64,' + response.data.map)
+
 
             }).catch(function (error) {
                 console.error(error)
@@ -112,12 +116,12 @@ function MyPage(props) {
     }, [])
     useEffect(() => {
         if (phone.length === 10) {
-          setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+            setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
         }
         if (phone.length === 13) {
-          setPhone(phone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+            setPhone(phone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
         }
-      }, [phone]);
+    }, [phone]);
 
 
     console.log(scheName)
@@ -149,7 +153,15 @@ function MyPage(props) {
                     </Container>
                     <br></br>
                 </div>
-                <div className= "form-control-dark">
+                <div className="bottom-spacer">
+                    <div className="spacer" id="card-component">
+                        <Container className='text-center'>
+                            <img src={map} />
+                        </Container>
+                        <br></br>
+                    </div>
+                </div>
+                <div className="form-control-dark">
                     <br></br>
                     <Container>
                         <Row className="justify-content-center" >
@@ -206,9 +218,9 @@ function MyPage(props) {
                         <Modal size="md" isOpen={modal} toggle={toggle.bind(null)} className={props.className}>
                             <ModalHeader toggle={toggle.bind(null)}>공유하기</ModalHeader>
                             <ModalBody>
-                            <p> <h4 className="title">누구와 공유하고 싶으신가요 ? </h4> </p>
-                            공유하고 싶은 사람의 전화번호를 입력해주세요 <br/>
-                            <input type="text" id="phone" onChange={handleChange} value={phone} />
+                                <p> <h4 className="title">누구와 공유하고 싶으신가요 ? </h4> </p>
+                                공유하고 싶은 사람의 전화번호를 입력해주세요 <br />
+                                <input type="text" id="phone" onChange={handleChange} value={phone} />
 
                             </ModalBody>
                             <ModalFooter className="justify-content-center">
