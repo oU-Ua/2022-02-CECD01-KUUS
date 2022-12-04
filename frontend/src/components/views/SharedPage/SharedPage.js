@@ -40,13 +40,17 @@ function SharedPage(props) {
 
     // *********************************************
 
+    const id = props.match.params.id;
+    console.log('id는', id)
+    id.replace(/ /g, "")
+
     const onScheNameHandler = (event) => {
         setScheName(event.currentTarget.value)
     }
 
     const getSchedules = () => {
         console.log('func 진입')
-        axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
+        axios.get(`http://localhost:5000/api/mypage/schedules/${id}`, {
             withCredentials: true
         })
             .then((response) => {
@@ -158,7 +162,7 @@ function SharedPage(props) {
                 <div>
                     <br></br>
                     <Container>
-                        <Button type="button" onClick={registerClick} className="btn btn-block waves-effect waves-light btn-info"> 공유 스케줄에 등록 </Button>
+                        <Button type="button" onClick={registerClick} className="btn btn-block waves-effect waves-light btn-info"> 공유 스케줄에 등록하기 </Button>
                     </Container>
 
 

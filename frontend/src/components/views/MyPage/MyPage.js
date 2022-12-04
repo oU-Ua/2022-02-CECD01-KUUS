@@ -53,11 +53,11 @@ function MyPage(props) {
                         const myschedules = response.data["myschedules"]
                         setMySchedule2(response.data["myschedules"][1])
 
-                        // // setScheAuthor(response.data["myschedules"][0].author)
-                        // setSharedSchedule(response.data["sharedschedules"][0])
+                        // setScheAuthor(response.data["myschedules"][0].author)
+                        setSharedSchedule(response.data["sharedschedules"][0])
 
-                        // // setScheAuthor(response.data["myschedules"][0].author)
-                        // setSharedSchedule2(response.data["sharedschedules"][1])
+                        // setScheAuthor(response.data["myschedules"][0].author)
+                        setSharedSchedule2(response.data["sharedschedules"][1])
 
                     }).catch(function (error) {
                         console.error(error)
