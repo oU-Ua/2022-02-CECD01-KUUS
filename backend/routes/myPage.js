@@ -104,7 +104,7 @@ router.post('/schedule/share',auth, (req, res) => {
     var name = req.user.name
     var url = `http://localhost:5000/api/share/${id}`;
     var content = name +'님의 비행 일정 공유 요청이 왔습니다. ' + url
-    console.log(content)
+    console.log("content:" + content)
         sendMessage(content, phone, (err, result)=>{
                  if (err) {
                      return res.json({message: err.message})
