@@ -11,8 +11,10 @@ import FlightSearchPage from './components/views/FlightSearchPage/FlightSearchPa
 import MyPage from './components/views/MyPage/MyPage';
 import MyPageSchedule from './components/views/MyPage/MyPageSchedule';
 import MyPageShare from './components/views/MyPage/MyPageShare';
-import SharedPage from './components/views/SharedPage/SharedPage';
 import MyPageCreate from './components/views/MyPage/MyPageCreate';
+import SharedPage from './components/views/SharedPage/SharedPage';
+import SharedPageRegister from './components/views/SharedPage/SharedPageRegister';
+
 import Auth from './hoc/auth';
 import Header from './components/views/header/header';
 import Footer from './components/views/footer/footer';
@@ -44,6 +46,7 @@ function App() {
             <Route exact path="/mypage/schedule/share" component={Auth(MyPageShare, null) } />
             <Route exact path="/mypage/create" component={Auth(MyPageCreate, null) } />
             <Route exact path="/share/:id" component={Auth(SharedPage, null) } />
+            <Route exact path="/share/register/:id" component={Auth(SharedPageRegister, null) } />
           </Switch>
         </div>
       </Router>

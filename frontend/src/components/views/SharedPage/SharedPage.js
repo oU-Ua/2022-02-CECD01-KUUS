@@ -12,7 +12,7 @@ function SharedPage(props) {
 
     // *********************************************
 
-    const [schedule, setSchedule] = useState([])
+    const [scheduleID, setScheduleID] = useState([])
 
     const [scheName, setScheName] = useState([])
 
@@ -34,13 +34,9 @@ function SharedPage(props) {
     // 공유 페이지 따로 안 만들어도 됨
     // 정보를 공유 페이지로 넘기기만 하면 정보를 req로 받아 함수 자동 실행
     // 근데 정보만 보내고 페이지는 렌더링 안하면 안되나,, -> 방법 고민해보겠음
-    function registerClick(e) {
-        window.location.href = 'http://localhost:3000/share/register/638759c936462573ed5c6e23'
-    }
 
 
     // *********************************************
-
 
     const onScheNameHandler = (event) => {
         setScheName(event.currentTarget.value)
@@ -48,10 +44,11 @@ function SharedPage(props) {
 
     const getSchedules = () => {
         console.log('func 진입')
-        axios.get('http://localhost:5000/api/share/638759c936462573ed5c6e23', {
+        axios.get(`http://localhost:5000/api/share`, {
             withCredentials: true
         })
             .then((response) => {
+                setScheduleID(response.data.schedule._id)
                 setScheName(response.data.schedule.ScheduleName)
                 setAirport(response.data.schedule["airports"])
                 setFlight_info(response.data.schedule["flight_info"])
@@ -65,6 +62,10 @@ function SharedPage(props) {
     useEffect(function () {
         getSchedules()
     }, [])
+
+    function registerClick(e) {
+        window.location.href = `http://localhost:3000/share/register/${scheduleID}`
+    }
 
     return (
         <div>
