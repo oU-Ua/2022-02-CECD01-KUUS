@@ -44,9 +44,15 @@ function SharedPage(props) {
         setScheName(event.currentTarget.value)
     }
 
+    const id = props.match.params.id;
+    console.log('id는', id)
+    id.replace(/ /g, "")
+
     const getSchedules = () => {
         console.log('func 진입')
-        axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
+        // axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
+            axios.get(`http://localhost:5000/api/mypage/schedules/${id}`, {
+            
             withCredentials: true
         })
             .then((response) => {
