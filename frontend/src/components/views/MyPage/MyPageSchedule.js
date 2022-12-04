@@ -4,9 +4,7 @@ import { withRouter, useRouteMatch } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'reactstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { auth } from '../../../_actions/user_action';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Buttons from '../sections/typography';
 
 
 
@@ -150,10 +148,10 @@ function MyPage(props) {
                 </Container>
             </div>
             <div className="bottom-spacer">
-                <div className="spacer form-control-dark" id="card-component">
+                <div className="spacer" id="card-component">
                     <Container>
                         <Row className="justify-content-center">
-                            <Col md="10" className='text-center'>
+                            <Col md="5" className='text-center'>
                                 <h1 type="text" className="title" value={scheName} onChange={onScheNameHandler}>
                                     <br></br>
                                     🛫 {scheName} 🛬

@@ -50,11 +50,11 @@ function MyPage(props) {
                         // const myschedules = response.data["myschedules"]
                         setMySchedule(response.data["myschedules"][0])
 
+                        const myschedules = response.data["myschedules"]
+                        setMySchedule2(response.data["myschedules"][1])
+
                         // // setScheAuthor(response.data["myschedules"][0].author)
                         // setSharedSchedule(response.data["sharedschedules"][0])
-
-                        // const myschedules = response.data["myschedules"]
-                        // setMySchedule2(response.data["myschedules"][1])
 
                         // // setScheAuthor(response.data["myschedules"][0].author)
                         // setSharedSchedule2(response.data["sharedschedules"][1])
@@ -111,32 +111,32 @@ function MyPage(props) {
                                 <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${mySchedule._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>
                             </Card>
                         </Col>
-                        {/* <Col md="6">
+                        <Col md="6">
                             <h3 className="title font-bold text-center">공유받은 일정</h3>
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{sharedSchedule.ScheduleName}</CardTitle>
                                 <CardText></CardText>
                                 <Button onClick={sharedScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
                             </Card>
-                        </Col> */}
+                        </Col>
                     </Row>
                     <Row>
-                        {/* <Col md="6">
+                        <Col md="6">
                             <h3 className="title font-bold text-center">나의 일정</h3>
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{mySchedule2.ScheduleName}</CardTitle>
                                 <CardText></CardText>
                                 <Button type="button" onClick={myScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>
                             </Card>
-                        </Col> */}
-                        {/* <Col md="6">
+                        </Col>
+                        <Col md="6">
                             <h3 className="title font-bold text-center">공유받은 일정</h3>
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{sharedSchedule2.ScheduleName}</CardTitle>
                                 <CardText></CardText>
                                 <Button onClick={sharedScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
                             </Card>
-                        </Col> */}
+                        </Col>
                     </Row>
                 </Container>
             </div>

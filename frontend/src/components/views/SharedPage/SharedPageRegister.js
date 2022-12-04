@@ -1,13 +1,35 @@
-import { withRouter } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'reactstrap';
 import axios from 'axios';
+import React, { useEffect } from 'react'
+import { withRouter } from 'react-router-dom';
 
 
-function SharedPage() {
+
+function SharedPage(props) {
 
     function mypageClick(e) {
         window.location.href = 'http://localhost:3000/mypage'
     }
+
+    const id = props.match.params.id;
+    console.log('id는', id)
+    id.replace(/ /g, "")
+
+    function register() {
+    axios.get(`http://localhost:5000/api/mypage/schedules/${id}`, {
+        withCredentials: true
+    })
+        .then((response) => {
+
+
+        }).catch(function (error) {
+            console.error(error)
+        })
+    }
+
+    useEffect(function () {
+        register()
+    }, [])
 
     return (
         <div>
@@ -34,7 +56,7 @@ function SharedPage() {
                 </div>
                 <Container>
                     <Col className="text-center">
-                    <Button outline color="info" onClick={mypageClick}>마이페이지로 돌아가기</Button>
+                        <Button outline color="info" onClick={mypageClick}>마이페이지로 돌아가기</Button>
                     </Col>
                 </Container>
             </div>
