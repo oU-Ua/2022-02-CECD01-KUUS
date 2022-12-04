@@ -97,12 +97,14 @@ router.get('/schedules/:id', auth, (req, res) => {
 // /schedule/:id 에서 넘어옴
 // schedule의 _id와 사용자가 입력한 공유할 사람의 전화번호 넘겨받음
 // sendMessage 메소드 통해 sms로 공유할 일정 링크 보내줌
-router.post('/schedule/share', (req, res) => {
+router.post('/schedule/share',auth, (req, res) => {
     var id = req.body.id
     var phone = req.body.phone
+    var name = req.user.name
     var url = `http://localhost:5000/api/share/${id}`;
-    var name = req.user.name    
-        sendMessage(url, name, phone, (err, result)=>{
+    var content = name +'님의 비행 일정 공유 요청이 왔습니다. ' + url
+    console.log(content)
+        sendMessage(content, phone, (err, result)=>{
                  if (err) {
                      return res.json({message: err.message})
                  }
@@ -110,7 +112,7 @@ router.post('/schedule/share', (req, res) => {
          })    
 })
 
-// 내 비행 일정 등록하기
+// 내 비행 일정 등록하기    
 router.post('/create', auth, async (req, res) => {
 
     const curUser = req.user
