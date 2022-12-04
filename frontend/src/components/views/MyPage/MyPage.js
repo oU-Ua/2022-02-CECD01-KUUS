@@ -38,10 +38,6 @@ function MyPage({ match }) {
         setModal(!modal);
     }
 
-    function detailClick(e) {
-        window.location.href = 'http://localhost:3000/mypage/schedules/638759c936462573ed5c6e23'
-    }
-
     async function getUsers() {
         dispatch(auth())
             .then(response =>
@@ -53,22 +49,31 @@ function MyPage({ match }) {
                         // console.log(response)
                         setUsers(response.data)
                         // console.log('front MyPage.js입니다 response.data:');
-                        console.log(response.data)
+                        console.log('users:', response.data)
                         // const myschedules = response.data["myschedules"]
                         setMySchedule(response.data["myschedules"][0])
+
                         // setScheAuthor(response.data["myschedules"][0].author)
                         setSharedSchedule(response.data["sharedschedules"][0])
+
 
                     }).catch(function (error) {
                         console.error(error)
                     })
             )
-
     }
 
     useEffect(function () {
         getUsers()
     }, [])
+
+    function myScheClick(e) {
+        window.location.href = `http://localhost:3000/mypage/schedules/${mySchedule._id}`
+    }
+
+    function sharedScheClick(e) {
+        window.location.href = `http://localhost:3000/mypage/schedules/${sharedSchedule._id}`
+    }
 
     return (
         <div>
@@ -100,7 +105,7 @@ function MyPage({ match }) {
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{mySchedule.ScheduleName}</CardTitle>
                                 <CardText></CardText>
-                                <Button type="button" onClick={detailClick} className="btn btn-block waves-effect waves-light btn-outline-secondary m-b-30">자세히보기</Button>
+                                <Button type="button" onClick={myScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>
                             </Card>
                         </Col>
                         <Col md="6">
@@ -108,7 +113,7 @@ function MyPage({ match }) {
                             <Card body className="card-shadow">
                             <CardTitle className='font-bold display-7'>{sharedSchedule.ScheduleName}</CardTitle>
                                 <CardText></CardText>
-                                <Button onClick={detailClick}>자세히 보기</Button>
+                                <Button onClick={sharedScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
                             </Card>
                         </Col>
                     </Row>
