@@ -47,7 +47,7 @@ function App() {
             <Route exact path="/mypage/create" component={Auth(MyPageCreate, null) } />
             <Route exact path="/share/:id" component={Auth(SharedPage, null) } />
             <Route exact path="/share/register/:id" component={Auth(SharedPageRegister, null) } />
-          </Switch>
+          </Switch>    
         </div>
       </Router>
       <Footer></Footer>

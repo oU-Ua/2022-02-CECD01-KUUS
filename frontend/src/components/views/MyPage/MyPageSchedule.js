@@ -92,9 +92,19 @@ function MyPage(props) {
         }
     }
 
+
+    useDispatch((data) => {
+        console.log('data: ', data)
+    })
+
+    const id = props.match.params.id;
+    console.log('id는', id)
+    id.replace(/ /g, "")
+
     const getSchedules = () => {
         console.log('func 진입')
-        axios.get('http://localhost:5000/api/mypage/schedules/638759c936462573ed5c6e23', {
+        // axios.get(`http://localhost:5000/api/mypage/schedules/638c9808f05195315301d4a8`, {
+        axios.get(`http://localhost:5000/api/mypage/schedules/${id}`, {
             withCredentials: true
         })
             .then((response) => {
