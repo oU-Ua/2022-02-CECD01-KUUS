@@ -37,13 +37,43 @@ function MyPage(props) {
         setModal(!modal);
     }
     const [phone, setPhone] = useState([]);
+    const [_id, set_id] = useState([]);
+    const [Fulldata, setFullData] = useState([]);
 
     // 공유 페이지(/mypage/schedule/share)로 이동
     // 공유 페이지 따로 안 만들어도 됨
     // 정보를 공유 페이지로 넘기기만 하면 정보를 req로 받아 함수 자동 실행
     // 근데 정보만 보내고 페이지는 렌더링 안하면 안되나,, -> 방법 고민해보겠음
     function confirmClick(e) {
+
+        console.log(phone);
+
+        axios.defaults.withCredentials = true;
+        e.preventDefault();
+        // console.log("데이타1:",typeof(Fulldata));
+        Fulldata.phone = phone;
+        Fulldata._id=_id;
+        console.log("share에 필요한 정보:",Fulldata);
+
+        var config = {
+        method: 'post',
+        url: 'http://localhost:5000/api/myPage/schedule/share',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : JSON.stringify(Fulldata)
+        };
+
+        axios(config)
+        .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setPhone("");
+        })
+        .catch(function (error) {
+        console.log(error);
+        });
         window.location.href = 'http://localhost:3000/mypage/schedule/share'
+
     }
 
 
@@ -67,6 +97,7 @@ function MyPage(props) {
         })
             .then((response) => {
                 setScheName(response.data.schedule.ScheduleName)
+                set_id(response.data.schedule._id)
                 setAirport(response.data.schedule["airports"])
                 setFlight_info(response.data.schedule["flight_info"])
                 setFlight_schedule(response.data.schedule["flight_schedule"])
@@ -177,7 +208,8 @@ function MyPage(props) {
                             <ModalBody>
                             <p> <h4 className="title">누구와 공유하고 싶으신가요 ? </h4> </p>
                             공유하고 싶은 사람의 전화번호를 입력해주세요 <br/>
-                            <input type="text" onChange={handleChange} value={phone} />
+                            <input type="text" id="phone" onChange={handleChange} value={phone} />
+
                             </ModalBody>
                             <ModalFooter className="justify-content-center">
                                 <Button color="danger" onClick={confirmClick} > 확인 </Button>
