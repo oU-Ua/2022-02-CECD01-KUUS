@@ -129,17 +129,17 @@ function MyPage(props) {
                                     mine.map((it)=>(
                                         <Card body className="card-shadow">
                                         <CardTitle className='font-bold display-7'>{it.ScheduleName}</CardTitle>
-                                        <CardText></CardText>
+                                        <CardText>자세히 보기를 눌러보세요!</CardText>
                                             <Button onClick={() => props.history.push(`/mypage/schedules/${it._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
                                        
                                     </Card>
                                     ))
                                 }
                             </div>
-                            <Card body className="card-shadow">
+                            {/* <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{mySchedule.ScheduleName}</CardTitle>
                                 <CardText>자세히 보기로 더 알아보기</CardText>
-                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${mySchedule._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card>
+                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${mySchedule._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card> */}
                         </Col>
                         <Col md="6">
                             <h3 className="title font-bold text-center">공유받은 일정</h3>
@@ -154,7 +154,7 @@ function MyPage(props) {
                                         // </div>
                                         <Card body className="card-shadow">
                                         <CardTitle className='font-bold display-7'>{it.ScheduleName}</CardTitle>
-                                        <CardText></CardText>
+                                        <CardText>일정 주인: {it.author}</CardText>
                                         <Button onClick={() => props.history.push(`/mypage/schedules/${it._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
                                     </Card>
                                     ))

@@ -41,12 +41,12 @@ function App() {
             <Route exact path="/register" component={Auth(RegisterPage, false)} />
             <Route exact path="/flightsearch" component={Auth(FlightSearchPage, null )  } />
             {/* mypage다 만들고 접근을 true로 바꾸기 */}
-            <Route exact path="/mypage" component={Auth(MyPage, null) } />
-            <Route exact path="/mypage/schedules/:id" component={Auth(MyPageSchedule, null) } />
-            <Route exact path="/mypage/schedule/share" component={Auth(MyPageShare, null) } />
-            <Route exact path="/mypage/create" component={Auth(MyPageCreate, null) } />
-            <Route exact path="/share/:id" component={Auth(SharedPage, null) } />
-            <Route exact path="/share/register/:id" component={Auth(SharedPageRegister, null) } />
+            <Route exact path="/mypage" component={Auth(MyPage, true) } />
+            <Route exact path="/mypage/schedules/:id" component={Auth(MyPageSchedule, true) } />
+            <Route exact path="/mypage/schedule/share" component={Auth(MyPageShare, true) } />
+            <Route exact path="/mypage/create" component={Auth(MyPageCreate, true) } />
+            <Route exact path="/share/:id" component={Auth(SharedPage, true) } />
+            <Route exact path="/share/register/:id" component={Auth(SharedPageRegister, true) } />
           </Switch>    
         </div>
       </Router>

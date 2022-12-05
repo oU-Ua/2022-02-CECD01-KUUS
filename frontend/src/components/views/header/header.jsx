@@ -35,23 +35,23 @@ const Header = () => {
         }, [])
     ///////////////////////////
 
-    const logoutHandler = (e) => {
-        axios.defaults.withCredentials = true;
-        var config = {
-            method: 'get',
-            url: 'http://localhost:5000/api/users/logout'
-          };
+    // const logoutHandler = (e) => {
+    //     axios.defaults.withCredentials = true;
+    //     var config = {
+    //         method: 'get',
+    //         url: 'http://localhost:5000/api/users/logout'
+    //       };
           
-          axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            props.history.push("/login")
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+    //       axios(config)
+    //       .then(function (response) {
+    //         console.log(JSON.stringify(response.data));
+    //         props.history.push("/login")
+    //       })
+    //       .catch(function (error) {
+    //         console.log(error);
+    //       });
 
-    }
+    // }
 
     return (
         <div className="topbar" id="top">
@@ -75,7 +75,7 @@ const Header = () => {
                             </Nav>
                             <div className="act-buttons">
                              {
-                                isUser ? <Button className="btn btn-success-gradiant font-14" onClick={logoutHandler}>로그아웃</Button>:
+                                // isUser ? <Button className="btn btn-success-gradiant font-14" onClick={logoutHandler}>로그아웃</Button>:
                                 <Link to="/login" className="btn btn-success-gradiant font-14">로그인/회원가입</Link>
                              }
                             </div>
