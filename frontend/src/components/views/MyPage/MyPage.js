@@ -112,17 +112,33 @@ function MyPage(props) {
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{mySchedule.ScheduleName}</CardTitle>
                                 <CardText>자세히 보기로 더 알아보기</CardText>
-                                <Button onClick={myScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
-                            </Card>
+                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${mySchedule._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card>
                         </Col>
-
                         <Col md="6">
                             <h3 className="title font-bold text-center">공유받은 일정</h3>
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{sharedSchedule.ScheduleName}</CardTitle>
                                 <CardText> 일정 주인 : {sharedSchedule.author}</CardText>
-                                <Button onClick={sharedScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
-                            </Card>
+                                {/* <Button onClick={sharedScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button> */}
+                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${sharedSchedule._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md="6">
+                            <h3 className="title font-bold text-center">나의 일정</h3>
+                            <Card body className="card-shadow">
+                                <CardTitle className='font-bold display-7'>{mySchedule2.ScheduleName}</CardTitle>
+                                <CardText>자세히 보기로 더 알아보기</CardText>
+                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${mySchedule2._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card>
+                        </Col>
+
+                        <Col md="6">
+                            <h3 className="title font-bold text-center">공유받은 일정</h3>
+                            <Card body className="card-shadow">
+                                <CardTitle className='font-bold display-7'>{sharedSchedule2.ScheduleName}</CardTitle>
+                                <CardText> 일정 주인 : {sharedSchedule2.author}</CardText>
+                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${sharedSchedule2._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card>
+
                         </Col>
                     </Row>
                 </Container>
