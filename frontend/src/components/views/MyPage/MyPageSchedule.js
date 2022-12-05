@@ -36,7 +36,7 @@ function MyPage(props) {
     const toggle = () => {
         setModal(!modal);
     }
-    const [phone, setPhone] = useState([]);
+    const [phone, setPhone] = useState("");
     const [_id, set_id] = useState([]);
     const [Fulldata, setFullData] = useState([]);
 
@@ -79,6 +79,12 @@ function MyPage(props) {
 
     // *********************************************
 
+    ///////kimseongmin////////////////////////////////////////////////////
+    const testHandler = (event) => {
+        setPhone(event.currentTarget.value)
+        console("전화",phone)
+    }
+    ////////seongmin////////////////////////////////////////////////////
 
     const onScheNameHandler = (event) => {
         setScheName(event.currentTarget.value)
@@ -228,7 +234,7 @@ function MyPage(props) {
                             <ModalBody>
                                 <p> <h4 className="title">누구와 공유하고 싶으신가요 ? </h4> </p>
                                 공유하고 싶은 사람의 전화번호를 입력해주세요 <br />
-                                <input type="text" id="phone" onChange={handleChange} value={phone} />
+                                <input type="text" id="phone" onChange={testHandler} value={phone} />
 
                             </ModalBody>
                             <ModalFooter className="justify-content-center">
