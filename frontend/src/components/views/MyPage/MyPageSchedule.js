@@ -147,8 +147,8 @@ function MyPage(props) {
                     </Row>
                 </Container>
             </div>
-            <div className="bottom-spacer">
-                <div className="spacer" id="card-component">
+            <div>
+                <div  id="card-component">
                     <Container>
                         <Row className="justify-content-center">
                             <Col md="5" className='text-center'>
@@ -161,8 +161,8 @@ function MyPage(props) {
                     </Container>
                     <br></br>
                 </div>
-                <div className="bottom-spacer">
-                    <div className="spacer" id="card-component">
+                <div >
+                    <div id="card-component">
                         <Container className='text-center'>
                             <img src={map} />
                         </Container>
