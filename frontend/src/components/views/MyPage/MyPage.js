@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
-import { withRouter, BrowserRouter } from 'react-router-dom';
+import { withRouter, BrowserRouter,Link } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, CardTitle, CardText } from 'reactstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -24,6 +24,11 @@ function MyPage(props) {
 
     const [modal, setModal] = useState(false);
     const [modal1, setModal1] = useState(false);
+
+    ////성민
+    const [mine, setMine] = useState([])
+    const [yours, setYours] = useState([])
+    /////성민끝
     const toggle = () => {
         setModal(!modal);
     }
@@ -43,10 +48,14 @@ function MyPage(props) {
                 })
                     .then((response) => {
                         // console.log('front MyPage.js입니다 response: ')
-                        // console.log(response)
-                        setUsers(response.data)
+                        console.log("ddd",typeof(response))
+                        console.log("sss",typeof(response.data['myschedules']))
                         // console.log('front MyPage.js입니다 response.data:');
                         console.log('users:', response.data)
+                        console.log('공유:', response.data["sharedschedules"])
+                        console.log('내꺼:', response.data["myschedules"])
+                        setMine(response.data['myschedules'])
+                        setYours(response.data["sharedschedules"])
                         // const myschedules = response.data["myschedules"]
                         setMySchedule(response.data["myschedules"][0])
 
@@ -66,11 +75,16 @@ function MyPage(props) {
         getUsers()
     }, [])
 
+    const [id, setId] = useState([])
     function myScheClick(e) {
-        window.location.href = `http://localhost:3000/mypage/schedules/${mySchedule._id}`
+        window.location.href = `http://localhost:3000/mypage/schedules/${id}`
     }
     function sharedScheClick(e) {
-        window.location.href = `http://localhost:3000/mypage/schedules/${sharedSchedule._id}`
+        window.location.href = `http://localhost:3000/mypage/schedules/${id}`
+    }
+
+    function test(id){
+        window.location.href = `http://localhost:3000/mypage/schedules/${id}`
     }
 
     console.log(sharedSchedule)
@@ -99,8 +113,8 @@ function MyPage(props) {
                         <Row className="justify-content-center">
                             <Col md="7" className="text-center">
                                 <h2 className="title font-bold">
-                                    {users.name}님 환영합니다 !</h2>
-                                <h6 className="subtitle">{users.email}</h6>
+                                    김동국님 환영합니다 !</h2>
+                                <h6 className="subtitle">kuus07@gmail.com</h6>
                             </Col>
                         </Row>
                     </Container>
@@ -109,6 +123,19 @@ function MyPage(props) {
                     <Row>
                         <Col md="6">
                             <h3 className="title font-bold text-center">나의 일정</h3>
+
+                            <div>                            
+                                {
+                                    mine.map((it)=>(
+                                        <Card body className="card-shadow">
+                                        <CardTitle className='font-bold display-7'>{it.ScheduleName}</CardTitle>
+                                        <CardText></CardText>
+                                            <Button onClick={() => props.history.push(`/mypage/schedules/${it._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
+                                       
+                                    </Card>
+                                    ))
+                                }
+                            </div>
                             <Card body className="card-shadow">
                                 <CardTitle className='font-bold display-7'>{mySchedule.ScheduleName}</CardTitle>
                                 <CardText>자세히 보기로 더 알아보기</CardText>
@@ -116,28 +143,23 @@ function MyPage(props) {
                         </Col>
                         <Col md="6">
                             <h3 className="title font-bold text-center">공유받은 일정</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle className='font-bold display-7'>{sharedSchedule.ScheduleName}</CardTitle>
-                                <CardText> 일정 주인 : {sharedSchedule.author}</CardText>
-                                {/* <Button onClick={sharedScheClick} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button> */}
-                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${sharedSchedule._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md="6">
-                            <h3 className="title font-bold text-center">나의 일정</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle className='font-bold display-7'>{mySchedule2.ScheduleName}</CardTitle>
-                                <CardText>자세히 보기로 더 알아보기</CardText>
-                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${mySchedule2._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card>
-                        </Col>
 
-                        <Col md="6">
-                            <h3 className="title font-bold text-center">공유받은 일정</h3>
-                            <Card body className="card-shadow">
-                                <CardTitle className='font-bold display-7'>{sharedSchedule2.ScheduleName}</CardTitle>
-                                <CardText> 일정 주인 : {sharedSchedule2.author}</CardText>
-                                <Button type="button" onClick={() => props.history.push(`/mypage/schedules/${sharedSchedule2._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히보기</Button>                            </Card>
+                            <div>                            
+                                {
+                                    yours.map((it)=>(
+                                        // <div>
+                                        //     <div>스케줄명: {it.ScheduleName}</div>
+                                        //     <div>작성자: {it.author}</div>
+                                        //     <div>스케줄아이디: {it._id}</div>
+                                        // </div>
+                                        <Card body className="card-shadow">
+                                        <CardTitle className='font-bold display-7'>{it.ScheduleName}</CardTitle>
+                                        <CardText></CardText>
+                                        <Button onClick={() => props.history.push(`/mypage/schedules/${it._id}`)} className="btn btn-block waves-effect waves-light btn-secondary m-b-30">자세히 보기</Button>
+                                    </Card>
+                                    ))
+                                }
+                            </div>
 
                         </Col>
                     </Row>
