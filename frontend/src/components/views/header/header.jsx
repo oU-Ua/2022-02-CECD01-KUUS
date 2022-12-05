@@ -75,7 +75,7 @@ const Header = () => {
                             </Nav>
                             <div className="act-buttons">
                              {
-                                // isUser ? <Button className="btn btn-success-gradiant font-14" onClick={logoutHandler}>로그아웃</Button>:
+                                isUser ? <Button className="btn btn-success-gradiant font-14">로그아웃</Button>:
                                 <Link to="/login" className="btn btn-success-gradiant font-14">로그인/회원가입</Link>
                              }
                             </div>
