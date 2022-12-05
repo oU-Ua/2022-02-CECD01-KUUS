@@ -75,7 +75,7 @@ function MyPage(props) {
         
           
        //////일단 스탑
-        // window.location.href = 'http://localhost:3000/mypage/schedule/share'
+        window.location.href = 'http://localhost:3000/mypage/schedule/share'
 
     }
 
