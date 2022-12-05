@@ -37,7 +37,7 @@ function MyPage(props) {
         setModal(!modal);
     }
     const [phone, setPhone] = useState("");
-    const [_id, set_id] = useState([]);
+    const [_id, set_id] = useState("");
     const [Fulldata, setFullData] = useState([]);
 
     // 공유 페이지(/mypage/schedule/share)로 이동
@@ -46,33 +46,36 @@ function MyPage(props) {
     // 근데 정보만 보내고 페이지는 렌더링 안하면 안되나,, -> 방법 고민해보겠음
     function confirmClick(e) {
 
-        console.log(phone);
-
+        console.log("폰",phone);
+        console.log("아이디",_id);
         axios.defaults.withCredentials = true;
-        e.preventDefault();
-        // console.log("데이타1:",typeof(Fulldata));
-        Fulldata.phone = phone;
-        Fulldata._id = _id;
-        console.log("share에 필요한 정보:", Fulldata);
-
+        e.preventDefault();        
+        var data = JSON.stringify({
+          "id": _id,
+          "phone": phone
+        });
+        
         var config = {
             method: 'post',
             url: 'http://localhost:5000/api/myPage/schedule/share',
-            headers: {
-                'Content-Type': 'application/json'
+            headers: { 
+              'Content-Type': 'application/json', 
+              'Cookie': 'connect.sid=s%3ACH596FaRwkOfhOCS7uOWAJSJKIitders.ewzK5TNehBZT%2BxFT8nn1yy6pLAUoCy9ALxEPOf2vJtc; x_auth=eyJhbGciOiJIUzI1NiJ9.NjM4ODA1NGJjMTc0N2YyYWYwYzkwN2Fi.uILARWH8WEwIv2Pp-g0NXelg-q9oLxg2HdhNYvAYU6M'
             },
-            data: JSON.stringify(Fulldata)
-        };
-
-        axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-                setPhone("");
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        window.location.href = 'http://localhost:3000/mypage/schedule/share'
+            data : data
+          };
+          
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        
+          
+       //////일단 스탑
+        // window.location.href = 'http://localhost:3000/mypage/schedule/share'
 
     }
 
@@ -82,18 +85,11 @@ function MyPage(props) {
     ///////kimseongmin////////////////////////////////////////////////////
     const testHandler = (event) => {
         setPhone(event.currentTarget.value)
-        console("전화",phone)
     }
     ////////seongmin////////////////////////////////////////////////////
 
     const onScheNameHandler = (event) => {
         setScheName(event.currentTarget.value)
-    }
-    const handleChange = (e) => {
-        const regex = /^[0-9\b -]{0,13}$/;
-        if (regex.test(e.target.value)) {
-            setPhone(e.target.value);
-        }
     }
 
 
@@ -107,7 +103,6 @@ function MyPage(props) {
 
     const getSchedules = () => {
         console.log('func 진입')
-        // axios.get(`http://localhost:5000/api/mypage/schedules/638c9808f05195315301d4a8`, {
         axios.get(`http://localhost:5000/api/mypage/schedules/${id}`, {
             withCredentials: true
         })
@@ -118,8 +113,6 @@ function MyPage(props) {
                 setFlight_info(response.data.schedule["flight_info"])
                 setFlight_schedule(response.data.schedule["flight_schedule"])
                 setMap('data:image/png;base64,' + response.data.map)
-
-
             }).catch(function (error) {
                 console.error(error)
             })
@@ -128,14 +121,6 @@ function MyPage(props) {
     useEffect(function () {
         getSchedules()
     }, [])
-    useEffect(() => {
-        if (phone.length === 10) {
-            setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
-        }
-        if (phone.length === 13) {
-            setPhone(phone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
-        }
-    }, [phone]);
 
 
     console.log(scheName)
