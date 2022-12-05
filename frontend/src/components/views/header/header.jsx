@@ -53,7 +53,6 @@ const Header = () => {
 
     }
 
-
     return (
         <div className="topbar" id="top">
             <div className="header6">
